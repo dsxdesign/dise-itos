@@ -1,0 +1,851 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KARAT™ | Catálogo</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --void-black: #0a0a0a;
+            --pure-white: #ffffff;
+            --hype-gold: #FFD700;
+            --platinum: #C0C0C0;
+            --industrial: #2a2a2a;
+            --alert-red: #ff0000;
+            --offwhite: #f5f5f0;
+            --crystal: #a8d8ff;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: 'DM Sans', sans-serif;
+            background-color: var(--void-black);
+            color: var(--pure-white);
+            cursor: crosshair;
+            overflow-x: hidden;
+        }
+
+        .font-display { font-family: 'Bebas Neue', sans-serif; text-transform: uppercase; letter-spacing: 0.02em; }
+        .mono { font-family: 'Space Mono', monospace; }
+
+        .text-gold {
+            background: linear-gradient(135deg, #FFD700 0%, #FFA500 50%, #FFD700 100%);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+        }
+        .text-silver {
+            background: linear-gradient(135deg, #C0C0C0 0%, #808080 50%, #C0C0C0 100%);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+        }
+        .text-crystal {
+            background: linear-gradient(135deg, #e0f7ff 0%, #a8d8ff 50%, #ffffff 100%);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+        }
+
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: var(--void-black); }
+        ::-webkit-scrollbar-thumb { background: var(--hype-gold); }
+        ::selection { background: var(--hype-gold); color: var(--void-black); }
+
+        .hide-scrollbar::-webkit-scrollbar { display: none; }
+        .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+        .grid-visual {
+            background-image:
+                linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+            background-size: 24px 24px;
+        }
+
+        .marquee-container { overflow: hidden; white-space: nowrap; }
+        .marquee-content { display: inline-block; animation: marquee 28s linear infinite; }
+        @keyframes marquee { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+
+        .product-card:hover .product-image { transform: scale(1.06); }
+        .product-image { transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94); }
+
+        .industrial-border { border: 1px solid rgba(255,255,255,0.15); }
+        .gold-border-l { border-left: 3px solid var(--hype-gold); }
+        .hover-gold { transition: color 0.3s; }
+        .hover-gold:hover { color: var(--hype-gold); }
+
+        .btn-karat {
+            background: var(--hype-gold); color: var(--void-black);
+            padding: 0.75rem 2rem; text-transform: uppercase;
+            letter-spacing: 0.1em; font-weight: 700; font-size: 0.7rem;
+            transition: all 0.3s; border: 2px solid var(--hype-gold); cursor: crosshair;
+        }
+        .btn-karat:hover { background: transparent; color: var(--hype-gold); }
+
+        .btn-karat-inv {
+            background: transparent; color: var(--pure-white);
+            padding: 0.75rem 2rem; text-transform: uppercase;
+            letter-spacing: 0.1em; font-weight: 700; font-size: 0.7rem;
+            transition: all 0.3s; border: 2px solid rgba(255,255,255,0.3); cursor: crosshair;
+        }
+        .btn-karat-inv:hover { background: var(--hype-gold); border-color: var(--hype-gold); color: var(--void-black); }
+
+        .section-num {
+            font-family: 'Space Mono', monospace; font-size: 0.65rem;
+            letter-spacing: 0.12em; color: var(--hype-gold);
+            display: block; margin-bottom: 0.75rem;
+        }
+
+        .fade-up {
+            opacity: 0; transform: translateY(32px);
+            transition: opacity 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+                        transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+        .fade-up.visible { opacity: 1; transform: translateY(0); }
+
+        /* Filter pill */
+        .filter-pill {
+            font-family: 'Space Mono', monospace;
+            font-size: 0.6rem; letter-spacing: 0.12em; text-transform: uppercase;
+            padding: 0.4rem 1rem; border: 1px solid rgba(255,255,255,0.2);
+            background: transparent; color: rgba(255,255,255,0.5);
+            cursor: crosshair; transition: all 0.2s;
+        }
+        .filter-pill:hover, .filter-pill.active {
+            border-color: var(--hype-gold); color: var(--hype-gold);
+            background: rgba(255,215,0,0.06);
+        }
+        .filter-pill.active { background: rgba(255,215,0,0.1); }
+
+        /* Quick add */
+        .quick-add { opacity: 0; transform: translateY(8px); transition: all 0.3s; }
+        .product-card:hover .quick-add { opacity: 1; transform: translateY(0); }
+
+        /* Gold tint */
+        .gold-tint::after {
+            content: ''; position: absolute; inset: 0;
+            background: linear-gradient(45deg, rgba(255,215,0,0.06), transparent);
+            pointer-events: none;
+        }
+
+        /* Tag badge */
+        .tag-nuevo { background: var(--hype-gold); color: var(--void-black); }
+        .tag-limited { background: var(--alert-red); color: #fff; }
+        .tag-custom { background: transparent; border: 1px solid var(--hype-gold); color: var(--hype-gold); }
+        .tag-krystal {
+            background: linear-gradient(135deg, #a8d8ff, #ffffff);
+            color: var(--void-black);
+        }
+
+        /* Grid line accent */
+        .accent-line {
+            width: 40px; height: 2px;
+            background: var(--hype-gold); display: inline-block; vertical-align: middle; margin-right: 12px;
+        }
+
+        /* Price strike */
+        .price-strike { text-decoration: line-through; color: rgba(255,255,255,0.3); }
+
+        /* Topbar pulse */
+        @keyframes pulse-gold { 0%,100% { opacity: 1; } 50% { opacity: 0.6; } }
+        .pulse-gold { animation: pulse-gold 2.5s ease-in-out infinite; }
+
+        /* Nav */
+        nav { position: sticky; top: 0; z-index: 100; background: rgba(10,10,10,0.95); backdrop-filter: blur(12px); border-bottom: 1px solid rgba(255,255,255,0.08); }
+
+        /* Catalog header */
+        .catalog-header {
+            min-height: 35vh;
+            background: var(--void-black);
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            position: relative; overflow: hidden;
+        }
+
+        /* Sort dropdown */
+        .sort-select {
+            background: transparent; border: 1px solid rgba(255,255,255,0.2);
+            color: rgba(255,255,255,0.6); font-family: 'Space Mono', monospace;
+            font-size: 0.6rem; text-transform: uppercase; letter-spacing: 0.1em;
+            padding: 0.5rem 1rem; cursor: crosshair; outline: none;
+        }
+        .sort-select option { background: #1a1a1a; }
+
+        /* Sidebar filter */
+        .sidebar-label {
+            font-family: 'Space Mono', monospace; font-size: 0.6rem;
+            letter-spacing: 0.15em; text-transform: uppercase;
+            color: rgba(255,255,255,0.35); margin-bottom: 0.75rem; display: block;
+        }
+
+        .glitch-hover:hover { animation: glitch 0.3s both infinite; }
+        @keyframes glitch {
+            0% { transform: translate(0) } 20% { transform: translate(-2px, 2px) }
+            40% { transform: translate(-2px, -2px) } 60% { transform: translate(2px, 2px) }
+            80% { transform: translate(2px, -2px) } 100% { transform: translate(0) }
+        }
+
+        /* Hover gold state for product card border */
+        .product-card:hover .card-border { border-color: rgba(255,215,0,0.3); }
+        .card-border { transition: border-color 0.3s; }
+    </style>
+</head>
+<body>
+
+        <!-- Top Bar -->
+    <div style="background: var(--hype-gold); color: var(--void-black);" class="text-[10px] uppercase tracking-widest py-2 px-4 text-center font-bold mono pulse-gold">
+        KARAT™ Hardware — Solo con cita previa → <a href="karat-estudio.html" style="text-decoration:underline; color: var(--void-black);">Reserva tu sesión</a>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="sticky top-0 z-50 border-b" style="border-color: rgba(255,255,255,0.1); backdrop-filter: blur(12px); background: rgba(10,10,10,0.95);">
+        <div class="flex items-center justify-between px-4 py-4 lg:px-8">
+            <div class="flex items-center gap-8">
+                <a href="karat_main.html" class="font-display text-xl font-bold tracking-tight">
+                    KARAT<span class="text-gold">™</span>
+                </a>
+                <div class="hidden lg:flex items-center gap-6 mono text-xs uppercase tracking-widest">
+                    <a href="karat_main.html" class="nav-link hover-gold" data-page="inicio">Inicio</a>
+                    <a href="karat-catalogo.html" class="nav-link hover-gold" data-page="catalogo">Catálogo</a>
+                    <a href="karat-estudio.html" class="nav-link hover-gold" data-page="estudio">Estudio</a>
+                    <a href="karat-brand_statement.html" class="nav-link hover-gold" data-page="karat">Karat</a>
+                </div>
+            </div>
+            <div class="flex items-center gap-4 mono text-xs uppercase tracking-widest">
+                <button class="hidden lg:block hover-gold" style="color: rgba(255,255,255,0.5);">Buscar</button>
+                <a href="#" class="hover-gold" style="color: rgba(255,255,255,0.5); text-decoration:none; cursor:crosshair;">Mis Reservas</a>
+                <a href="karat-estudio.html" class="btn-karat" style="text-decoration:none; padding: 0.4rem 1.2rem; font-size: 0.65rem;">Agendar</a>
+            </div>
+        </div>
+        <!-- Mobile nav -->
+        <div class="lg:hidden border-t px-4 py-3 flex gap-6 mono text-xs uppercase tracking-widest overflow-x-auto hide-scrollbar" style="border-color: rgba(255,255,255,0.06);">
+            <a href="karat_main.html" class="nav-link hover-gold whitespace-nowrap" data-page="inicio">Inicio</a>
+            <a href="karat-catalogo.html" class="nav-link hover-gold whitespace-nowrap" data-page="catalogo">Catálogo</a>
+            <a href="karat-estudio.html" class="nav-link hover-gold whitespace-nowrap" data-page="estudio">Estudio</a>
+            <a href="karat-brand_statement.html" class="nav-link hover-gold whitespace-nowrap" data-page="karat">Karat</a>
+        </div>
+    </nav>
+
+
+    <!-- Catalog Header -->
+    <header class="catalog-header grid-visual flex flex-col justify-end px-6 lg:px-12 pb-10 pt-16">
+        <!-- Ghost text -->
+        <div class="absolute right-0 top-1/2 -translate-y-1/2 font-display leading-none pointer-events-none select-none hidden lg:block" style="font-size: 20vw; color: transparent; -webkit-text-stroke: 1px rgba(255,215,0,0.07);">CAT</div>
+
+        <div class="relative z-10">
+            <span class="section-num">00 — CATÁLOGO COMPLETO</span>
+            <h1 class="font-display leading-none" style="font-size: clamp(3rem, 9vw, 8rem);">
+                PIEZAS<br><span class="text-gold">KARAT™</span>
+            </h1>
+            <p class="mt-4 mono text-xs uppercase tracking-widest" style="color: rgba(255,255,255,0.3);">
+                // Joyería Biomecánica · Instalación Clínica · Santiago, Chile
+            </p>
+        </div>
+
+        <!-- Marquee strip -->
+        <div class="marquee-container mt-8 py-3 border-t" style="border-color: rgba(255,255,255,0.08);">
+            <div class="marquee-content mono text-xs" style="color: rgba(255,215,0,0.4); letter-spacing: 0.15em;">
+                GRILLZ TITANIO • CARILLAS PORCELANA • ORO 18K • VVS DIAMONDS • KRYSTAL™ • INCRUSTACIONES • FULL CUSTOM • GRILLZ TITANIO • CARILLAS PORCELANA • ORO 18K • VVS DIAMONDS • KRYSTAL™ • INCRUSTACIONES • FULL CUSTOM •&nbsp;
+            </div>
+        </div>
+    </header>
+
+    <!-- Filter Bar -->
+    <div class="sticky border-b px-4 lg:px-8 py-4 z-50" style="top: 57px; background: rgba(10,10,10,0.97); backdrop-filter: blur(12px); border-color: rgba(255,255,255,0.08);">
+        <div class="flex flex-wrap items-center justify-between gap-4">
+            <!-- Filter pills -->
+            <div class="flex flex-wrap gap-2" id="filter-bar">
+                <button class="filter-pill active" data-filter="all">Todo</button>
+                <button class="filter-pill" data-filter="grillz">Grillz</button>
+                <button class="filter-pill" data-filter="carillas">Carillas</button>
+                <button class="filter-pill" data-filter="incrustaciones">Incrustaciones</button>
+                <button class="filter-pill" data-filter="krystal">Krystal™</button>
+                <button class="filter-pill" data-filter="custom">Custom</button>
+            </div>
+
+            <div class="flex items-center gap-4">
+                <!-- Sort -->
+                <select class="sort-select" id="sort-select">
+                    <option value="default">Ordenar</option>
+                    <option value="price-asc">Precio ↑</option>
+                    <option value="price-desc">Precio ↓</option>
+                    <option value="nuevo">Nuevos</option>
+                </select>
+                <!-- Count -->
+                <span class="mono text-xs" style="color: rgba(255,255,255,0.25);" id="item-count">12 piezas</span>
+            </div>
+        </div>
+
+        <!-- Material filter sub-row -->
+        <div class="flex gap-2 mt-3">
+            <button class="filter-pill active" data-material="all" style="font-size: 0.55rem;">Todos los materiales</button>
+            <button class="filter-pill" data-material="titanio" style="font-size: 0.55rem;">Titanio</button>
+            <button class="filter-pill" data-material="oro" style="font-size: 0.55rem;">Oro 18K</button>
+            <button class="filter-pill" data-material="vvs" style="font-size: 0.55rem;">VVS</button>
+            <button class="filter-pill" data-material="plata" style="font-size: 0.55rem;">Plata 925</button>
+        </div>
+    </div>
+
+    <!-- Main Catalog Grid -->
+    <main class="px-4 lg:px-8 py-12 fade-up">
+
+        <!-- Section: Nuevas Instalaciones -->
+        <div class="mb-8 flex items-center justify-between">
+            <div class="flex items-center">
+                <span class="accent-line"></span>
+                <span class="section-num" style="margin-bottom:0;">01 — NUEVAS INSTALACIONES</span>
+            </div>
+            <span class="mono text-xs" style="color: rgba(255,255,255,0.2);">6 piezas</span>
+        </div>
+
+        <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mb-16" id="product-grid">
+
+            <!-- P01 -->
+            <div class="product-card group cursor-crosshair" data-cat="grillz" data-material="titanio" data-tag="nuevo" data-price="4200000">
+                <div class="mb-3 overflow-hidden relative card-border industrial-border" style="aspect-ratio: 3/4; background: var(--industrial);">
+                    <div class="w-full h-full" style="background: linear-gradient(135deg, #1a1a1a 0%, #2a2a2a 100%);"></div>
+                    <div class="absolute inset-0 flex items-center justify-center">
+                        <div class="font-display text-4xl text-center" style="color: rgba(255,215,0,0.15);">K™</div>
+                    </div>
+                    <div class="absolute bottom-0 left-0 right-0 p-2 quick-add" style="background: rgba(10,10,10,0.92);">
+                        <a href="karat-estudio.html" class="btn-karat w-full block text-center" style="padding: 0.5rem; font-size: 0.6rem;">Agendar →</a>
+                    </div>
+                    <div class="absolute top-2 left-2">
+                        <span class="mono text-xs px-2 py-1 tag-nuevo" style="font-size: 0.55rem; font-weight: 700;">NUEVO</span>
+                    </div>
+                    <div class="absolute top-2 right-2">
+                        <span class="mono" style="color: rgba(255,215,0,0.4); font-size: 0.55rem;">REF-001</span>
+                    </div>
+                </div>
+                <h3 class="mono text-xs uppercase tracking-wide font-medium mb-1" style="color: rgba(255,255,255,0.85);">Grillz Titanio Negro</h3>
+                <p class="mono text-xs mb-1" style="color: var(--hype-gold);">$4.200.000 CLP</p>
+                <p class="mono text-xs" style="color: rgba(255,255,255,0.3);">Titanio grado médico</p>
+            </div>
+
+            <!-- P02 -->
+            <div class="product-card group cursor-crosshair" data-cat="carillas" data-material="vvs" data-price="8800000">
+                <div class="mb-3 overflow-hidden relative card-border industrial-border" style="aspect-ratio: 3/4; background: var(--industrial);">
+                    <div class="w-full h-full" style="background: linear-gradient(135deg, #111 0%, #222 100%);"></div>
+                    <div class="absolute inset-0 flex items-center justify-center">
+                        <div class="font-display text-4xl" style="color: rgba(192,192,192,0.15);">VVS</div>
+                    </div>
+                    <div class="absolute bottom-0 left-0 right-0 p-2 quick-add" style="background: rgba(10,10,10,0.92);">
+                        <a href="karat-estudio.html" class="btn-karat w-full block text-center" style="padding: 0.5rem; font-size: 0.6rem;">Agendar →</a>
+                    </div>
+                    <div class="absolute top-2 right-2">
+                        <span class="mono" style="color: rgba(255,215,0,0.4); font-size: 0.55rem;">REF-002</span>
+                    </div>
+                </div>
+                <h3 class="mono text-xs uppercase tracking-wide font-medium mb-1" style="color: rgba(255,255,255,0.85);">Carillas Porcelana VVS</h3>
+                <p class="mono text-xs mb-1" style="color: var(--hype-gold);">$8.800.000 CLP</p>
+                <p class="mono text-xs" style="color: rgba(255,255,255,0.3);">Porcelana · VVS incrustado</p>
+            </div>
+
+            <!-- P03 -->
+            <div class="product-card group cursor-crosshair" data-cat="grillz" data-material="oro" data-tag="nuevo" data-price="12500000">
+                <div class="mb-3 overflow-hidden relative card-border industrial-border" style="aspect-ratio: 3/4; background: var(--industrial);">
+                    <div class="w-full h-full" style="background: linear-gradient(135deg, #1a1500 0%, #2a2200 100%);"></div>
+                    <div class="absolute inset-0 flex items-center justify-center">
+                        <div class="font-display text-4xl" style="color: rgba(255,215,0,0.2);">18K</div>
+                    </div>
+                    <div class="absolute bottom-0 left-0 right-0 p-2 quick-add" style="background: rgba(10,10,10,0.92);">
+                        <a href="karat-estudio.html" class="btn-karat w-full block text-center" style="padding: 0.5rem; font-size: 0.6rem;">Agendar →</a>
+                    </div>
+                    <div class="absolute top-2 left-2">
+                        <span class="mono text-xs px-2 py-1 tag-nuevo" style="font-size: 0.55rem; font-weight: 700;">NUEVO</span>
+                    </div>
+                    <div class="absolute top-2 right-2">
+                        <span class="mono" style="color: rgba(255,215,0,0.4); font-size: 0.55rem;">REF-003</span>
+                    </div>
+                </div>
+                <h3 class="mono text-xs uppercase tracking-wide font-medium mb-1" style="color: rgba(255,255,255,0.85);">Grillz Oro 18K Full</h3>
+                <p class="mono text-xs mb-1" style="color: var(--hype-gold);">$12.500.000 CLP</p>
+                <p class="mono text-xs" style="color: rgba(255,255,255,0.3);">Oro 18K certificado</p>
+            </div>
+
+            <!-- P04 -->
+            <div class="product-card group cursor-crosshair" data-cat="incrustaciones" data-material="vvs" data-tag="limited" data-price="18000000">
+                <div class="mb-3 overflow-hidden relative card-border industrial-border" style="aspect-ratio: 3/4; background: var(--industrial);">
+                    <div class="w-full h-full" style="background: linear-gradient(135deg, #0a0a14 0%, #141428 100%);"></div>
+                    <div class="absolute inset-0 flex items-center justify-center">
+                        <div class="font-display text-3xl text-crystal">DIAMOND</div>
+                    </div>
+                    <div class="absolute bottom-0 left-0 right-0 p-2 quick-add" style="background: rgba(10,10,10,0.92);">
+                        <a href="karat-estudio.html" class="btn-karat w-full block text-center" style="padding: 0.5rem; font-size: 0.6rem;">Agendar →</a>
+                    </div>
+                    <div class="absolute top-2 left-2">
+                        <span class="mono text-xs px-2 py-1 tag-limited" style="font-size: 0.55rem; font-weight: 700;">LIMITED</span>
+                    </div>
+                    <div class="absolute top-2 right-2">
+                        <span class="mono" style="color: rgba(255,215,0,0.4); font-size: 0.55rem;">REF-004</span>
+                    </div>
+                </div>
+                <h3 class="mono text-xs uppercase tracking-wide font-medium mb-1" style="color: rgba(255,255,255,0.85);">Diamond Set Incrustado</h3>
+                <p class="mono text-xs mb-1" style="color: var(--hype-gold);">$18.000.000 CLP</p>
+                <p class="mono text-xs" style="color: rgba(255,255,255,0.3);">Multi-VVS · full set</p>
+            </div>
+
+            <!-- P05 -->
+            <div class="product-card group cursor-crosshair" data-cat="grillz" data-material="plata" data-price="6300000">
+                <div class="mb-3 overflow-hidden relative card-border industrial-border" style="aspect-ratio: 3/4; background: var(--industrial);">
+                    <div class="w-full h-full" style="background: linear-gradient(135deg, #141414 0%, #202020 100%);"></div>
+                    <div class="absolute inset-0 flex items-center justify-center">
+                        <div class="font-display text-4xl text-silver">PT</div>
+                    </div>
+                    <div class="absolute bottom-0 left-0 right-0 p-2 quick-add" style="background: rgba(10,10,10,0.92);">
+                        <a href="karat-estudio.html" class="btn-karat w-full block text-center" style="padding: 0.5rem; font-size: 0.6rem;">Agendar →</a>
+                    </div>
+                    <div class="absolute top-2 right-2">
+                        <span class="mono" style="color: rgba(255,215,0,0.4); font-size: 0.55rem;">REF-005</span>
+                    </div>
+                </div>
+                <h3 class="mono text-xs uppercase tracking-wide font-medium mb-1" style="color: rgba(255,255,255,0.85);">Platinum Overlay Custom</h3>
+                <p class="mono text-xs mb-1" style="color: var(--hype-gold);">$6.300.000 CLP</p>
+                <p class="mono text-xs" style="color: rgba(255,255,255,0.3);">Plata 925 + overlay</p>
+            </div>
+
+            <!-- P06 — Signature -->
+            <div class="product-card group cursor-crosshair" data-cat="custom" data-material="oro" data-tag="custom" data-price="99999999">
+                <div class="mb-3 overflow-hidden relative card-border" style="aspect-ratio: 3/4; background: var(--void-black); border: 1px solid rgba(255,215,0,0.25);">
+                    <div class="w-full h-full" style="background: radial-gradient(circle at 50% 50%, rgba(255,215,0,0.08), transparent 70%);"></div>
+                    <div class="absolute inset-0 flex items-center justify-center">
+                        <div class="font-display text-5xl text-gold">K™</div>
+                    </div>
+                    <div class="absolute bottom-0 left-0 right-0 p-2 quick-add" style="background: rgba(10,10,10,0.92);">
+                        <a href="karat-estudio.html" class="btn-karat w-full block text-center" style="padding: 0.5rem; font-size: 0.6rem;">Consultar →</a>
+                    </div>
+                    <div class="absolute top-2 left-2">
+                        <span class="mono text-xs px-2 py-1 tag-custom" style="font-size: 0.55rem; font-weight: 700;">SIGNATURE</span>
+                    </div>
+                    <div class="absolute top-2 right-2">
+                        <span class="mono" style="color: rgba(255,215,0,0.4); font-size: 0.55rem;">REF-K™</span>
+                    </div>
+                </div>
+                <h3 class="mono text-xs uppercase tracking-wide font-medium mb-1" style="color: rgba(255,255,255,0.85);">Pieza K™ Signature</h3>
+                <p class="mono text-xs mb-1" style="color: var(--hype-gold);">Precio a consultar</p>
+                <p class="mono text-xs" style="color: rgba(255,255,255,0.3);">100% custom · único</p>
+            </div>
+
+        </div>
+
+        <!-- Divider -->
+        <div class="mb-8 flex items-center justify-between fade-up">
+            <div class="flex items-center">
+                <span class="accent-line"></span>
+                <span class="section-num" style="margin-bottom:0;">02 — HARDWARE ESENCIAL</span>
+            </div>
+            <span class="mono text-xs" style="color: rgba(255,255,255,0.2);">6 piezas</span>
+        </div>
+
+        <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mb-16 fade-up">
+
+            <!-- Core 1 -->
+            <div class="product-card group cursor-crosshair" data-cat="grillz" data-material="titanio" data-price="2900000">
+                <div class="mb-3 overflow-hidden relative card-border industrial-border" style="aspect-ratio: 3/4; background: var(--industrial);">
+                    <div class="w-full h-full" style="background: linear-gradient(180deg, #1e1e1e 0%, #111 100%);"></div>
+                    <div class="absolute inset-0 flex items-center justify-center">
+                        <div class="mono text-xs text-center" style="color: rgba(255,255,255,0.15);">BASE<br>TITANIO</div>
+                    </div>
+                    <div class="absolute bottom-0 left-0 right-0 p-2 quick-add" style="background: rgba(10,10,10,0.92);">
+                        <a href="karat-estudio.html" class="btn-karat w-full block text-center" style="padding: 0.5rem; font-size: 0.6rem;">Agendar →</a>
+                    </div>
+                    <div class="absolute top-2 right-2">
+                        <span class="mono" style="color: rgba(255,215,0,0.4); font-size: 0.55rem;">CORE-01</span>
+                    </div>
+                </div>
+                <h3 class="mono text-xs uppercase tracking-wide mb-1" style="color: rgba(255,255,255,0.8);">Grillz Base Titanio</h3>
+                <p class="mono text-xs mb-1" style="color: var(--hype-gold);">$2.900.000 CLP</p>
+                <p class="mono text-xs" style="color: rgba(255,255,255,0.3);">Entrada · Titanio</p>
+            </div>
+
+            <!-- Core 2 -->
+            <div class="product-card group cursor-crosshair" data-cat="carillas" data-material="plata" data-price="5400000">
+                <div class="mb-3 overflow-hidden relative card-border industrial-border" style="aspect-ratio: 3/4; background: var(--industrial);">
+                    <div class="w-full h-full" style="background: linear-gradient(180deg, #181818 0%, #0f0f0f 100%);"></div>
+                    <div class="absolute inset-0 flex items-center justify-center">
+                        <div class="mono text-xs text-center" style="color: rgba(255,255,255,0.15);">CARILLA<br>ESTÁNDAR</div>
+                    </div>
+                    <div class="absolute bottom-0 left-0 right-0 p-2 quick-add" style="background: rgba(10,10,10,0.92);">
+                        <a href="karat-estudio.html" class="btn-karat w-full block text-center" style="padding: 0.5rem; font-size: 0.6rem;">Agendar →</a>
+                    </div>
+                    <div class="absolute top-2 right-2">
+                        <span class="mono" style="color: rgba(255,215,0,0.4); font-size: 0.55rem;">CORE-02</span>
+                    </div>
+                </div>
+                <h3 class="mono text-xs uppercase tracking-wide mb-1" style="color: rgba(255,255,255,0.8);">Carilla Porcelana Estándar</h3>
+                <p class="mono text-xs mb-1" style="color: var(--hype-gold);">$5.400.000 CLP</p>
+                <p class="mono text-xs" style="color: rgba(255,255,255,0.3);">Porcelana clásica</p>
+            </div>
+
+            <!-- Core 3 -->
+            <div class="product-card group cursor-crosshair" data-cat="incrustaciones" data-material="vvs" data-price="1600000">
+                <div class="mb-3 overflow-hidden relative card-border industrial-border" style="aspect-ratio: 3/4; background: var(--industrial);">
+                    <div class="w-full h-full" style="background: linear-gradient(135deg, #0f0f18 0%, #1a1a2a 100%);"></div>
+                    <div class="absolute inset-0 flex items-center justify-center">
+                        <div class="font-display text-3xl" style="color: rgba(168,216,255,0.2);">◆</div>
+                    </div>
+                    <div class="absolute bottom-0 left-0 right-0 p-2 quick-add" style="background: rgba(10,10,10,0.92);">
+                        <a href="karat-estudio.html" class="btn-karat w-full block text-center" style="padding: 0.5rem; font-size: 0.6rem;">Agendar →</a>
+                    </div>
+                    <div class="absolute top-2 right-2">
+                        <span class="mono" style="color: rgba(255,215,0,0.4); font-size: 0.55rem;">CORE-03</span>
+                    </div>
+                </div>
+                <h3 class="mono text-xs uppercase tracking-wide mb-1" style="color: rgba(255,255,255,0.8);">Incrustación Diamond Single</h3>
+                <p class="mono text-xs mb-1" style="color: var(--hype-gold);">$1.600.000 CLP</p>
+                <p class="mono text-xs" style="color: rgba(255,255,255,0.3);">VVS · 1 diente</p>
+            </div>
+
+            <!-- Core 4 -->
+            <div class="product-card group cursor-crosshair" data-cat="grillz" data-material="oro" data-price="3800000">
+                <div class="mb-3 overflow-hidden relative card-border industrial-border" style="aspect-ratio: 3/4; background: var(--industrial);">
+                    <div class="w-full h-full" style="background: linear-gradient(180deg, #181200 0%, #111 100%);"></div>
+                    <div class="absolute inset-0 flex items-center justify-center">
+                        <div class="mono text-xs text-center" style="color: rgba(255,215,0,0.2);">OPEN<br>FACE</div>
+                    </div>
+                    <div class="absolute bottom-0 left-0 right-0 p-2 quick-add" style="background: rgba(10,10,10,0.92);">
+                        <a href="karat-estudio.html" class="btn-karat w-full block text-center" style="padding: 0.5rem; font-size: 0.6rem;">Agendar →</a>
+                    </div>
+                    <div class="absolute top-2 right-2">
+                        <span class="mono" style="color: rgba(255,215,0,0.4); font-size: 0.55rem;">CORE-04</span>
+                    </div>
+                </div>
+                <h3 class="mono text-xs uppercase tracking-wide mb-1" style="color: rgba(255,255,255,0.8);">Grillz Open Face Oro</h3>
+                <p class="mono text-xs mb-1" style="color: var(--hype-gold);">$3.800.000 CLP</p>
+                <p class="mono text-xs" style="color: rgba(255,255,255,0.3);">Oro 18K · removible</p>
+            </div>
+
+            <!-- Core 5 -->
+            <div class="product-card group cursor-crosshair" data-cat="carillas" data-material="plata" data-price="980000">
+                <div class="mb-3 overflow-hidden relative card-border industrial-border" style="aspect-ratio: 3/4; background: var(--industrial);">
+                    <div class="w-full h-full" style="background: linear-gradient(180deg, #151515 0%, #0d0d0d 100%);"></div>
+                    <div class="absolute inset-0 flex items-center justify-center">
+                        <div class="font-display text-3xl" style="color: rgba(255,255,255,0.1);">K™ PRO</div>
+                    </div>
+                    <div class="absolute bottom-0 left-0 right-0 p-2 quick-add" style="background: rgba(10,10,10,0.92);">
+                        <a href="karat-estudio.html" class="btn-karat w-full block text-center" style="padding: 0.5rem; font-size: 0.6rem;">Agendar →</a>
+                    </div>
+                    <div class="absolute top-2 right-2">
+                        <span class="mono" style="color: rgba(255,215,0,0.4); font-size: 0.55rem;">CORE-05</span>
+                    </div>
+                </div>
+                <h3 class="mono text-xs uppercase tracking-wide mb-1" style="color: rgba(255,255,255,0.8);">Blanqueamiento K™ Pro</h3>
+                <p class="mono text-xs mb-1" style="color: var(--hype-gold);">$980.000 CLP</p>
+                <p class="mono text-xs" style="color: rgba(255,255,255,0.3);">Tratamiento estético</p>
+            </div>
+
+            <!-- Core 6 — Full Set -->
+            <div class="product-card group cursor-crosshair" data-cat="custom" data-material="oro" data-tag="custom" data-price="22000000">
+                <div class="mb-3 overflow-hidden relative card-border" style="aspect-ratio: 3/4; background: var(--void-black); border: 1px solid rgba(255,215,0,0.2);">
+                    <div class="w-full h-full" style="background: radial-gradient(ellipse at center, rgba(255,215,0,0.06), transparent 70%);"></div>
+                    <div class="absolute inset-0 flex items-center justify-center">
+                        <div class="font-display text-3xl text-gold text-center">FULL<br>SET</div>
+                    </div>
+                    <div class="absolute bottom-0 left-0 right-0 p-2 quick-add" style="background: rgba(10,10,10,0.92);">
+                        <a href="karat-estudio.html" class="btn-karat w-full block text-center" style="padding: 0.5rem; font-size: 0.6rem;">Consultar →</a>
+                    </div>
+                    <div class="absolute top-2 left-2">
+                        <span class="mono text-xs px-2 py-1 tag-custom" style="font-size: 0.55rem; font-weight: 700;">CUSTOM</span>
+                    </div>
+                    <div class="absolute top-2 right-2">
+                        <span class="mono" style="color: rgba(255,215,0,0.4); font-size: 0.55rem;">CORE-06</span>
+                    </div>
+                </div>
+                <h3 class="mono text-xs uppercase tracking-wide mb-1" style="color: rgba(255,255,255,0.8);">Full Set Custom K™</h3>
+                <p class="mono text-xs mb-1" style="color: var(--hype-gold);">Desde $22.000.000 CLP</p>
+                <p class="mono text-xs" style="color: rgba(255,255,255,0.3);">Diseño total · 100% tuyo</p>
+            </div>
+
+        </div>
+
+        <!-- KRYSTAL Section -->
+        <div class="mb-8 flex items-center justify-between fade-up">
+            <div class="flex items-center">
+                <span style="width:40px; height:2px; display:inline-block; vertical-align:middle; margin-right:12px; background: linear-gradient(90deg, #a8d8ff, transparent);"></span>
+                <span class="section-num" style="margin-bottom:0; color: var(--crystal);">03 — LÍNEA KRYSTAL™</span>
+            </div>
+            <span class="mono text-xs" style="color: rgba(168,216,255,0.25);">6 piezas</span>
+        </div>
+
+        <!-- KRYSTAL intro -->
+        <div class="mb-8 fade-up" style="background: #0d0d0f; border: 1px solid rgba(168,216,255,0.1); padding: 1.5rem 2rem;">
+            <p class="font-display text-2xl mb-2 text-crystal">KRYSTAL™</p>
+            <p style="color: rgba(255,255,255,0.5); font-size: 0.9rem; line-height: 1.7;">Pequeño. Permanente. Imposible de ignorar. Un cristal sobre el diente no es decoración — es una toma de posición.</p>
+        </div>
+
+        <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mb-16 fade-up">
+
+            <!-- K-01 -->
+            <div class="product-card group cursor-crosshair" data-cat="krystal" data-material="plata" data-price="180000">
+                <div class="mb-3 overflow-hidden relative" style="aspect-ratio: 3/4; background: #131318; border: 1px solid rgba(168,216,255,0.12);">
+                    <div class="w-full h-full" style="background: linear-gradient(135deg, #0d0d14 0%, #1a1a24 100%);"></div>
+                    <div class="absolute inset-0 flex items-center justify-center">
+                        <div class="font-display text-4xl" style="color: rgba(168,216,255,0.25);">◇</div>
+                    </div>
+                    <div class="absolute inset-0" style="background: linear-gradient(135deg, rgba(168,216,255,0.04), transparent);"></div>
+                    <div class="absolute bottom-0 left-0 right-0 p-2 quick-add" style="background: rgba(10,10,15,0.92);">
+                        <a href="karat-estudio.html" class="btn-karat w-full block text-center" style="padding: 0.5rem; font-size: 0.6rem;">Agendar →</a>
+                    </div>
+                    <div class="absolute top-2 left-2">
+                        <span class="mono text-xs px-2 py-1 tag-krystal" style="font-size: 0.55rem; font-weight: 700;">KRYSTAL</span>
+                    </div>
+                    <div class="absolute top-2 right-2">
+                        <span class="mono" style="color: rgba(168,216,255,0.4); font-size: 0.55rem;">K-01</span>
+                    </div>
+                </div>
+                <h3 class="mono text-xs uppercase tracking-wide font-medium mb-1" style="color: rgba(255,255,255,0.85);">Cristal Simple</h3>
+                <p class="mono text-xs mb-1" style="color: rgba(168,216,255,0.8);">$180.000 CLP</p>
+                <p class="mono text-xs" style="color: rgba(255,255,255,0.3);">Zirconia · 1 diente</p>
+            </div>
+
+            <!-- K-02 -->
+            <div class="product-card group cursor-crosshair" data-cat="krystal" data-material="oro" data-price="220000">
+                <div class="mb-3 overflow-hidden relative" style="aspect-ratio: 3/4; background: #131318; border: 1px solid rgba(168,216,255,0.12);">
+                    <div class="w-full h-full" style="background: linear-gradient(135deg, #100e00 0%, #1e1800 100%);"></div>
+                    <div class="absolute inset-0 flex items-center justify-center">
+                        <div class="font-display text-4xl" style="color: rgba(255,215,0,0.2);">◆</div>
+                    </div>
+                    <div class="absolute inset-0" style="background: linear-gradient(135deg, rgba(255,215,0,0.04), transparent);"></div>
+                    <div class="absolute bottom-0 left-0 right-0 p-2 quick-add" style="background: rgba(10,10,15,0.92);">
+                        <a href="karat-estudio.html" class="btn-karat w-full block text-center" style="padding: 0.5rem; font-size: 0.6rem;">Agendar →</a>
+                    </div>
+                    <div class="absolute top-2 left-2">
+                        <span class="mono text-xs px-2 py-1 tag-krystal" style="font-size: 0.55rem; font-weight: 700;">KRYSTAL</span>
+                    </div>
+                    <div class="absolute top-2 right-2">
+                        <span class="mono" style="color: rgba(168,216,255,0.4); font-size: 0.55rem;">K-02</span>
+                    </div>
+                </div>
+                <h3 class="mono text-xs uppercase tracking-wide font-medium mb-1" style="color: rgba(255,255,255,0.85);">Cristal Dorado</h3>
+                <p class="mono text-xs mb-1" style="color: rgba(168,216,255,0.8);">$220.000 CLP</p>
+                <p class="mono text-xs" style="color: rgba(255,255,255,0.3);">Gold-dipped · 1 diente</p>
+            </div>
+
+            <!-- K-03 -->
+            <div class="product-card group cursor-crosshair" data-cat="krystal incrustaciones" data-material="vvs" data-price="1600000">
+                <div class="mb-3 overflow-hidden relative" style="aspect-ratio: 3/4; background: #131318; border: 1px solid rgba(168,216,255,0.12);">
+                    <div class="w-full h-full" style="background: linear-gradient(135deg, #0a0a18 0%, #141428 100%);"></div>
+                    <div class="absolute inset-0 flex items-center justify-center">
+                        <div class="font-display text-2xl text-crystal">DIAMOND<br>SINGLE</div>
+                    </div>
+                    <div class="absolute bottom-0 left-0 right-0 p-2 quick-add" style="background: rgba(10,10,15,0.92);">
+                        <a href="karat-estudio.html" class="btn-karat w-full block text-center" style="padding: 0.5rem; font-size: 0.6rem;">Agendar →</a>
+                    </div>
+                    <div class="absolute top-2 left-2">
+                        <span class="mono text-xs px-2 py-1 tag-krystal" style="font-size: 0.55rem; font-weight: 700;">KRYSTAL</span>
+                    </div>
+                    <div class="absolute top-2 right-2">
+                        <span class="mono" style="color: rgba(168,216,255,0.4); font-size: 0.55rem;">K-03</span>
+                    </div>
+                </div>
+                <h3 class="mono text-xs uppercase tracking-wide font-medium mb-1" style="color: rgba(255,255,255,0.85);">Incrustación Diamond Single</h3>
+                <p class="mono text-xs mb-1" style="color: rgba(168,216,255,0.8);">$1.600.000 CLP</p>
+                <p class="mono text-xs" style="color: rgba(255,255,255,0.3);">VVS · permanente</p>
+            </div>
+
+            <!-- K-04 -->
+            <div class="product-card group cursor-crosshair" data-cat="krystal incrustaciones" data-material="vvs" data-price="3200000">
+                <div class="mb-3 overflow-hidden relative" style="aspect-ratio: 3/4; background: #131318; border: 1px solid rgba(168,216,255,0.12);">
+                    <div class="w-full h-full" style="background: linear-gradient(135deg, #0c0c1a 0%, #181828 100%);"></div>
+                    <div class="absolute inset-0 flex items-center justify-center">
+                        <div class="font-display text-3xl text-crystal">CLUSTER</div>
+                    </div>
+                    <div class="absolute bottom-0 left-0 right-0 p-2 quick-add" style="background: rgba(10,10,15,0.92);">
+                        <a href="karat-estudio.html" class="btn-karat w-full block text-center" style="padding: 0.5rem; font-size: 0.6rem;">Agendar →</a>
+                    </div>
+                    <div class="absolute top-2 left-2">
+                        <span class="mono text-xs px-2 py-1 tag-krystal" style="font-size: 0.55rem; font-weight: 700;">KRYSTAL</span>
+                    </div>
+                    <div class="absolute top-2 right-2">
+                        <span class="mono" style="color: rgba(168,216,255,0.4); font-size: 0.55rem;">K-04</span>
+                    </div>
+                </div>
+                <h3 class="mono text-xs uppercase tracking-wide font-medium mb-1" style="color: rgba(255,255,255,0.85);">Incrustación Cluster</h3>
+                <p class="mono text-xs mb-1" style="color: rgba(168,216,255,0.8);">$3.200.000 CLP</p>
+                <p class="mono text-xs" style="color: rgba(255,255,255,0.3);">Multi-stone · 1–3 dientes</p>
+            </div>
+
+            <!-- K-05 -->
+            <div class="product-card group cursor-crosshair" data-cat="krystal grillz" data-material="plata" data-price="4800000">
+                <div class="mb-3 overflow-hidden relative" style="aspect-ratio: 3/4; background: #131318; border: 1px solid rgba(168,216,255,0.12);">
+                    <div class="w-full h-full" style="background: linear-gradient(135deg, #0f0f18 0%, #1a1a24 100%);"></div>
+                    <div class="absolute inset-0 flex items-center justify-center">
+                        <div class="font-display text-2xl" style="color: rgba(168,216,255,0.2);">OPEN<br>FACE</div>
+                    </div>
+                    <div class="absolute bottom-0 left-0 right-0 p-2 quick-add" style="background: rgba(10,10,15,0.92);">
+                        <a href="karat-estudio.html" class="btn-karat w-full block text-center" style="padding: 0.5rem; font-size: 0.6rem;">Agendar →</a>
+                    </div>
+                    <div class="absolute top-2 left-2">
+                        <span class="mono text-xs px-2 py-1 tag-krystal" style="font-size: 0.55rem; font-weight: 700;">KRYSTAL</span>
+                    </div>
+                    <div class="absolute top-2 right-2">
+                        <span class="mono" style="color: rgba(168,216,255,0.4); font-size: 0.55rem;">K-05</span>
+                    </div>
+                </div>
+                <h3 class="mono text-xs uppercase tracking-wide font-medium mb-1" style="color: rgba(255,255,255,0.85);">Grillz Open Face Krystal</h3>
+                <p class="mono text-xs mb-1" style="color: rgba(168,216,255,0.8);">$4.800.000 CLP</p>
+                <p class="mono text-xs" style="color: rgba(255,255,255,0.3);">Plata 925 + cristales · removible</p>
+            </div>
+
+            <!-- K-06 -->
+            <div class="product-card group cursor-crosshair" data-cat="krystal grillz custom" data-material="plata" data-price="8500000">
+                <div class="mb-3 overflow-hidden relative" style="aspect-ratio: 3/4; background: #131318; border: 1px solid rgba(168,216,255,0.2);">
+                    <div class="w-full h-full" style="background: radial-gradient(ellipse at center, rgba(168,216,255,0.08), transparent 70%);"></div>
+                    <div class="absolute inset-0 flex items-center justify-center">
+                        <div class="font-display text-3xl text-crystal text-center">FULL<br>ICED</div>
+                    </div>
+                    <div class="absolute bottom-0 left-0 right-0 p-2 quick-add" style="background: rgba(10,10,15,0.92);">
+                        <a href="karat-estudio.html" class="btn-karat w-full block text-center" style="padding: 0.5rem; font-size: 0.6rem;">Consultar →</a>
+                    </div>
+                    <div class="absolute top-2 left-2">
+                        <span class="mono text-xs px-2 py-1 tag-krystal" style="font-size: 0.55rem; font-weight: 700;">KRYSTAL</span>
+                    </div>
+                    <div class="absolute top-2 right-2">
+                        <span class="mono" style="color: rgba(168,216,255,0.4); font-size: 0.55rem;">K-06</span>
+                    </div>
+                </div>
+                <h3 class="mono text-xs uppercase tracking-wide font-medium mb-1" style="color: rgba(255,255,255,0.85);">Grillz Full Iced</h3>
+                <p class="mono text-xs mb-1" style="color: rgba(168,216,255,0.8);">Desde $8.500.000 CLP</p>
+                <p class="mono text-xs" style="color: rgba(255,255,255,0.3);">Custom · full set</p>
+            </div>
+
+        </div>
+
+        <!-- CTA Strip -->
+        <div class="fade-up border-t border-b py-12 text-center" style="border-color: rgba(255,255,255,0.1); background: var(--industrial);">
+            <span class="section-num" style="display: block; text-align: center;">TU IDEA — NUESTRAS MANOS</span>
+            <h2 class="font-display mb-4" style="font-size: clamp(2rem, 5vw, 4rem);">
+                ¿No ves lo que buscas?<br><span class="text-gold">Diseñamos desde cero.</span>
+            </h2>
+            <p class="mb-8 mono text-xs uppercase tracking-widest" style="color: rgba(255,255,255,0.35);">// La autoría es tuya. La ejecución, nuestra.</p>
+            <a href="karat-estudio.html" class="btn-karat glitch-hover" style="display:inline-block; text-decoration:none;">Agendar Consulta →</a>
+        </div>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="pt-16 pb-8 px-4 lg:px-8 border-t" style="border-color: rgba(255,255,255,0.1);">
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-8 mb-16">
+            <div>
+                <h4 class="font-display text-lg mb-4">KARAT<span class="text-gold">™</span></h4>
+                <ul class="space-y-2 mono text-xs uppercase tracking-wide" style="color: rgba(255,255,255,0.45);">
+                    <li><a href="karat-estudio.html" class="hover-gold transition-colors">Agenda & Reservas</a></li>
+                    <li><a href="#" class="hover-gold transition-colors">Términos de Servicio</a></li>
+                    <li><a href="#" class="hover-gold transition-colors">Política de Privacidad</a></li>
+                    <li><a href="#" class="hover-gold transition-colors">Contacto</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="mono font-bold mb-4 text-xs uppercase tracking-widest" style="color: var(--hype-gold);">Social</h4>
+                <ul class="space-y-2 mono text-xs uppercase tracking-wide" style="color: rgba(255,255,255,0.45);">
+                    <li><a href="#" class="hover-gold transition-colors">Instagram</a></li>
+                    <li><a href="#" class="hover-gold transition-colors">TikTok</a></li>
+                    <li><a href="#" class="hover-gold transition-colors">Spotify</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="mono font-bold mb-4 text-xs uppercase tracking-widest" style="color: var(--hype-gold);">Materiales</h4>
+                <ul class="space-y-2 mono text-xs uppercase tracking-wide" style="color: rgba(255,255,255,0.45);">
+                    <li><a href="#" class="hover-gold transition-colors">Titanio Grado Médico</a></li>
+                    <li><a href="#" class="hover-gold transition-colors">Oro 18K Certificado</a></li>
+                    <li><a href="#" class="hover-gold transition-colors">VVS Diamonds</a></li>
+                    <li><a href="#" class="hover-gold transition-colors">Krystal™</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="mono font-bold mb-4 text-xs uppercase tracking-widest" style="color: var(--hype-gold);">Estudio</h4>
+                <address class="not-italic mono text-xs uppercase tracking-wide leading-relaxed" style="color: rgba(255,255,255,0.45);">
+                    By Appointment Only<br>
+                    Santiago, Chile<br>
+                    <a href="karat-estudio.html" class="hover-gold">Agendar →</a>
+                </address>
+            </div>
+        </div>
+        <div class="border-t pt-8 flex flex-col md:flex-row justify-between items-end gap-4" style="border-color: rgba(255,255,255,0.1);">
+            <div>
+                <p class="mono text-xs uppercase tracking-widest" style="color: rgba(255,255,255,0.25);">© 2026 KARAT™. All rights reserved.</p>
+                <p class="mono text-xs uppercase tracking-widest mt-1" style="color: rgba(255,255,255,0.15);">Sistema de Identidad v2.0 — Marzo 2026</p>
+            </div>
+            <div class="font-display leading-none hidden md:block" style="font-size: 5rem; -webkit-text-stroke: 1px rgba(255,215,0,0.15); color: transparent;">K™</div>
+        </div>
+    </footer>
+
+    <script>
+        // ── Active nav link ──
+        document.querySelectorAll('.nav-link[data-page]').forEach(a => {
+            if (a.dataset.page === 'catalogo') {
+                a.style.color = 'var(--hype-gold)';
+                a.style.borderBottom = '1px solid var(--hype-gold)';
+                a.style.paddingBottom = '2px';
+            } else {
+                a.style.color = 'rgba(255,255,255,0.5)';
+            }
+        });
+
+        // ── Smooth scroll ──
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) { e.preventDefault(); target.scrollIntoView({ behavior: 'smooth' }); }
+            });
+        });
+
+        // ── Fade-up observer ──
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) entry.target.classList.add('visible');
+            });
+        }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
+        document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+
+        // ── Filter logic ──
+        const filterBtns = document.querySelectorAll('[data-filter]');
+        const materialBtns = document.querySelectorAll('[data-material]');
+        const cards = document.querySelectorAll('.product-card');
+        const countEl = document.getElementById('item-count');
+        let activeFilter = 'all';
+        let activeMaterial = 'all';
+
+        function updateCards() {
+            let visible = 0;
+            cards.forEach(card => {
+                const cat = card.dataset.cat || '';
+                const mat = card.dataset.material || '';
+                const matchCat = activeFilter === 'all' || cat.includes(activeFilter);
+                const matchMat = activeMaterial === 'all' || mat === activeMaterial;
+                if (matchCat && matchMat) {
+                    card.style.display = '';
+                    card.style.opacity = '1';
+                    visible++;
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+            countEl.textContent = visible + ' piezas';
+        }
+
+        filterBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                filterBtns.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                activeFilter = btn.dataset.filter;
+                updateCards();
+            });
+        });
+
+        materialBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                materialBtns.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                activeMaterial = btn.dataset.material;
+                updateCards();
+            });
+        });
+
+        // ── Sort (visual feedback only) ──
+        document.getElementById('sort-select').addEventListener('change', function() {
+            countEl.textContent = '↻ Ordenando...';
+            setTimeout(() => updateCards(), 300);
+        });
+    </script>
+
+</body>
+</html>

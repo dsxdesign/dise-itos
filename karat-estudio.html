@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KARAT™ | Estudio — Tu idea, nuestras manos</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,300;0,400;0,700;1,300&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --void-black: #0a0a0a;
+            --pure-white: #ffffff;
+            --hype-gold: #FFD700;
+            --platinum: #C0C0C0;
+            --industrial: #2a2a2a;
+            --deep-industrial: #111111;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: 'DM Sans', sans-serif;
+            background-color: var(--void-black);
+            color: var(--pure-white);
+            cursor: crosshair;
+            overflow-x: hidden;
+        }
+
+        .font-display { font-family: 'Bebas Neue', sans-serif; text-transform: uppercase; letter-spacing: 0.02em; }
+        .mono { font-family: 'Space Mono', monospace; }
+        .serif-italic { font-style: italic; font-weight: 300; }
+
+        .text-gold {
+            background: linear-gradient(135deg, #FFD700 0%, #FFA500 50%, #FFD700 100%);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+        }
+
+        /* Hide scrollbar */
+        .hide-scrollbar::-webkit-scrollbar { display: none; }
+        .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: var(--void-black); }
+        ::-webkit-scrollbar-thumb { background: var(--hype-gold); }
+        ::selection { background: var(--hype-gold); color: var(--void-black); }
+
+        .hover-gold { transition: color 0.3s; }
+        .hover-gold:hover { color: var(--hype-gold); }
+
+        .btn-karat {
+            background: var(--hype-gold); color: var(--void-black);
+            padding: 1rem 2.5rem; text-transform: uppercase;
+            letter-spacing: 0.12em; font-weight: 700; font-size: 0.75rem;
+            transition: all 0.3s; border: 2px solid var(--hype-gold); cursor: crosshair;
+            display: inline-block; text-decoration: none;
+        }
+        .btn-karat:hover { background: transparent; color: var(--hype-gold); }
+
+        .btn-karat-inv {
+            background: transparent; color: var(--pure-white);
+            padding: 1rem 2.5rem; text-transform: uppercase;
+            letter-spacing: 0.12em; font-weight: 700; font-size: 0.75rem;
+            transition: all 0.3s; border: 2px solid rgba(255,255,255,0.25); cursor: crosshair;
+            display: inline-block; text-decoration: none;
+        }
+        .btn-karat-inv:hover { background: var(--hype-gold); border-color: var(--hype-gold); color: var(--void-black); }
+
+        .section-num {
+            font-family: 'Space Mono', monospace; font-size: 0.65rem;
+            letter-spacing: 0.12em; color: var(--hype-gold);
+            display: block; margin-bottom: 0.75rem;
+        }
+
+        .industrial-border { border: 1px solid rgba(255,255,255,0.12); }
+        .gold-border-t { border-top: 2px solid var(--hype-gold); }
+
+        /* Grid visual */
+        .grid-visual {
+            background-image:
+                linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px);
+            background-size: 32px 32px;
+        }
+
+        /* Marquee */
+        .marquee-container { overflow: hidden; white-space: nowrap; }
+        .marquee-content { display: inline-block; animation: marquee 30s linear infinite; }
+        @keyframes marquee { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+
+        /* Scroll animations */
+        .fade-up {
+            opacity: 0;
+            transform: translateY(28px);
+            transition: opacity 0.9s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+                        transform 0.9s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+        .fade-up.visible { opacity: 1; transform: translateY(0); }
+        /* Fallback: if JS observer doesn't fire, still show content */
+        .no-js .fade-up { opacity: 1; transform: none; }
+        .stagger-1 { transition-delay: 0.1s; }
+        .stagger-2 { transition-delay: 0.2s; }
+        .stagger-3 { transition-delay: 0.35s; }
+        .stagger-4 { transition-delay: 0.5s; }
+
+        /* Nav */
+        nav { position: sticky; top: 0; z-index: 100; background: rgba(10,10,10,0.97); backdrop-filter: blur(12px); border-bottom: 1px solid rgba(255,255,255,0.07); }
+
+        /* Topbar */
+        @keyframes pulse-gold { 0%,100% { opacity: 1; } 50% { opacity: 0.65; } }
+        .pulse-gold { animation: pulse-gold 2.5s ease-in-out infinite; }
+
+        /* Input styles */
+        .input-karat {
+            width: 100%; padding: 1rem 1.25rem;
+            background: rgba(255,255,255,0.04);
+            border: 1px solid rgba(255,255,255,0.12);
+            color: var(--pure-white);
+            font-family: 'Space Mono', monospace;
+            font-size: 0.7rem; text-transform: uppercase;
+            letter-spacing: 0.08em; outline: none;
+            transition: border-color 0.3s;
+            cursor: crosshair;
+        }
+        .input-karat::placeholder { color: rgba(255,255,255,0.25); }
+        .input-karat:focus { border-color: var(--hype-gold); background: rgba(255,215,0,0.03); }
+        textarea.input-karat { resize: none; height: 120px; }
+        select.input-karat option { background: #1a1a1a; color: white; }
+
+        /* Glitch */
+        .glitch-hover:hover { animation: glitch 0.3s both infinite; }
+        @keyframes glitch {
+            0% { transform: translate(0) } 20% { transform: translate(-2px, 2px) }
+            40% { transform: translate(-2px, -2px) } 60% { transform: translate(2px, 2px) }
+            80% { transform: translate(2px, -2px) } 100% { transform: translate(0) }
+        }
+
+        /* Hero diagonal gold stripe */
+        .hero-stripe {
+            position: absolute; right: 0; top: 0; bottom: 0;
+            width: 3px; background: var(--hype-gold);
+        }
+
+        /* Slot buttons */
+        .slot-btn {
+            font-family: 'Space Mono', monospace; font-size: 0.6rem;
+            text-transform: uppercase; letter-spacing: 0.1em;
+            padding: 0.6rem 1rem; border: 1px solid rgba(255,255,255,0.15);
+            background: transparent; color: rgba(255,255,255,0.5);
+            cursor: crosshair; transition: all 0.2s;
+        }
+        .slot-btn:hover { border-color: var(--hype-gold); color: var(--hype-gold); background: rgba(255,215,0,0.06); }
+        .slot-btn.selected { border-color: var(--hype-gold); color: var(--void-black); background: var(--hype-gold); }
+        .slot-btn.disabled { opacity: 0.25; pointer-events: none; text-decoration: line-through; }
+
+    </style>
+</head>
+<body>
+
+    <!-- Top Bar -->
+    <div style="background: var(--hype-gold); color: var(--void-black);" class="text-[10px] uppercase tracking-widest py-2 px-4 text-center font-bold mono pulse-gold">
+        KARAT™ Hardware — Solo con cita previa → <a href="karat_main.html" style="text-decoration:underline; color: var(--void-black);">Reserva tu sesión</a>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="sticky top-0 z-50 border-b" style="border-color: rgba(255,255,255,0.1); backdrop-filter: blur(12px); background: rgba(10,10,10,0.95);">
+        <div class="flex items-center justify-between px-4 py-4 lg:px-8">
+            <div class="flex items-center gap-8">
+                <a href="karat_main.html" class="font-display text-xl font-bold tracking-tight">
+                    KARAT<span class="text-gold">™</span>
+                </a>
+                <div class="hidden lg:flex items-center gap-6 mono text-xs uppercase tracking-widest">
+                    <a href="karat_main.html" class="nav-link hover-gold" data-page="inicio">Inicio</a>
+                    <a href="karat-catalogo.html" class="nav-link hover-gold" data-page="catalogo">Catálogo</a>
+                    <a href="karat-estudio.html" class="nav-link hover-gold" data-page="estudio">Estudio</a>
+                    <a href="karat-brand_statement.html" class="nav-link hover-gold" data-page="karat">Karat</a>
+                </div>
+            </div>
+            <div class="flex items-center gap-4 mono text-xs uppercase tracking-widest">
+                <button class="hidden lg:block hover-gold" style="color: rgba(255,255,255,0.5);">Buscar</button>
+                <a href="#" class="hover-gold" style="color: rgba(255,255,255,0.5); text-decoration:none; cursor:crosshair;">Mis Reservas</a>
+                <a href="karat_main.html" class="btn-karat" style="text-decoration:none; padding: 0.4rem 1.2rem; font-size: 0.65rem;">Agendar</a>
+            </div>
+        </div>
+        <!-- Mobile nav -->
+        <div class="lg:hidden border-t px-4 py-3 flex gap-6 mono text-xs uppercase tracking-widest overflow-x-auto hide-scrollbar" style="border-color: rgba(255,255,255,0.06); -ms-overflow-style: none; scrollbar-width: none;">
+            <a href="karat_main.html" class="nav-link hover-gold whitespace-nowrap" data-page="inicio">Inicio</a>
+            <a href="karat-catalogo.html" class="nav-link hover-gold whitespace-nowrap" data-page="catalogo">Catálogo</a>
+            <a href="karat-estudio.html" class="nav-link hover-gold whitespace-nowrap" data-page="estudio">Estudio</a>
+            <a href="karat-brand_statement.html" class="nav-link hover-gold whitespace-nowrap" data-page="karat">Karat</a>
+        </div>
+    </nav>
+
+
+
+    <!-- SECTION 01: HERO -->
+    <section class="relative grid-visual" style="min-height: 90vh; display: flex; align-items: flex-end; overflow: hidden;">
+        <!-- Big ghost K -->
+        <div class="absolute inset-0 flex items-center justify-center pointer-events-none select-none">
+            <div class="font-display leading-none" style="font-size: 60vw; color: transparent; -webkit-text-stroke: 1px rgba(255,215,0,0.04); user-select: none;">K</div>
+        </div>
+
+        <!-- Gold stripes -->
+        <div class="absolute left-0 top-0 bottom-0 w-1" style="background: var(--hype-gold);"></div>
+        <div class="hero-stripe"></div>
+
+        <!-- Content -->
+        <div class="relative z-10 px-8 lg:px-20 pb-16 pt-24">
+            <span class="section-num fade-up stagger-1">01 — KARAT™ ESTUDIO</span>
+            <h1 class="font-display leading-none fade-up stagger-2" style="font-size: clamp(4rem, 12vw, 11rem);">
+                EL<br><span class="text-gold">ESTUDIO</span>
+            </h1>
+            <div class="flex flex-col lg:flex-row lg:items-end gap-8 mt-8">
+                <div class="max-w-lg fade-up stagger-3">
+                    <p class="leading-relaxed mb-2" style="color: rgba(255,255,255,0.7); font-size: 1.1rem; line-height: 1.8;">
+                        KARAT™ no es un catálogo. Es un lugar.<br>
+                        Cada pieza se diseña, calibra e instala aquí — por appointment, sin apuro, con precisión clínica.
+                    </p>
+                    <p class="serif-italic" style="color: rgba(255,215,0,0.6); font-size: 1rem; line-height: 1.8;">
+                        Tu cuerpo merece la misma atención que el material.
+                    </p>
+                </div>
+                <div class="fade-up stagger-4 flex flex-col gap-3 lg:ml-auto">
+                    <div class="mono text-xs uppercase tracking-widest" style="color: rgba(255,255,255,0.25);">
+                        // Santiago, Chile<br>
+                        // By Appointment Only<br>
+                        // Titanio · Oro 18K · VVS
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Bottom marquee -->
+        <div class="absolute bottom-0 left-0 right-0 marquee-container py-3 border-t" style="border-color: rgba(255,255,255,0.08);">
+            <div class="marquee-content mono text-xs" style="color: rgba(255,215,0,0.3); letter-spacing: 0.15em;">
+                TU IDEA NUESTRAS MANOS • BY APPOINTMENT ONLY • TITANIO GRADO MÉDICO • ORO 18K CERTIFICADO • VVS DIAMONDS • JOYERÍA BIOMECÁNICA • SANTIAGO CHILE • KARAT™ DENTAL STUDIO 2026 • TU IDEA NUESTRAS MANOS • BY APPOINTMENT ONLY • TITANIO GRADO MÉDICO • ORO 18K CERTIFICADO • VVS DIAMONDS • JOYERÍA BIOMECÁNICA • SANTIAGO CHILE • KARAT™ DENTAL STUDIO 2026 •&nbsp;
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 02: CUSTOM / MANIFIESTO EDITORIAL -->
+
+    <!-- Apertura: Título + Primer Párrafo -->
+    <section class="relative overflow-hidden border-t" style="border-color: rgba(255,255,255,0.1); background: var(--void-black);">
+        <div class="absolute left-0 top-0 bottom-0 w-1" style="background: var(--hype-gold);"></div>
+        <div class="absolute inset-0" style="background: repeating-linear-gradient(45deg, transparent, transparent 40px, rgba(255,215,0,0.015) 40px, rgba(255,215,0,0.015) 41px);"></div>
+
+        <div class="relative z-10 px-8 lg:px-20 pt-24 pb-20">
+            <span class="section-num fade-up">02 &mdash; CUSTOM</span>
+
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-0 items-end mt-6">
+                <!-- Título grande -->
+                <div class="lg:col-span-6 fade-up stagger-1">
+                    <h2 class="font-display leading-none" style="font-size: clamp(4rem, 11vw, 10rem); line-height: 0.93;">
+                        TU<br>IDEA<br><span class="text-gold">NUESTRAS</span><br><span class="text-gold">MANOS</span>
+                    </h2>
+                </div>
+
+                <!-- Primer bloque de texto — el argumento central -->
+                <div class="lg:col-span-6 pt-12 lg:pt-0 lg:pb-4 fade-up stagger-2">
+                    <p style="font-family: 'DM Sans', sans-serif; font-weight: 300; font-style: italic; font-size: clamp(1.3rem, 2.2vw, 1.7rem); line-height: 1.55; color: rgba(255,255,255,0.93); letter-spacing: -0.015em;">
+                        El objeto no empieza en el material.<br>
+                        Empieza en el momento en que decides que algo tuyo merece existir en el mundo de una forma que nadie más puede reclamar.
+                    </p>
+                    <div style="width: 3rem; height: 2px; background: var(--hype-gold); margin-top: 2.5rem;"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- El origen de la idea — Imagen Editorial + Texto -->
+    <section class="border-t border-b fade-up" style="border-color: rgba(255,255,255,0.07); background: var(--void-black);">
+        <div class="grid grid-cols-1 lg:grid-cols-2">
+
+            <!-- Columna Izquierda: Espacio para Foto (Estilo Archivo/Molde) -->
+            <div class="relative border-r border-b lg:border-b-0 min-h-[50vh] overflow-hidden" style="border-color: rgba(255,255,255,0.07); background: #111;">
+                <!-- IMAGEN PLACEHOLDER: Estética Virgil / Blanco y negro / Clínico -->
+                <img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=2000&auto=format&fit=crop" alt="Boceto / Referencia de estudio" class="absolute inset-0 w-full h-full object-cover opacity-50 grayscale mix-blend-screen" style="transform: scale(1.05); filter: contrast(1.2);">
+                <div class="absolute inset-0 scanlines" style="background: repeating-linear-gradient(0deg, transparent, transparent 3px, rgba(0,0,0,0.1) 3px, rgba(0,0,0,0.1) 4px); pointer-events: none;"></div>
+                
+                <div class="absolute top-6 left-6 z-10">
+                    <span class="mono text-[10px] uppercase tracking-widest bg-black px-3 py-1 border" style="color: rgba(255,215,0,0.8); border-color: rgba(255,215,0,0.3);">
+                        // FIG 1. REFERENCIA CLÍNICA
+                    </span>
+                </div>
+            </div>
+
+            <!-- Columna derecha: texto profundo -->
+            <div class="px-8 lg:px-16 py-20 flex flex-col justify-center">
+                <span class="mono text-xs uppercase tracking-widest block mb-10" style="color: rgba(255,215,0,0.4);">// Sobre la idea</span>
+                
+                <p style="font-size: clamp(1rem, 1.6vw, 1.25rem); line-height: 1.9; color: rgba(255,255,255,0.82); margin-bottom: 2.2rem; font-weight: 300;">
+                    Cada pieza que hemos instalado empezó en el mismo lugar: alguien que tuvo una imagen en la cabeza que no encontraba en ninguna parte. No en el catálogo de nadie. No en la vidriera de ninguna joyería. Algo específico, tuyo, que todavía no existía.
+                </p>
+                <p style="font-size: clamp(1rem, 1.6vw, 1.25rem); line-height: 1.9; color: rgba(255,255,255,0.55); margin-bottom: 2.2rem; font-weight: 300;">
+                    Eso es exactamente lo que nos interesa. La pieza que todavía no tiene forma pero que ya tiene peso. Nos interesa el proceso de construirla — entender de dónde viene la idea, qué referencia visual, qué artista, qué momento. Y después traducir eso a algo real.
+                </p>
+                <p style="font-size: clamp(1rem, 1.6vw, 1.25rem); line-height: 1.9; color: rgba(255,255,255,0.35); font-weight: 300;">
+                    Ese proceso requiere una conversación. Requiere tiempo. Y termina en una pieza que puede vivir en tu cuerpo con precisión clínica — porque fue diseñada para vos desde el principio.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sobre la autoría — Cita monumental -->
+    <section class="py-24 px-8 lg:px-20 border-b fade-up" style="border-color: rgba(255,255,255,0.07); background: #0d0d0d;">
+        <div class="max-w-5xl mx-auto">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
+
+                <div class="lg:col-span-3">
+                    <span class="mono text-xs uppercase tracking-widest block" style="color: rgba(255,215,0,0.4);">// La filosofía</span>
+                    <div class="font-display leading-none mt-4" style="font-size: 8rem; color: rgba(255,215,0,0.06); line-height: 1;">&quot;</div>
+                </div>
+
+                <div class="lg:col-span-9 space-y-10">
+                    <p class="font-display leading-tight" style="font-size: clamp(1.8rem, 3.5vw, 3rem); color: rgba(255,255,255,0.92); line-height: 1.1;">
+                        La autoría no es nuestra.<br>
+                        <span style="color: rgba(255,215,0,0.85);">Nosotros somos el instrumento.</span><br>
+                        Tú eres el argumento.
+                    </p>
+
+                    <div style="width: 100%; height: 1px; background: rgba(255,255,255,0.07);"></div>
+
+                    <p style="font-size: clamp(0.95rem, 1.5vw, 1.15rem); line-height: 1.9; color: rgba(255,255,255,0.6); font-weight: 300; max-width: 52rem;">
+                        Hay una distinción importante entre hacer una pieza para alguien y hacer una pieza con alguien. La primera es un servicio. La segunda es una colaboración. KARAT™ existe para la segunda — porque creemos que el resultado más honesto siempre viene de entender qué quiere decir la persona que va a llevarlo.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- El proceso como filosofía — Tres momentos editoriales -->
+    <section class="border-b fade-up" style="border-color: rgba(255,255,255,0.07); background: var(--void-black);">
+        <div class="px-8 lg:px-20 pt-20 pb-0">
+            <div class="flex items-center gap-6 mb-16">
+                <span class="mono text-xs uppercase tracking-widest" style="color: rgba(255,215,0,0.4);">// Los Tres Momentos</span>
+                <div style="flex: 1; height: 1px; background: rgba(255,255,255,0.06);"></div>
+            </div>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-3" style="border-top: 1px solid rgba(255,255,255,0.07);">
+            <!-- Momento 1 -->
+            <div class="px-8 lg:px-16 py-16 border-b lg:border-b-0 lg:border-r hover:bg-[#111] transition-colors duration-500" style="border-color: rgba(255,255,255,0.07);">
+                <div class="font-display mb-6" style="font-size: 5rem; color: rgba(255,215,0,0.1); line-height: 1;">I</div>
+                <h3 class="font-display text-2xl mb-6" style="color: rgba(255,255,255,0.9);">La conversación</h3>
+                <p style="font-size: 0.9rem; line-height: 1.9; color: rgba(255,255,255,0.5); margin-bottom: 1.5rem; font-weight: 300;">
+                    Todo empieza antes del material. Traés lo que tenés — una referencia visual, un artista, una sensación que no sabés cómo describir todavía. Nosotros hacemos las preguntas correctas.
+                </p>
+                <p style="font-size: 0.9rem; line-height: 1.9; color: rgba(255,255,255,0.3); font-weight: 300;">
+                    ¿Para qué momento es? ¿Qué tiene que decir cuando alguien te lo vea? Las respuestas a eso nos dan más información que cualquier boceto.
+                </p>
+            </div>
+
+            <!-- Momento 2 -->
+            <div class="px-8 lg:px-16 py-16 border-b lg:border-b-0 lg:border-r hover:bg-[#111] transition-colors duration-500" style="border-color: rgba(255,255,255,0.07);">
+                <div class="font-display mb-6" style="font-size: 5rem; color: rgba(255,215,0,0.1); line-height: 1;">II</div>
+                <h3 class="font-display text-2xl mb-6" style="color: rgba(255,255,255,0.9);">La traducción</h3>
+                <p style="font-size: 0.9rem; line-height: 1.9; color: rgba(255,255,255,0.5); margin-bottom: 1.5rem; font-weight: 300;">
+                    De la idea al material. Acá es donde el trabajo técnico empieza. Elegimos el metal, la piedra, la forma — no desde un catálogo, sino desde lo que nos dijiste. 
+                </p>
+                <p style="font-size: 0.9rem; line-height: 1.9; color: rgba(255,255,255,0.3); font-weight: 300;">
+                    Titanio grado médico si querés algo que dure sin mantenimiento. Oro 18K si el color es parte del mensaje. VVS si la pieza tiene que hablar por sí sola.
+                </p>
+            </div>
+
+            <!-- Momento 3 -->
+            <div class="px-8 lg:px-16 py-16 hover:bg-[#111] transition-colors duration-500">
+                <div class="font-display mb-6" style="font-size: 5rem; color: rgba(255,215,0,0.1); line-height: 1;">III</div>
+                <h3 class="font-display text-2xl mb-6" style="color: rgba(255,255,255,0.9);">La instalación</h3>
+                <p style="font-size: 0.9rem; line-height: 1.9; color: rgba(255,255,255,0.5); margin-bottom: 1.5rem; font-weight: 300;">
+                    La pieza entra al cuerpo con precisión clínica. No improvisada, no apresurada. El tiempo que tome es el tiempo que tiene que tomar.
+                </p>
+                <p style="font-size: 0.9rem; line-height: 1.9; color: rgba(255,255,255,0.3); font-weight: 300;">
+                    Al terminar, recibís el certificado del material. La garantía corre desde ese momento. Y la pieza ya es tuya — en el único sentido que importa.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Cierre editorial + CTA -->
+    <section class="relative overflow-hidden fade-up border-b" style="border-color: rgba(255,255,255,0.07); background: var(--void-black);">
+        <!-- Ghost K fondo -->
+        <div class="absolute right-0 bottom-0 font-display leading-none pointer-events-none select-none" style="font-size: 40vw; color: transparent; -webkit-text-stroke: 1px rgba(255,215,0,0.03); line-height: 1; transform: translate(10%, 10%);">K™</div>
+
+        <div class="relative z-10 px-8 lg:px-20 py-24">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12">
+
+                <div class="lg:col-span-7 space-y-8">
+                    <span class="mono text-xs uppercase tracking-widest block" style="color: rgba(255,215,0,0.4);">// El Siguiente Paso</span>
+
+                    <p style="font-family: 'DM Sans', sans-serif; font-weight: 300; font-style: italic; font-size: clamp(1.2rem, 2vw, 1.5rem); line-height: 1.6; color: rgba(255,255,255,0.88);">
+                        Tenés una idea. Nosotros tenemos el lugar para construirla.
+                    </p>
+
+                    <p style="font-size: clamp(0.9rem, 1.4vw, 1.1rem); line-height: 1.95; color: rgba(255,255,255,0.5); font-weight: 300; max-width: 46rem;">
+                        No necesitás llegar con el diseño terminado. Alcanza con saber que querés algo tuyo — algo que no encontraste en ningún catálogo porque todavía no existe. De ahí partimos juntos.
+                    </p>
+
+                    <p style="font-size: clamp(0.9rem, 1.4vw, 1.1rem); line-height: 1.95; color: rgba(255,255,255,0.3); font-weight: 300; max-width: 46rem;">
+                        La consulta no tiene costo. La conversación es el primer paso.
+                    </p>
+
+                    <div style="border-left: 3px solid var(--hype-gold); padding-left: 1.5rem; margin-top: 3rem;">
+                        <p class="mono text-xs uppercase tracking-widest" style="color: rgba(255,215,0,0.6); line-height: 2.2;">
+                            // La autoría es tuya.<br>
+                            // La ejecución, nuestra.<br>
+                            // ESTUDIO →
+                        </p>
+                    </div>
+                </div>
+
+                <!-- CTA lateral que baja a la Agenda -->
+                <div class="lg:col-span-4 lg:col-start-9 flex flex-col justify-center items-start lg:items-end gap-5 lg:border-l lg:pl-12" style="border-color: rgba(255,255,255,0.07);">
+                    <p class="mono text-xs uppercase tracking-widest text-right hidden lg:block" style="color: rgba(255,255,255,0.2); max-width: 16rem; line-height: 2;">
+                        Sin costo de consulta.<br>
+                        By appointment only.<br>
+                        Santiago, Chile.
+                    </p>
+                    <a href="karat_main.html" class="btn-karat glitch-hover" style="width: 100%; text-align: center;">
+                        Llevar mi idea al estudio &rarr;
+                    </a>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="pt-16 pb-8 px-4 lg:px-8 border-t" style="border-color: rgba(255,255,255,0.1); background: var(--void-black);">
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-8 mb-16">
+            <div>
+                <h4 class="font-display text-lg mb-4">KARAT<span class="text-gold">™</span></h4>
+                <ul class="space-y-2 mono text-xs uppercase tracking-wide" style="color: rgba(255,255,255,0.45);">
+                    <li><a href="karat_main.html" class="hover-gold">Agenda & Reservas</a></li>
+                    <li><a href="#" class="hover-gold">Términos de Servicio</a></li>
+                    <li><a href="#" class="hover-gold">Política de Privacidad</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="mono font-bold mb-4 text-xs uppercase tracking-widest" style="color: var(--hype-gold);">Social</h4>
+                <ul class="space-y-2 mono text-xs uppercase tracking-wide" style="color: rgba(255,255,255,0.45);">
+                    <li><a href="#" class="hover-gold">Instagram</a></li>
+                    <li><a href="#" class="hover-gold">TikTok</a></li>
+                    <li><a href="#" class="hover-gold">Spotify</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="mono font-bold mb-4 text-xs uppercase tracking-widest" style="color: var(--hype-gold);">Estudio</h4>
+                <ul class="space-y-2 mono text-xs uppercase tracking-wide" style="color: rgba(255,255,255,0.45);">
+                    <li><a href="karat-brand_statement.html" class="hover-gold">Filosofía</a></li>
+                    <li><a href="karat-catalogo.html" class="hover-gold">Catálogo</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="mono font-bold mb-4 text-xs uppercase tracking-widest" style="color: var(--hype-gold);">Sede</h4>
+                <address class="not-italic mono text-xs uppercase tracking-wide leading-relaxed" style="color: rgba(255,255,255,0.45);">
+                    By Appointment Only<br>
+                    Santiago, Chile<br>
+                    <a href="/cdn-cgi/l/email-protection#b3d0dcddc7d2d0c7dcf3d8d2c1d2c79dd0df" class="hover-gold"><span class="__cf_email__" data-cfemail="d7b4b8b9a3b6b4a3b897bcb6a5b6a3f9b4bb">[email&#160;protected]</span></a>
+                </address>
+            </div>
+        </div>
+        <div class="border-t pt-8 flex flex-col md:flex-row justify-between items-end gap-4" style="border-color: rgba(255,255,255,0.1);">
+            <div>
+                <p class="mono text-xs uppercase tracking-widest" style="color: rgba(255,255,255,0.25);">© 2026 KARAT™. All rights reserved.</p>
+                <p class="mono text-xs uppercase tracking-widest mt-1" style="color: rgba(255,255,255,0.15);">Sistema de Identidad v2.0 — Marzo 2026</p>
+            </div>
+            <div class="font-display leading-none hidden md:block" style="font-size: 5rem; -webkit-text-stroke: 1px rgba(255,215,0,0.15); color: transparent;">K™</div>
+        </div>
+    </footer>
+
+    <script>
+        // ── Active nav link ──
+        document.querySelectorAll('.nav-link[data-page]').forEach(a => {
+            if (a.dataset.page === 'estudio') {
+                a.style.color = 'var(--hype-gold)';
+                a.style.borderBottom = '1px solid var(--hype-gold)';
+                a.style.paddingBottom = '2px';
+            } else {
+                a.style.color = 'rgba(255,255,255,0.5)';
+            }
+        });
+
+        // ── Smooth scroll ──
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) { e.preventDefault(); target.scrollIntoView({ behavior: 'smooth' }); }
+            });
+        });
+
+        // ── Fade-up observer ──
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) entry.target.classList.add('visible');
+            });
+        }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
+        document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+    </script>
