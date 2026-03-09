@@ -63,17 +63,32 @@
         ::-webkit-scrollbar-track { background: var(--void); }
         ::-webkit-scrollbar-thumb { background: var(--gold); }
 
-        /* Image hover */
-        .image-hover {
-            transition: transform 1s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-            filter: grayscale(25%) contrast(115%);
-        }
-        .group:hover .image-hover {
-            transform: scale(1.03);
-            filter: grayscale(10%) contrast(110%);
+        /* ===== NUEVO SISTEMA DE IMÁGENES PARALLAX + HOVER ===== */
+        .parallax-wrapper {
+            position: absolute;
+            top: -15%;
+            left: 0;
+            width: 100%;
+            height: 130%; /* Extra height para ocultar bordes negros al hacer scroll */
+            will-change: transform;
         }
 
-        /* Fade-up animation (shared across all pages) */
+        .img-scale-hover {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: grayscale(25%) contrast(115%);
+            transition: transform 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94), 
+                        filter 1.2s ease;
+        }
+
+        .group:hover .img-scale-hover {
+            transform: scale(1.04);
+            filter: grayscale(0%) contrast(105%);
+        }
+        /* ======================================================= */
+
+        /* Fade-up animation */
         .fade-up {
             opacity: 0;
             transform: translateY(32px);
@@ -104,6 +119,7 @@
             inset: 0;
             background: linear-gradient(135deg, rgba(255,215,0,0.06), transparent 60%);
             pointer-events: none;
+            z-index: 5;
         }
 
         /* Hover link */
@@ -132,9 +148,6 @@
             z-index: 2;
         }
 
-        /* Industrial border */
-        .ind-border { border: 1px solid var(--border); }
-
         /* Top bar */
         .topbar {
             background: var(--gold);
@@ -148,11 +161,6 @@
             border-bottom: 1px solid var(--border);
         }
 
-        /* Parallax wrapper */
-        .parallax-img {
-            will-change: transform;
-        }
-
         /* Section ref number */
         .ref {
             font-family: 'Space Mono', monospace;
@@ -161,11 +169,6 @@
             color: var(--gold);
             display: block;
             margin-bottom: 0.5rem;
-        }
-
-        /* Footer */
-        footer {
-            border-top: 1px solid var(--border);
         }
 
         /* Big ghost text */
@@ -271,43 +274,46 @@
             </div>
         </header>
 
-        <!-- Hero Images Grid — mirrors APAPA* two-column layout -->
-        <section class="grid grid-cols-1 lg:grid-cols-2 gap-0" style="border-top: 1px solid var(--border);">
+        <!-- Hero Images Grid — FIXED: Clean 2-column, perfect gap, separated JS/CSS wrappers -->
+        <!-- La clase "gap-px" combinada con "bg-white/10" crea una línea separadora industrial perfecta de 1px -->
+        <section class="grid grid-cols-1 lg:grid-cols-2 gap-px bg-white/10" style="border-top: 1px solid var(--border);">
             
             <!-- Left Image -->
-            <div class="relative overflow-hidden group cursor-crosshair gold-tint scanlines"
-                 style="aspect-ratio: 3/4; height: auto;"
-                 id="img-left">
-                <div class="lg:h-[85vh] h-full">
-                    <img src="https://images.unsplash.com/photo-1552374196-1ab2a1c593e8?q=80&w=1200&auto=format&fit=crop"
+            <div class="relative overflow-hidden group cursor-crosshair gold-tint scanlines bg-[#0a0a0a] h-[60vh] lg:h-[85vh]">
+                <!-- Parallax Wrapper controlado solo por JS -->
+                <div class="parallax-wrapper" id="parallax-left">
+                    <!-- Imagen controlada solo por CSS (Hover) -->
+                    <img src="assets/bs_left.jpg"
                          alt="KARAT™ Instalación"
-                         class="w-full h-full object-cover image-hover parallax-img"
+                         class="img-scale-hover"
                          style="object-position: center top;">
                 </div>
-                <div class="absolute inset-0 transition-colors duration-500" style="background: rgba(0,0,0,0);"></div>
-                <!-- Ref tag -->
-                <div class="absolute bottom-4 left-4 z-10">
-                    <span class="mono text-xs" style="color: var(--gold);">[ TITANIO — REF 01 ]</span>
+                <!-- Ref tag con panel translúcido -->
+                <div class="absolute bottom-6 left-6 z-10">
+                    <div class="bg-[#0a0a0a]/70 backdrop-blur-md px-4 py-2 border border-white/10">
+                        <span class="mono text-xs font-bold" style="color: var(--gold);">[ TITANIO — REF 01 ]</span>
+                    </div>
                 </div>
             </div>
 
             <!-- Right Image -->
-            <div class="relative overflow-hidden group cursor-crosshair gold-tint scanlines"
-                 style="border-left: 1px solid var(--border);"
-                 id="img-right">
-                <div class="lg:h-[85vh] h-full" style="aspect-ratio: 3/4;">
-                    <img src="https://images.unsplash.com/photo-1551028719-00167b16eac5?q=80&w=1200&auto=format&fit=crop"
+            <div class="relative overflow-hidden group cursor-crosshair gold-tint scanlines bg-[#0a0a0a] h-[60vh] lg:h-[85vh]">
+                <!-- Parallax Wrapper controlado solo por JS -->
+                <div class="parallax-wrapper" id="parallax-right">
+                    <!-- Imagen controlada solo por CSS (Hover) -->
+                    <img src="assets/bs_right.jpg"
                          alt="KARAT™ Hardware Detail"
-                         class="w-full h-full object-cover image-hover parallax-img"
+                         class="img-scale-hover"
                          style="object-position: center;">
                 </div>
-                <div class="absolute inset-0 transition-colors duration-500" style="background: rgba(0,0,0,0);"></div>
-                <!-- Ref tag -->
-                <div class="absolute bottom-4 left-4 z-10">
-                    <span class="mono text-xs" style="color: var(--gold);">[ ORO 18K — REF 02 ]</span>
+                <!-- Ref tag con panel translúcido -->
+                <div class="absolute bottom-6 left-6 z-10">
+                    <div class="bg-[#0a0a0a]/70 backdrop-blur-md px-4 py-2 border border-white/10">
+                        <span class="mono text-xs font-bold" style="color: var(--gold);">[ ORO 18K — REF 02 ]</span>
+                    </div>
                 </div>
                 <!-- Gold accent line -->
-                <div class="absolute top-0 right-0 w-px h-full" style="background: linear-gradient(to bottom, transparent, var(--gold), transparent); opacity: 0.3;"></div>
+                <div class="absolute top-0 right-0 w-[2px] h-full z-10" style="background: linear-gradient(to bottom, transparent, var(--gold), transparent); opacity: 0.4;"></div>
             </div>
 
         </section>
@@ -319,30 +325,30 @@
             </div>
         </div>
 
-        <!-- Editorial Text — mirrors APAPA* brand editorial section exactly -->
+        <!-- Editorial Text -->
         <section class="px-4 py-12 lg:px-6 lg:py-20 stripes relative" style="max-width: 1400px;">
             <div style="max-width: 1200px;">
                 <div class="space-y-8 lg:space-y-12">
 
-                    <!-- Paragraph 1 — short, punchy opener -->
+                    <!-- Paragraph 1 -->
                     <p class="text-editorial fade-up stagger-1"
                        style="font-size: clamp(1.2rem, 2.5vw, 1.55rem); line-height: 1.45; max-width: 42rem; color: rgba(255,255,255,0.95);">
                         KARAT™ es una clínica dental con sede en Santiago. Pero también es un estudio de diseño de joyería.
                     </p>
 
-                    <!-- Paragraph 2 — brand mission in editorial voice -->
+                    <!-- Paragraph 2 -->
                     <p class="text-editorial fade-up stagger-2"
                        style="font-size: clamp(1.2rem, 2.5vw, 1.55rem); line-height: 1.45; max-width: 56rem; color: rgba(255,255,255,0.85);">
                         Referenciando la cultura urbana y los materiales de la industria — titanio, oro 18K y VVS — KARAT™ reinterpreta qué puede significar la odontología cuando el proceso clínico y el lenguaje del diseño se encuentran. La idea no es embellecer. Es expresar.
                     </p>
 
-                    <!-- Paragraph 3 — heritage/positioning -->
+                    <!-- Paragraph 3 -->
                     <p class="text-editorial fade-up stagger-3"
                        style="font-size: clamp(1.2rem, 2.5vw, 1.55rem); line-height: 1.45; max-width: 58rem; color: rgba(255,255,255,0.7);">
                         Lo que empezó como una conversación sobre modificaciones en espacios creativos se convirtió en una práctica sostenida. A lo largo de los últimos años, KARAT™ ha construido una forma de trabajar que mezcla precisión médica con intención artística — colaborando con músicos, artistas y personas que entienden que lo que llevan en el cuerpo es también parte de su identidad.
                     </p>
 
-                    <!-- Paragraph 4 — values statement, final -->
+                    <!-- Paragraph 4 -->
                     <p class="text-editorial fade-up stagger-4"
                        style="font-size: clamp(1.2rem, 2.5vw, 1.55rem); line-height: 1.45; max-width: 54rem; color: rgba(255,255,255,0.5);">
                         "El material no es un detalle. Es la declaración."
@@ -355,7 +361,7 @@
             </div>
         </section>
 
-        <!-- Values grid — additional brand context, no equivalent in APAPA* but minimal enough to preserve the editorial feel -->
+        <!-- Values grid -->
         <section style="border-top: 1px solid var(--border); padding: 4rem 1.5rem;" class="grid-bg">
             <div style="max-width: 1400px; display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 0;">
 
@@ -481,15 +487,23 @@
         }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
         document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
 
-        // ── Parallax on hero images ──
-        const imgLeft  = document.getElementById('img-left');
-        const imgRight = document.getElementById('img-right');
+        // ── FIXED Parallax (Decoupled from CSS hover to remove jank) ──
+        const parallaxLeft  = document.getElementById('parallax-left');
+        const parallaxRight = document.getElementById('parallax-right');
+        
+        // requestAnimationFrame prevents scroll-stutter by synching with monitor refresh rate
+        let ticking = false;
         window.addEventListener('scroll', () => {
-            const scrolled = window.pageYOffset;
-            const leftImg  = imgLeft  ? imgLeft.querySelector('.parallax-img')  : null;
-            const rightImg = imgRight ? imgRight.querySelector('.parallax-img') : null;
-            if (leftImg)  leftImg.style.transform  = `translateY(${scrolled * 0.18}px) scale(1.03)`;
-            if (rightImg) rightImg.style.transform = `translateY(${scrolled * 0.10}px) scale(1.03)`;
+            if (!ticking) {
+                window.requestAnimationFrame(() => {
+                    const scrolled = window.pageYOffset;
+                    // Mueve los wrappers en lugar de la imagen directamente
+                    if (parallaxLeft)  parallaxLeft.style.transform  = `translateY(${scrolled * 0.15}px)`;
+                    if (parallaxRight) parallaxRight.style.transform = `translateY(${scrolled * 0.08}px)`;
+                    ticking = false;
+                });
+                ticking = true;
+            }
         });
     </script>
 
