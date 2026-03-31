@@ -1,0 +1,665 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KALLISTO™ | Armonización Facial — KHRYSOS™</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,300;0,400;0,700;1,300&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --void: #0a0a0a;
+            --white: #ffffff;
+            --rose: #FF69A0;
+            --rose-deep: #FF2D78;
+            --rose-pale: #FFB3D9;
+            --rose-blush: #FFE0F0;
+            --offwhite: #f5f5f0;
+            --border: rgba(255,105,160,0.12);
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: 'DM Sans', sans-serif;
+            background: var(--void);
+            color: var(--white);
+            cursor: crosshair;
+            overflow-x: hidden;
+        }
+
+        .font-display { font-family: 'Bebas Neue', sans-serif; text-transform: uppercase; letter-spacing: 0.02em; }
+        .mono { font-family: 'Space Mono', monospace; }
+
+        ::-webkit-scrollbar { width: 4px; }
+        ::-webkit-scrollbar-track { background: #0a0a0a; }
+        ::-webkit-scrollbar-thumb { background: rgba(255,105,160,0.4); }
+        ::selection { background: #FF69A0; color: #0a0a0a; }
+
+        /* Shimmer */
+        @keyframes shimmer {
+            0%   { background-position: -200% center; }
+            100% { background-position:  200% center; }
+        }
+        .sh-pink {
+            background: linear-gradient(90deg, #FF69A0, #FFB3D9, #FFE0F0, #ffffff, #FFB3D9, #FF69A0);
+            background-size: 200% auto;
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+            animation: shimmer 5s linear infinite;
+        }
+
+        /* Glitch */
+        .glitch:hover { animation: glitch 0.3s both infinite; cursor: crosshair; }
+        @keyframes glitch {
+            0%  { transform: translate(0); }
+            20% { transform: translate(-2px,  2px); }
+            40% { transform: translate(-2px, -2px); }
+            60% { transform: translate( 2px,  2px); }
+            80% { transform: translate( 2px, -2px); }
+            100%{ transform: translate(0); }
+        }
+
+        /* Fade up */
+        .fu { opacity: 0; transform: translateY(24px); transition: opacity 0.65s ease, transform 0.65s ease; }
+        .fu.vis { opacity: 1; transform: translateY(0); }
+        .fu.d1 { transition-delay: 0.1s; } .fu.d2 { transition-delay: 0.2s; }
+        .fu.d3 { transition-delay: 0.3s; } .fu.d4 { transition-delay: 0.4s; }
+        .fu.d5 { transition-delay: 0.5s; }
+
+        /* Glow orb */
+        .glow-orb {
+            position: absolute; border-radius: 50%;
+            filter: blur(120px); pointer-events: none;
+            animation: glow-pulse 8s ease-in-out infinite;
+        }
+        @keyframes glow-pulse { 0%,100% { opacity:0.07; } 50% { opacity:0.15; } }
+
+        /* Grid bg */
+        .grid-bg {
+            background-image:
+                linear-gradient(rgba(255,105,160,0.02) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255,105,160,0.02) 1px, transparent 1px);
+            background-size: 28px 28px;
+        }
+        .nav-item:hover { color: var(--rose); }
+
+        /* Marquee */
+        .mq-wrap { overflow: hidden; white-space: nowrap; }
+        .mq-inner { display: inline-block; animation: mq 40s linear infinite; }
+        @keyframes mq { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+
+        /* Btn */
+        .btn-rose {
+            background: var(--rose); color: var(--void);
+            padding: 0.75rem 2.5rem;
+            font-family: 'Space Mono', monospace;
+            font-size: 0.65rem; letter-spacing: 0.15em; font-weight: 700;
+            text-transform: uppercase;
+            border: 2px solid var(--rose);
+            transition: all 0.3s; cursor: crosshair;
+        }
+        .btn-rose:hover { background: transparent; color: var(--rose); }
+
+        .btn-outline-rose {
+            background: transparent; color: var(--rose);
+            padding: 0.75rem 2.5rem;
+            font-family: 'Space Mono', monospace;
+            font-size: 0.65rem; letter-spacing: 0.15em; font-weight: 700;
+            text-transform: uppercase;
+            border: 2px solid rgba(255,105,160,0.4);
+            transition: all 0.3s; cursor: crosshair;
+        }
+        .btn-outline-rose:hover { border-color: var(--rose); background: rgba(255,105,160,0.05); }
+
+        /* Service cards */
+        .svc-card {
+            border: 1px solid rgba(255,105,160,0.12);
+            padding: 2.5rem 2rem;
+            transition: all 0.4s;
+            cursor: crosshair;
+            position: relative;
+            overflow: hidden;
+        }
+        .svc-card::before {
+            content: '';
+            position: absolute; inset: 0;
+            background: linear-gradient(135deg, rgba(255,105,160,0.04), transparent);
+            opacity: 0; transition: opacity 0.4s;
+        }
+        .svc-card:hover::before { opacity: 1; }
+        .svc-card:hover { border-color: rgba(255,105,160,0.35); transform: translateY(-3px); }
+
+        /* Process steps */
+        .step-num {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 5rem; line-height: 1;
+            -webkit-text-stroke: 1px rgba(255,105,160,0.2);
+            color: transparent;
+        }
+
+        /* Chip */
+        .chip {
+            font-family: 'Space Mono', monospace;
+            font-size: 0.5rem; letter-spacing: 0.12em;
+            padding: 4px 12px; border: 1px solid rgba(255,105,160,0.25);
+            color: rgba(255,105,160,0.6);
+            display: inline-block; margin: 0 4px 6px 0;
+        }
+
+        /* Before/After frame */
+        .ba-frame {
+            border: 1px solid rgba(255,105,160,0.15);
+            aspect-ratio: 3/4;
+            position: relative; overflow: hidden;
+            background: rgba(255,105,160,0.03);
+        }
+        .ba-label {
+            position: absolute; bottom: 0; left: 0; right: 0;
+            padding: 1rem;
+            background: linear-gradient(0deg, rgba(10,10,10,0.9), transparent);
+            font-family: 'Space Mono', monospace;
+            font-size: 0.5rem; letter-spacing: 0.18em;
+            color: rgba(255,105,160,0.55);
+        }
+        .ba-inner {
+            width: 100%; height: 100%;
+            display: flex; align-items: center; justify-content: center;
+            position: relative;
+        }
+
+        /* Divider */
+        .brand-divider {
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(255,105,160,0.3), transparent);
+        }
+
+        /* Hero name */
+        .hero-name {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: clamp(6rem, 20vw, 20rem);
+            line-height: 0.82; letter-spacing: -0.02em; text-transform: uppercase;
+        }
+        .hero-wm {
+            position: absolute; right: -4vw; top: 50%; transform: translateY(-50%);
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: clamp(20rem, 55vw, 75rem);
+            line-height: 1; -webkit-text-stroke: 1px rgba(255,105,160,0.04); color: transparent;
+            pointer-events: none; user-select: none; z-index: 1;
+        }
+
+        /* Stat bar */
+        .stat-bar {
+            border-top: 1px solid rgba(255,105,160,0.1);
+            display: grid; grid-template-columns: repeat(3,1fr);
+        }
+        @media(max-width:600px){ .stat-bar { grid-template-columns:1fr; } }
+        .stat-cell {
+            padding: 2.5rem 2rem;
+            border-right: 1px solid rgba(255,105,160,0.1);
+        }
+        .stat-cell:last-child { border-right: none; }
+
+        /* FAQ */
+        .faq-item { border-top: 1px solid rgba(255,105,160,0.1); }
+        .faq-q {
+            width:100%; display:flex; justify-content:space-between; align-items:center;
+            padding: 1.25rem 0; background:none; border:none; color:var(--white);
+            font-family:'DM Sans',sans-serif; font-size:1rem; font-weight:400;
+            cursor:crosshair; text-align:left; transition: color 0.3s;
+        }
+        .faq-q:hover { color: var(--rose); }
+        .faq-q .faq-icon { font-family:'Space Mono',monospace; font-size:1rem; color:rgba(255,105,160,0.5); transition: transform 0.3s; }
+        .faq-a { display:none; padding: 0 0 1.25rem 0; color:rgba(255,255,255,0.55); font-size:0.9rem; line-height:1.8; font-weight:300; }
+        .faq-item.open .faq-a { display:block; }
+        .faq-item.open .faq-icon { transform:rotate(45deg); }
+        .faq-item.open .faq-q { color: var(--rose); }
+
+        /* Footer */
+        footer { border-top: 1px solid rgba(255,255,255,0.05); }
+        .hover-rose { transition: color 0.3s; }
+        .hover-rose:hover { color: var(--rose); }
+
+        /* Floating treatment tag */
+        .treatment-tag {
+            display: inline-flex; align-items: center; gap: 0.5rem;
+            border: 1px solid rgba(255,105,160,0.25);
+            background: rgba(255,105,160,0.04);
+            padding: 0.5rem 1rem;
+            font-family: 'Space Mono', monospace;
+            font-size: 0.55rem; letter-spacing: 0.15em;
+            color: rgba(255,105,160,0.65);
+            margin: 0.25rem;
+        }
+        .treatment-tag .dot { width: 5px; height: 5px; border-radius: 50%; background: var(--rose); opacity: 0.6; }
+
+        /* ── Unified nav ── */
+        .text-gold {
+            background: linear-gradient(135deg, #FFD700 0%, #FFA500 50%, #FFD700 100%);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+        }
+        .hover-gold { transition: color 0.3s; }
+        .hover-gold:hover { color: #FFD700 !important; -webkit-text-fill-color: #FFD700 !important; }
+        .btn-nav-cta {
+            background: #FFD700; color: #0a0a0a;
+            padding: 0.4rem 1.2rem;
+            font-family: 'Space Mono', monospace;
+            font-size: 0.65rem; letter-spacing: 0.1em; font-weight: 700;
+            text-transform: uppercase; border: 2px solid #FFD700;
+            transition: all 0.3s; cursor: crosshair;
+        }
+        .btn-nav-cta:hover { background: transparent; color: #FFD700; }
+        .hide-scrollbar::-webkit-scrollbar { display: none; }
+        .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+        @keyframes pulse-gold { 0%,100% { opacity:1; } 50% { opacity:0.7; } }
+        .pulse-gold { animation: pulse-gold 2.5s ease-in-out infinite; }
+        .nav-dropdown-menu a:hover { color: #FFD700 !important; }
+        .nav-dropdown-btn:focus { outline: none; }
+    </style>
+</head>
+<body class="antialiased">
+
+        <!-- Top Bar -->
+    <div style="background: #FF69A0; color: #0a0a0a;" class="text-[10px] uppercase tracking-widest py-2 px-4 text-center font-bold mono">
+        KHRYSOS™ · Solo con cita previa · <a href="schedule-mock.html?branch=kallisto" style="text-decoration:underline; color: #0a0a0a;">Reserva tu sesión</a>
+    </div>
+    <!-- Navigation -->
+    <nav class="sticky top-0 z-50 border-b" style="border-color: rgba(255,255,255,0.1); backdrop-filter: blur(12px); background: rgba(10,10,10,0.95);">
+        <div class="flex items-center justify-between px-4 py-4 lg:px-8">
+            <div class="flex items-center gap-8">
+                <a href="index.html" class="font-display text-xl font-bold tracking-tight">
+                    KHRYSOS<span class="text-gold">™</span>
+                </a>
+                <div class="hidden lg:flex items-center gap-6 mono text-xs uppercase tracking-widest">
+                    <a href="index.html" class="nav-link hover-gold" data-page="inicio">Inicio</a>
+                    <a href="khrysos-catalogo.html" class="nav-link hover-gold" data-page="catalogo">Catálogo</a>
+                    <a href="khrysos-estudio.html" class="nav-link hover-gold" data-page="estudio">Estudio</a>
+                    <a href="khrysos-brand_statement.html" class="nav-link hover-gold" data-page="khrysos">Khrysos</a>
+                    <div class="nav-dropdown" style="position:relative;">
+                        <button class="nav-link hover-gold nav-dropdown-btn" style="background:none;border:none;cursor:crosshair;padding:0;font-family:inherit;font-size:inherit;letter-spacing:inherit;text-transform:inherit;color:rgba(255,255,255,0.5);">
+                            Servicios <span style="font-size:0.55rem;opacity:0.6;">▼</span>
+                        </button>
+                        <div class="nav-dropdown-menu" style="display:none;position:absolute;top:calc(100% + 12px);left:0;min-width:240px;background:rgba(10,10,10,0.98);border:1px solid rgba(255,255,255,0.1);padding:0.5rem 0;z-index:200;">
+                            <a href="krystal.html" class="nav-dropdown-item hover-gold" style="display:block;padding:0.6rem 1.25rem;color:rgba(255,255,255,0.45);text-decoration:none;font-size:0.6rem;letter-spacing:0.12em;transition:color 0.2s;">
+                                <span style="color:rgba(168,216,255,0.75);margin-right:0.5rem;">✦</span>KRYSTAL · Cristales Dentales
+                            </a>
+                            <a href="kallisto.html" class="nav-dropdown-item hover-gold" style="display:block;padding:0.6rem 1.25rem;color:rgba(255,255,255,0.45);text-decoration:none;font-size:0.6rem;letter-spacing:0.12em;transition:color 0.2s;">
+                                <span style="color:rgba(255,105,160,0.7);margin-right:0.5rem;">✦</span>KALLISTO · Armonización Facial
+                            </a>
+                            <a href="leukos.html" class="nav-dropdown-item hover-gold" style="display:block;padding:0.6rem 1.25rem;color:rgba(255,255,255,0.45);text-decoration:none;font-size:0.6rem;letter-spacing:0.12em;transition:color 0.2s;">
+                                <span style="color:rgba(212,212,212,0.7);margin-right:0.5rem;">✦</span>LEUKOS · Odontología Estética
+                            </a>
+                            <a href="asklepius.html" class="nav-dropdown-item hover-gold" style="display:block;padding:0.6rem 1.25rem;color:rgba(255,255,255,0.45);text-decoration:none;font-size:0.6rem;letter-spacing:0.12em;transition:color 0.2s;">
+                                <span style="color:rgba(168,224,196,0.7);margin-right:0.5rem;">✦</span>ASKLEPIUS · Cuidado General
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="flex items-center gap-4 mono text-xs uppercase tracking-widest">
+                <a href="schedule-mock.html?branch=kallisto" class="hover-gold hidden lg:block" style="color: rgba(255,255,255,0.5); text-decoration:none; cursor:crosshair;">Mis Reservas</a>
+                <a href="schedule-mock.html?branch=kallisto" class="btn-nav-cta" style="text-decoration:none;">Agendar</a>
+            </div>
+        </div>
+        <div class="lg:hidden border-t px-4 py-3 flex gap-6 mono text-xs uppercase tracking-widest overflow-x-auto hide-scrollbar" style="border-color: rgba(255,255,255,0.06);">
+            <a href="index.html" class="nav-link hover-gold whitespace-nowrap" data-page="inicio">Inicio</a>
+            <a href="khrysos-catalogo.html" class="nav-link hover-gold whitespace-nowrap" data-page="catalogo">Catálogo</a>
+            <a href="khrysos-estudio.html" class="nav-link hover-gold whitespace-nowrap" data-page="estudio">Estudio</a>
+            <a href="khrysos-brand_statement.html" class="nav-link hover-gold whitespace-nowrap" data-page="khrysos">Khrysos</a>
+            <a href="krystal.html" class="nav-link whitespace-nowrap" style="color:rgba(168,216,255,0.78);" data-page="krystal">Krystal</a>
+            <a href="kallisto.html" class="nav-link whitespace-nowrap" style="color:rgba(255,105,160,0.72);" data-page="kallisto">Kallisto</a>
+            <a href="leukos.html" class="nav-link whitespace-nowrap" style="color:rgba(212,212,212,0.72);" data-page="leukos">Leukos</a>
+            <a href="asklepius.html" class="nav-link whitespace-nowrap" style="color:rgba(168,224,196,0.72);" data-page="asklepius">Asklepius</a>
+        </div>
+    </nav>
+
+    <!-- HERO -->
+    <section class="min-h-screen flex flex-col justify-center px-6 lg:px-12 pt-28 pb-16 relative overflow-hidden grid-bg">
+        <div class="glow-orb" style="width:700px;height:700px;background:#FF69A0;top:-200px;right:-200px;animation-delay:0s;"></div>
+        <div class="glow-orb" style="width:400px;height:400px;background:#FF2D78;bottom:-100px;left:-100px;animation-delay:4s;"></div>
+        <div class="hero-wm">K</div>
+
+        <div style="position:relative;z-index:2;max-width:1400px;margin:0 auto;width:100%;">
+            <div class="fu mono" style="font-size:0.55rem;letter-spacing:0.2em;color:rgba(255,105,160,0.55);margin-bottom:1.5rem;">
+                ARMONIZACIÓN FACIAL · SANTIAGO CHILE
+            </div>
+
+            <h1 class="hero-name sh-pink fu d1">KALLISTO</h1>
+
+            <div class="fu d1" style="height:2px;width:80px;background:linear-gradient(90deg,#FF69A0,transparent);margin:2rem 0;"></div>
+
+            <div class="fu d2 max-w-2xl">
+                <p style="font-size:clamp(1rem,2vw,1.35rem);font-weight:300;color:rgba(255,255,255,0.55);line-height:1.9;margin-bottom:2rem;">
+                    Toxina botulínica, ácido hialurónico y bioestimuladores<br>
+                    aplicados con criterio artístico y rigor médico.
+                </p>
+            </div>
+
+            <div class="fu d3 flex flex-wrap gap-2 mb-10">
+                <span class="treatment-tag"><span class="dot"></span>TOXINA BOTULÍNICA</span>
+                <span class="treatment-tag"><span class="dot"></span>ÁCIDO HIALURÓNICO</span>
+                <span class="treatment-tag"><span class="dot"></span>BIOESTIMULADORES</span>
+                <span class="treatment-tag"><span class="dot"></span>PERFILADO FACIAL</span>
+                <span class="treatment-tag"><span class="dot"></span>HIDRATACIÓN PROFUNDA</span>
+            </div>
+
+            <div class="fu d4 flex gap-4 flex-wrap">
+                <a href="schedule-mock.html?branch=kallisto" class="btn-rose">Agendar Consulta</a>
+                <a href="#servicios" class="btn-outline-rose">Ver Tratamientos</a>
+            </div>
+        </div>
+
+        <div class="absolute bottom-10 left-6 lg:left-12 mono animate-pulse" style="font-size:0.6rem;color:rgba(255,255,255,0.2);letter-spacing:0.15em;">SCROLL ↓</div>
+    </section>
+
+    <!-- MARQUEE -->
+    <div class="mq-wrap py-3 border-t border-b" style="border-color:rgba(255,105,160,0.08);background:rgba(255,105,160,0.01);">
+        <div class="mq-inner mono" style="font-size:0.55rem;letter-spacing:0.15em;color:rgba(255,105,160,0.18);">
+            &nbsp;&nbsp;&nbsp;KALLISTO™ &nbsp;·&nbsp; ARMONIZACIÓN FACIAL &nbsp;·&nbsp; TOXINA BOTULÍNICA &nbsp;·&nbsp; ÁCIDO HIALURÓNICO &nbsp;·&nbsp; BIOESTIMULADORES &nbsp;·&nbsp; KHRYSOS™ · SANTIAGO CHILE &nbsp;·&nbsp; CON CITA PREVIA &nbsp;·&nbsp;
+            &nbsp;&nbsp;&nbsp;KALLISTO™ &nbsp;·&nbsp; ARMONIZACIÓN FACIAL &nbsp;·&nbsp; TOXINA BOTULÍNICA &nbsp;·&nbsp; ÁCIDO HIALURÓNICO &nbsp;·&nbsp; BIOESTIMULADORES &nbsp;·&nbsp; KHRYSOS™ · SANTIAGO CHILE &nbsp;·&nbsp; CON CITA PREVIA &nbsp;·&nbsp;
+        </div>
+    </div>
+
+    <!-- STAT BAR -->
+    <div class="stat-bar fu">
+        <div class="stat-cell">
+            <div class="font-display" style="font-size:3.5rem;line-height:1;color:var(--rose);">100%</div>
+            <div class="mono mt-2" style="font-size:0.5rem;letter-spacing:0.18em;color:rgba(255,255,255,0.25);">MEDICINA CERTIFICADA</div>
+        </div>
+        <div class="stat-cell">
+            <div class="font-display" style="font-size:3.5rem;line-height:1;color:var(--rose);">30<span style="font-size:1.8rem;color:rgba(255,105,160,0.5);">MIN</span></div>
+            <div class="mono mt-2" style="font-size:0.5rem;letter-spacing:0.18em;color:rgba(255,255,255,0.25);">SESIÓN ESTÁNDAR</div>
+        </div>
+        <div class="stat-cell">
+            <div class="font-display" style="font-size:3.5rem;line-height:1;color:var(--rose);">0<span style="font-size:1.8rem;color:rgba(255,105,160,0.5);">DOLOR</span></div>
+            <div class="mono mt-2" style="font-size:0.5rem;letter-spacing:0.18em;color:rgba(255,255,255,0.25);">ANESTESIA TÓPICA INCLUIDA</div>
+        </div>
+    </div>
+
+    <!-- DIVIDER -->
+    <div class="brand-divider my-0"></div>
+
+    <!-- SERVICIOS -->
+    <section id="servicios" class="px-6 lg:px-12 py-24 relative overflow-hidden">
+        <div class="glow-orb" style="width:500px;height:500px;background:#FF69A0;top:50%;left:-150px;animation-delay:2s;"></div>
+
+        <div style="max-width:1400px;margin:0 auto;">
+            <div class="fu">
+                <span class="mono block mb-4" style="font-size:0.55rem;letter-spacing:0.2em;color:rgba(255,105,160,0.5);">01 — TRATAMIENTOS</span>
+                <h2 class="font-display mb-3" style="font-size:clamp(3rem,7vw,7rem);line-height:0.9;">
+                    <span class="sh-pink">SERVICIOS</span><br>
+                    <span style="color:rgba(255,255,255,0.15);">KALLISTO</span>
+                </h2>
+                <div style="height:2px;width:56px;background:linear-gradient(90deg,#FF69A0,transparent);margin:2rem 0;"></div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-px fu d1" style="background:rgba(255,105,160,0.08);">
+                <!-- Card 1 -->
+                <div class="svc-card" style="background:var(--void);">
+                    <h3 class="font-display mb-3" style="font-size:2.2rem;color:var(--rose);">TOXINA<br>BOTULÍNICA</h3>
+                    <p style="font-size:0.9rem;color:rgba(255,255,255,0.45);line-height:1.8;font-weight:300;margin-bottom:1.5rem;">
+                        Relajación muscular precisa. Frente, entrecejo, patas de gallo y cuello. Resultado natural que preserva tu expresión.
+                    </p>
+                    <div class="flex flex-wrap gap-1 mb-4">
+                        <span class="chip">FRENTE</span>
+                        <span class="chip">ENTRECEJO</span>
+                        <span class="chip">PATAS DE GALLO</span>
+                        <span class="chip">NECK LIFT</span>
+                    </div>
+                    <div class="mono" style="font-size:0.5rem;letter-spacing:0.15em;color:rgba(255,105,160,0.35);">EFECTO 3–14 DÍAS · DURACIÓN 4–6 MESES</div>
+                </div>
+
+                <!-- Card 2 -->
+                <div class="svc-card" style="background:var(--void);">
+                    <h3 class="font-display mb-3" style="font-size:2.2rem;color:var(--rose);">ÁCIDO<br>HIALURÓNICO</h3>
+                    <p style="font-size:0.9rem;color:rgba(255,255,255,0.45);line-height:1.8;font-weight:300;margin-bottom:1.5rem;">
+                        Volumen, proyección y contorno. Labios, pómulos, mentón y ojeras. Productos premium de última generación.
+                    </p>
+                    <div class="flex flex-wrap gap-1 mb-4">
+                        <span class="chip">LABIOS</span>
+                        <span class="chip">PÓMULOS</span>
+                        <span class="chip">MENTÓN</span>
+                        <span class="chip">OJERAS</span>
+                    </div>
+                    <div class="mono" style="font-size:0.5rem;letter-spacing:0.15em;color:rgba(255,105,160,0.35);">RESULTADO INMEDIATO · DURACIÓN 9–18 MESES</div>
+                </div>
+
+                <!-- Card 3 -->
+                <div class="svc-card" style="background:var(--void);">
+                    <h3 class="font-display mb-3" style="font-size:2.2rem;color:var(--rose);">BIOESTI-<br>MULADORES</h3>
+                    <p style="font-size:0.9rem;color:rgba(255,255,255,0.45);line-height:1.8;font-weight:300;margin-bottom:1.5rem;">
+                        Regeneración celular activa. Sculptra, Radiesse y PRP. La piel produce lo que necesita desde adentro.
+                    </p>
+                    <div class="flex flex-wrap gap-1 mb-4">
+                        <span class="chip">SCULPTRA</span>
+                        <span class="chip">RADIESSE</span>
+                        <span class="chip">PRP</span>
+                    </div>
+                    <div class="mono" style="font-size:0.5rem;letter-spacing:0.15em;color:rgba(255,105,160,0.35);">PROGRESIVO 4–6 SEMANAS · DURACIÓN 2 AÑOS+</div>
+                </div>
+
+                <!-- Card 4 -->
+                <div class="svc-card" style="background:var(--void);">
+                    <h3 class="font-display mb-3" style="font-size:2.2rem;color:var(--rose);">PERFILADO<br>FACIAL</h3>
+                    <p style="font-size:0.9rem;color:rgba(255,255,255,0.45);line-height:1.8;font-weight:300;margin-bottom:1.5rem;">
+                        Diseño integral del tercio inferior y medio. Mandíbula, ángulos y armonía proporcional. Cirugía sin cirugía.
+                    </p>
+                    <div class="flex flex-wrap gap-1 mb-4">
+                        <span class="chip">MANDÍBULA</span>
+                        <span class="chip">ÁNGULO JAW</span>
+                        <span class="chip">NARIZ</span>
+                    </div>
+                    <div class="mono" style="font-size:0.5rem;letter-spacing:0.15em;color:rgba(255,105,160,0.35);">DISEÑO PERSONALIZADO · SESIÓN ÚNICA O PLAN</div>
+                </div>
+
+                <!-- Card 5 -->
+                <div class="svc-card" style="background:var(--void);">
+                    <h3 class="font-display mb-3" style="font-size:2.2rem;color:var(--rose);">HIDRATACIÓN<br>PROFUNDA</h3>
+                    <p style="font-size:0.9rem;color:rgba(255,255,255,0.45);line-height:1.8;font-weight:300;margin-bottom:1.5rem;">
+                        Skinboosters y microinyecciones de HA no reticulado. Luminosidad, textura y turgor. La piel que siempre quisiste.
+                    </p>
+                    <div class="flex flex-wrap gap-1 mb-4">
+                        <span class="chip">SKINBOOSTER</span>
+                        <span class="chip">REDENSIFICACIÓN</span>
+                        <span class="chip">HYDRA</span>
+                    </div>
+                    <div class="mono" style="font-size:0.5rem;letter-spacing:0.15em;color:rgba(255,105,160,0.35);">RESULTADO 1–2 SEMANAS · PROTOCOLO 3 SESIONES</div>
+                </div>
+
+                <!-- Card 6 — CTA -->
+                <div class="svc-card flex flex-col justify-between" style="background:rgba(255,45,120,0.06);border-color:rgba(255,105,160,0.2);">
+                    <div>
+                        <div class="font-display mb-4" style="font-size:3rem;line-height:0.9;color:rgba(255,105,160,0.2);">¿NO SABES<br>POR DÓNDE<br>EMPEZAR?</div>
+                        <p style="font-size:0.9rem;color:rgba(255,255,255,0.35);line-height:1.8;font-weight:300;margin-bottom:1.5rem;">
+                            Consulta de diseño facial gratuita. Evaluamos tu morfología y diseñamos un plan a medida.
+                        </p>
+                    </div>
+                    <a href="schedule-mock.html?branch=kallisto" class="btn-rose text-center">AGENDAR CONSULTA</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PROCESO -->
+    <section class="px-6 lg:px-12 py-24 relative" style="border-top:1px solid rgba(255,105,160,0.08);">
+        <div style="max-width:1400px;margin:0 auto;">
+            <div class="fu">
+                <span class="mono block mb-4" style="font-size:0.55rem;letter-spacing:0.2em;color:rgba(255,105,160,0.5);">02 — METODOLOGÍA</span>
+                <h2 class="font-display mb-16" style="font-size:clamp(2.5rem,6vw,6rem);line-height:0.9;color:rgba(255,255,255,0.9);">EL PROCESO<br><span style="color:rgba(255,105,160,0.3);">KALLISTO</span></h2>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-0 fu d1" style="border:1px solid rgba(255,105,160,0.1);">
+                <div style="padding:3rem 2rem;border-right:1px solid rgba(255,105,160,0.1);">
+                    <div class="step-num">01</div>
+                    <div class="font-display mt-3 mb-2" style="font-size:1.4rem;color:var(--rose);">ANÁLISIS</div>
+                    <p style="font-size:0.85rem;color:rgba(255,255,255,0.4);line-height:1.8;font-weight:300;">Diagnóstico facial completo. Proporción áurea, simetría y mapa de tratamiento.</p>
+                </div>
+                <div style="padding:3rem 2rem;border-right:1px solid rgba(255,105,160,0.1);">
+                    <div class="step-num">02</div>
+                    <div class="font-display mt-3 mb-2" style="font-size:1.4rem;color:var(--rose);">DISEÑO</div>
+                    <p style="font-size:0.85rem;color:rgba(255,255,255,0.4);line-height:1.8;font-weight:300;">Plan personalizado con objetivos claros. Marcación digital previa al procedimiento.</p>
+                </div>
+                <div style="padding:3rem 2rem;border-right:1px solid rgba(255,105,160,0.1);">
+                    <div class="step-num">03</div>
+                    <div class="font-display mt-3 mb-2" style="font-size:1.4rem;color:var(--rose);">APLICACIÓN</div>
+                    <p style="font-size:0.85rem;color:rgba(255,255,255,0.4);line-height:1.8;font-weight:300;">Procedimiento con anestesia tópica. Técnica de microdepósito para resultado natural.</p>
+                </div>
+                <div style="padding:3rem 2rem;">
+                    <div class="step-num">04</div>
+                    <div class="font-display mt-3 mb-2" style="font-size:1.4rem;color:var(--rose);">SEGUIMIENTO</div>
+                    <p style="font-size:0.85rem;color:rgba(255,255,255,0.4);line-height:1.8;font-weight:300;">Control a las 2 semanas incluido. Retoque de precisión sin costo adicional.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="px-6 lg:px-12 py-24 relative" style="border-top:1px solid rgba(255,105,160,0.08);">
+        <div style="max-width:800px;margin:0 auto;">
+            <div class="fu">
+                <span class="mono block mb-4" style="font-size:0.55rem;letter-spacing:0.2em;color:rgba(255,105,160,0.5);">03 — PREGUNTAS</span>
+                <h2 class="font-display mb-12" style="font-size:clamp(2.5rem,6vw,5rem);line-height:0.9;">FAQ<br><span style="color:rgba(255,105,160,0.3);">KALLISTO</span></h2>
+            </div>
+
+            <div class="faq-item fu">
+                <button class="faq-q"><span>¿Duele la aplicación de bótox o ácido hialurónico?</span><span class="faq-icon">+</span></button>
+                <div class="faq-a">Aplicamos crema anestésica tópica 20 minutos antes del procedimiento. Las molestias son mínimas — la mayoría de los pacientes describen una leve presión. Las agujas ultra-finas que utilizamos minimizan el disconfort al máximo.</div>
+            </div>
+            <div class="faq-item fu d1">
+                <button class="faq-q"><span>¿Cuándo veré resultados?</span><span class="faq-icon">+</span></button>
+                <div class="faq-a">El ácido hialurónico tiene resultados inmediatos. La toxina botulínica tarda entre 3 y 14 días en manifestarse completamente. Los bioestimuladores son progresivos: la piel va mejorando semana a semana durante 4–6 semanas.</div>
+            </div>
+            <div class="faq-item fu d2">
+                <button class="faq-q"><span>¿Se va a notar que me hice algo?</span><span class="faq-icon">+</span></button>
+                <div class="faq-a">Nuestro criterio es belleza natural y armónica. El objetivo no es que parezca diferente — es que parezcas la mejor versión de ti mismo. Nunca sobreinyectamos ni buscamos resultados extremos.</div>
+            </div>
+            <div class="faq-item fu d3">
+                <button class="faq-q"><span>¿Cada cuánto tiempo hay que repetir el tratamiento?</span><span class="faq-icon">+</span></button>
+                <div class="faq-a">Depende del tratamiento: toxina botulínica cada 4–6 meses, ácido hialurónico cada 9–18 meses según zona y producto. Los bioestimuladores pueden durar 2 años o más con un protocolo de mantención anual.</div>
+            </div>
+            <div class="faq-item fu d4">
+                <button class="faq-q"><span>¿Quién realiza los procedimientos?</span><span class="faq-icon">+</span></button>
+                <div class="faq-a">Todos los procedimientos de KALLISTO son realizados exclusivamente por médicos certificados. No trabajamos con enfermeras ni técnicos aplicando toxinas o rellenos — es una decisión de seguridad no negociable.</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA FINAL -->
+    <section class="px-6 lg:px-12 py-32 relative overflow-hidden text-center" style="border-top:1px solid rgba(255,105,160,0.08);">
+        <div class="glow-orb" style="width:600px;height:600px;background:#FF69A0;top:50%;left:50%;transform:translate(-50%,-50%);"></div>
+        <div style="position:relative;z-index:2;max-width:700px;margin:0 auto;">
+            <div class="font-display" style="font-size:0.7rem;letter-spacing:0.25em;color:rgba(255,105,160,0.5);margin-bottom:1.5rem;">KALLISTO™</div>
+            <h2 class="font-display fu" style="font-size:clamp(3.5rem,9vw,9rem);line-height:0.85;margin-bottom:2rem;">
+                <span class="sh-pink">TU MEJOR<br>VERSIÓN</span>
+            </h2>
+            <p class="fu d1 font-light" style="font-size:1.1rem;color:rgba(255,255,255,0.4);line-height:1.8;margin-bottom:3rem;">
+                Consulta de diseño facial sin costo.<br>By Appointment Only · Santiago, Chile.
+            </p>
+            <div class="fu d2">
+                <a href="schedule-mock.html?branch=kallisto" class="btn-rose">AGENDAR AHORA</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="px-6 lg:px-12 py-12">
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-8 mb-12">
+            <div>
+                <h4 class="font-display text-lg mb-4">KALLISTO<span style="color:var(--rose);">™</span></h4>
+                <ul class="space-y-2 mono text-xs uppercase tracking-wide" style="color:rgba(255,255,255,0.35);">
+                    <li><a href="schedule-mock.html?branch=kallisto" class="hover-rose">Agenda & Reservas</a></li>
+                    <li><a href="#servicios" class="hover-rose">Tratamientos</a></li>
+                    <li><a href="#" class="hover-rose">Política de Privacidad</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="mono font-bold mb-4 text-xs uppercase tracking-widest" style="color:var(--rose);">Casa KHRYSOS™</h4>
+                <ul class="space-y-2 mono text-xs uppercase tracking-wide" style="color:rgba(255,255,255,0.35);">
+                    <li><a href="index.html" class="hover-rose">KHRYSOS — Grillz</a></li>
+                    <li><a href="krystal.html" class="hover-rose">KRYSTAL — Cristales</a></li>
+                    <li><a href="leukos.html" class="hover-rose">LEUKOS — Estética Dental</a></li>
+                    <li><a href="asklepius.html" class="hover-rose">ASKLEPIUS — Cuidado General</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="mono font-bold mb-4 text-xs uppercase tracking-widest" style="color:var(--rose);">Social</h4>
+                <ul class="space-y-2 mono text-xs uppercase tracking-wide" style="color:rgba(255,255,255,0.35);">
+                    <li><a href="#" class="hover-rose">Instagram</a></li>
+                    <li><a href="#" class="hover-rose">TikTok</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="mono font-bold mb-4 text-xs uppercase tracking-widest" style="color:var(--rose);">Estudio</h4>
+                <address class="not-italic mono text-xs uppercase tracking-wide leading-relaxed" style="color:rgba(255,255,255,0.35);">
+                    By Appointment Only<br>Santiago, Chile
+                </address>
+            </div>
+        </div>
+        <div class="flex justify-between items-end flex-wrap gap-4" style="border-top:1px solid rgba(255,255,255,0.05);padding-top:2rem;">
+            <p class="mono text-xs uppercase tracking-widest" style="color:rgba(255,255,255,0.18);">© 2026 KHRYSOS™. All rights reserved.</p>
+            <div class="font-display" style="font-size:4rem;line-height:1;-webkit-text-stroke:1px rgba(255,105,160,0.1);color:transparent;">·</div>
+        </div>
+    </footer>
+
+    <script>
+        // Fade up observer
+        const obs = new IntersectionObserver(entries => {
+            entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('vis'); });
+        }, { threshold: 0.04, rootMargin: '0px 0px -40px 0px' });
+        document.querySelectorAll('.fu').forEach(el => obs.observe(el));
+
+        // Smooth scroll
+        document.querySelectorAll('a[href^="#"]').forEach(a => {
+            a.addEventListener('click', e => {
+                const t = document.querySelector(a.getAttribute('href'));
+                if (t) { e.preventDefault(); t.scrollIntoView({ behavior: 'smooth' }); }
+            });
+        });
+
+        // FAQ
+        document.querySelectorAll('.faq-item').forEach(item => {
+            item.querySelector('.faq-q').addEventListener('click', () => {
+                const wasOpen = item.classList.contains('open');
+                document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
+                if (!wasOpen) item.classList.add('open');
+            });
+        });
+    </script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var btn = document.querySelector('.nav-dropdown-btn');
+            var menu = document.querySelector('.nav-dropdown-menu');
+            if (btn && menu) {
+                btn.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    menu.style.display = menu.style.display === 'block' ? 'none' : 'block';
+                });
+                document.addEventListener('click', function() {
+                    menu.style.display = 'none';
+                });
+            }
+        });
+    </script>
+
+<script>
+/* ACTIVE_NAV_kallisto */
+document.querySelectorAll('.nav-link[data-page]').forEach(a => {
+    if (a.dataset.page === 'kallisto') {
+        a.style.color = '#FF69A0';
+        a.style.borderBottom = '1px solid #FF69A0';
+        a.style.paddingBottom = '2px';
+    }
+});
+</script>
+</body>
+</html>
+
+
+
+
+
+
+

@@ -1,9 +1,9 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>KHRYSOS™ | Cultura Instalada</title>
+    <title>KHRYSOS™ | Joyería Biomecánica</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -105,7 +105,7 @@
 
         /* Industrial border */
         .industrial-border {
-            border: 1px solid rgba(255,255,255,0.12);
+            border: 1px solid rgba(255,255,255,0.15);
         }
 
         /* Gold border accent */
@@ -172,7 +172,7 @@
             content: '';
             position: absolute;
             inset: 0;
-            background: linear-gradient(45deg, rgba(255,215,0,0.06), transparent);
+            background: linear-gradient(45deg, rgba(255,215,0,0.08), transparent);
             pointer-events: none;
         }
 
@@ -206,7 +206,7 @@
 
         /* Hero text stroke */
         .text-stroke {
-            -webkit-text-stroke: 1px rgba(255,215,0,0.55);
+            -webkit-text-stroke: 1px rgba(255,215,0,0.4);
             color: transparent;
         }
 
@@ -246,7 +246,7 @@
             font-family: 'Bebas Neue', sans-serif;
             font-size: 5rem;
             line-height: 1;
-            color: rgba(255,215,0,0.10);
+            color: rgba(255,215,0,0.15);
         }
 
         /* ── Unified nav ── */
@@ -271,39 +271,16 @@
         .pulse-gold { animation: pulse-gold 2.5s ease-in-out infinite; }
         .nav-dropdown-menu a:hover { color: #FFD700 !important; }
         .nav-dropdown-btn:focus { outline: none; }
-    
-        @keyframes shimmer-gold {
-            0%   { background-position: -200% center; }
-            100% { background-position:  200% center; }
-        }
-
-        .sh-gold {
-            background: linear-gradient(90deg, #b8860b, #FFD700, #fff1a8, #FFA500, #FFD700, #b8860b);
-            background-size: 200% auto;
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            animation: shimmer-gold 5s linear infinite;
-        }
-
-        .sh-ice {
-            background: linear-gradient(90deg, #7fc8ff, #cfeeff, #ffffff, #dff4ff, #a8d8ff, #7fc8ff);
-            background-size: 200% auto;
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            animation: shimmer-gold 5s linear infinite;
-        }
-</style>
+    </style>
 </head>
 <body>
 
-        <!-- Top Bar -->
+    <!-- Top Bar -->
     <div style="background: #FFD700; color: #0a0a0a;" class="text-[10px] uppercase tracking-widest py-2 px-4 text-center font-bold mono pulse-gold">
-        KHRYSOS™ · Solo con cita previa · <a href="schedule-mock.html?branch=khrysos" style="text-decoration:underline; color: #0a0a0a;">Reserva tu sesión</a>
+        KHRYSOS™ — Solo con cita previa → <a href="khrysos-estudio.html" style="text-decoration:underline; color: #0a0a0a;">Reserva tu sesión</a>
     </div>
     <!-- Navigation -->
-    <nav class="sticky top-0 z-50 border-b" style="border-color: rgba(255,255,255,0.08); backdrop-filter: blur(12px); background: rgba(10,10,10,0.95);">
+    <nav class="sticky top-0 z-50 border-b" style="border-color: rgba(255,255,255,0.1); backdrop-filter: blur(12px); background: rgba(10,10,10,0.95);">
         <div class="flex items-center justify-between px-4 py-4 lg:px-8">
             <div class="flex items-center gap-8">
                 <a href="index.html" class="font-display text-xl font-bold tracking-tight">
@@ -314,41 +291,39 @@
                     <a href="khrysos-catalogo.html" class="nav-link hover-gold" data-page="catalogo">Catálogo</a>
                     <a href="khrysos-estudio.html" class="nav-link hover-gold" data-page="estudio">Estudio</a>
                     <a href="khrysos-brand_statement.html" class="nav-link hover-gold" data-page="khrysos">Khrysos</a>
+                    <!-- Servicios dropdown -->
                     <div class="nav-dropdown" style="position:relative;">
-                        <button class="nav-link hover-gold nav-dropdown-btn" style="background:none;border:none;cursor:crosshair;padding:0;font-family:inherit;font-size:inherit;letter-spacing:inherit;text-transform:inherit;color:rgba(255,255,255,0.42);">
-                            Servicios <span style="font-size:0.55rem;opacity:0.6;">▼</span>
+                        <button class="nav-link hover-gold nav-dropdown-btn" style="background:none;border:none;cursor:crosshair;padding:0;font-family:inherit;font-size:inherit;letter-spacing:inherit;text-transform:inherit;color:rgba(255,255,255,0.5);">
+                            Servicios <span style="font-size:0.55rem;opacity:0.6;">▾</span>
                         </button>
-                        <div class="nav-dropdown-menu" style="display:none;position:absolute;top:calc(100% + 12px);left:0;min-width:240px;background:rgba(10,10,10,0.98);border:1px solid rgba(255,255,255,0.1);padding:0.5rem 0;z-index:200;">
-                            <a href="krystal.html" class="nav-dropdown-item hover-gold" style="display:block;padding:0.6rem 1.25rem;color:rgba(255,255,255,0.42);text-decoration:none;font-size:0.6rem;letter-spacing:0.12em;transition:color 0.2s;">
-                                <span style="color:rgba(168,216,255,0.75);margin-right:0.5rem;">✦</span>KRYSTAL · Cristales Dentales
+                        <div class="nav-dropdown-menu" style="display:none;position:absolute;top:calc(100% + 12px);left:0;min-width:200px;background:rgba(10,10,10,0.98);border:1px solid rgba(255,255,255,0.1);padding:0.5rem 0;z-index:200;">
+                            <a href="kallisto.html" class="nav-dropdown-item hover-gold" style="display:block;padding:0.6rem 1.25rem;color:rgba(255,255,255,0.45);text-decoration:none;font-size:0.6rem;letter-spacing:0.12em;transition:color 0.2s;">
+                                <span style="color:rgba(255,105,160,0.6);margin-right:0.5rem;">●</span>KALLISTO — Armonización Facial
                             </a>
-                            <a href="kallisto.html" class="nav-dropdown-item hover-gold" style="display:block;padding:0.6rem 1.25rem;color:rgba(255,255,255,0.42);text-decoration:none;font-size:0.6rem;letter-spacing:0.12em;transition:color 0.2s;">
-                                <span style="color:rgba(255,105,160,0.7);margin-right:0.5rem;">✦</span>KALLISTO · Armonización Facial
+                            <a href="leukos.html" class="nav-dropdown-item hover-gold" style="display:block;padding:0.6rem 1.25rem;color:rgba(255,255,255,0.45);text-decoration:none;font-size:0.6rem;letter-spacing:0.12em;transition:color 0.2s;">
+                                <span style="color:rgba(212,212,212,0.6);margin-right:0.5rem;">●</span>LEUKOS — Odontología Estética
                             </a>
-                            <a href="leukos.html" class="nav-dropdown-item hover-gold" style="display:block;padding:0.6rem 1.25rem;color:rgba(255,255,255,0.42);text-decoration:none;font-size:0.6rem;letter-spacing:0.12em;transition:color 0.2s;">
-                                <span style="color:rgba(212,212,212,0.7);margin-right:0.5rem;">✦</span>LEUKOS · Odontología Estética
-                            </a>
-                            <a href="asklepius.html" class="nav-dropdown-item hover-gold" style="display:block;padding:0.6rem 1.25rem;color:rgba(255,255,255,0.42);text-decoration:none;font-size:0.6rem;letter-spacing:0.12em;transition:color 0.2s;">
-                                <span style="color:rgba(168,224,196,0.7);margin-right:0.5rem;">✦</span>ASKLEPIUS · Cuidado General
+                            <a href="asklepius.html" class="nav-dropdown-item hover-gold" style="display:block;padding:0.6rem 1.25rem;color:rgba(255,255,255,0.45);text-decoration:none;font-size:0.6rem;letter-spacing:0.12em;transition:color 0.2s;">
+                                <span style="color:rgba(168,224,196,0.6);margin-right:0.5rem;">●</span>ASKLEPIUS — Cuidado General
                             </a>
                         </div>
                     </div>
                 </div>
             </div>
             <div class="flex items-center gap-4 mono text-xs uppercase tracking-widest">
-                <a href="schedule-mock.html#reservas" class="hover-gold hidden lg:block" style="color: rgba(255,255,255,0.42); text-decoration:none; cursor:crosshair;">Mis Reservas</a>
-                <a href="schedule-mock.html?branch=khrysos" class="btn-nav-cta" style="text-decoration:none;">Agendar</a>
+                <a href="#" class="hover-gold hidden lg:block" style="color: rgba(255,255,255,0.5); text-decoration:none; cursor:crosshair;">Mis Reservas</a>
+                <a href="khrysos-estudio.html" class="btn-nav-cta" style="text-decoration:none;">Agendar</a>
             </div>
         </div>
+        <!-- Mobile nav -->
         <div class="lg:hidden border-t px-4 py-3 flex gap-6 mono text-xs uppercase tracking-widest overflow-x-auto hide-scrollbar" style="border-color: rgba(255,255,255,0.06);">
             <a href="index.html" class="nav-link hover-gold whitespace-nowrap" data-page="inicio">Inicio</a>
             <a href="khrysos-catalogo.html" class="nav-link hover-gold whitespace-nowrap" data-page="catalogo">Catálogo</a>
             <a href="khrysos-estudio.html" class="nav-link hover-gold whitespace-nowrap" data-page="estudio">Estudio</a>
             <a href="khrysos-brand_statement.html" class="nav-link hover-gold whitespace-nowrap" data-page="khrysos">Khrysos</a>
-            <a href="krystal.html" class="nav-link whitespace-nowrap" style="color:rgba(168,216,255,0.78);" data-page="krystal">Krystal</a>
-            <a href="kallisto.html" class="nav-link whitespace-nowrap" style="color:rgba(255,105,160,0.72);" data-page="kallisto">Kallisto</a>
-            <a href="leukos.html" class="nav-link whitespace-nowrap" style="color:rgba(212,212,212,0.72);" data-page="leukos">Leukos</a>
-            <a href="asklepius.html" class="nav-link whitespace-nowrap" style="color:rgba(168,224,196,0.72);" data-page="asklepius">Asklepius</a>
+            <a href="kallisto.html" class="nav-link whitespace-nowrap" style="color:rgba(255,105,160,0.65);" data-page="kallisto">Kallisto</a>
+            <a href="leukos.html" class="nav-link whitespace-nowrap" style="color:rgba(212,212,212,0.65);" data-page="leukos">Leukos</a>
+            <a href="asklepius.html" class="nav-link whitespace-nowrap" style="color:rgba(168,224,196,0.65);" data-page="asklepius">Asklepius</a>
         </div>
     </nav>
 
@@ -357,46 +332,48 @@
     <section class="relative grid-visual" style="height: 85vh; background: var(--void-black); overflow: hidden;">
         <div class="absolute inset-0">
             <img src="assets/hero.jpg"
-                 alt="KHRYSOS™ Pieza"
+                 alt="KHRYSOS™ Hardware"
                  class="w-full h-full object-cover"
                  style="opacity: 0.35; filter: grayscale(30%) contrast(120%);">
         </div>
         <!-- Gold diagonal overlay -->
-        <div class="absolute inset-0" style="background: linear-gradient(135deg, rgba(255,215,0,0.06) 0%, transparent 60%), linear-gradient(to top, rgba(10,10,10,0.85) 0%, transparent 60%);"></div>
+        <div class="absolute inset-0" style="background: linear-gradient(135deg, rgba(255,215,0,0.05) 0%, transparent 60%), linear-gradient(to top, rgba(10,10,10,0.85) 0%, transparent 60%);"></div>
 
         <!-- Big background text -->
         <div class="absolute top-0 right-0 pointer-events-none" style="opacity: 0.04; overflow: hidden; height: 100%;">
             <div class="font-display font-bold leading-none" style="font-size: 22vw; color: var(--hype-gold); margin-top: -2vw;">K™</div>
         </div>
 
-        <div class="absolute left-0 bottom-20 lg:bottom-24 p-8 lg:p-16" style="max-width: 52rem;">
-            <span class="section-num" style="margin-bottom: 1rem;">CULTURA INSTALADA — EST. 2026</span>
-            <h1 class="font-display mb-5" style="font-size: clamp(4.8rem, 10vw, 7.5rem); line-height: .84; letter-spacing: -0.02em;">
-                <span class="sh-gold">KHRYSOS</span><span style="color: var(--pure-white); -webkit-text-fill-color: var(--pure-white);">™</span><br>
-                <span class="text-stroke" style="display:block; margin-top:-0.1em; font-size: clamp(1.9rem, 4.4vw, 4rem); line-height: .92; letter-spacing: -0.01em;">DENTAL STUDIO</span>
+        <div class="absolute bottom-0 left-0 p-8 lg:p-16 max-w-3xl">
+            <span class="section-num">JOYERÍA BIOMECÁNICA — EST. 2026</span>
+            <h1 class="font-display leading-none mb-4" style="font-size: clamp(3.5rem, 9vw, 8rem); line-height: 1;">
+                KHRYSOS<span class="text-gold">™</span><br>
+                <span class="text-stroke" style="font-size: clamp(2rem, 5vw, 5rem);">DENTAL STUDIO</span>
             </h1>
-            <p class="mb-10 font-light" style="color: rgba(255,255,255,0.72); font-size: 1.05rem; line-height: 1.68; max-width: 31rem;">
-                Darle forma clínica a algo que la cultura ya llevaba puesto. Oro, piedra, porcelana — instalados con precisión médica en un espacio que se construyó desde abajo.
+            <p class="mb-8 font-light" style="color: rgba(255,255,255,0.7); font-size: 1.1rem; max-width: 28rem;">
+                Una clínica. Pero "clínica" va entre comillas — porque lo que hacemos acá es más cercano a la arquitectura. El cuerpo como sitio. La boca como declaración.
             </p>
-            <a href="schedule.html" class="btn-khrysos " style="display:inline-block; text-decoration:none;">Agenda tu Instalación</a>
+            <button class="btn-khrysos ">
+                Agenda tu Instalación
+            </button>
         </div>
 
         <!-- Bottom ticker -->
-        <div class="absolute bottom-0 left-0 right-0 py-2 border-t" style="border-color: rgba(255,215,0,0.10); background: rgba(10,10,10,0.7);">
+        <div class="absolute bottom-0 left-0 right-0 py-2 border-t" style="border-color: rgba(255,215,0,0.3); background: rgba(10,10,10,0.7);">
             <div class="marquee-container">
                 <div class="marquee-content mono text-xs" style="color: var(--hype-gold); letter-spacing: 0.15em;">
-                    TITANIO • ORO • VVS • BY APPOINTMENT ONLY • KHRYSOS™ DENTAL STUDIO 2026 • CON CITA PREVIA • TITANIO • ORO • VVS • BY APPOINTMENT ONLY • KHRYSOS™ DENTAL STUDIO 2026 • CON CITA PREVIA •&nbsp;
+                    TITANIO • ORO • VVS • BY APPOINTMENT ONLY • KHRYSOS™ DENTAL STUDIO 2026 • INSTALACIÓN CALIBRADA • TITANIO • ORO • VVS • BY APPOINTMENT ONLY • KHRYSOS™ DENTAL STUDIO 2026 • INSTALACIÓN CALIBRADA •&nbsp;
                 </div>
             </div>
         </div>
     </section>
 
     <!-- SS26 / Colección Principal -->
-    <section class="py-14 lg:py-16 px-4 lg:px-8 fade-up">
-        <div class="flex items-end justify-between mb-10">
+    <section class="py-16 px-4 lg:px-8 fade-up">
+        <div class="flex items-end justify-between mb-8">
             <div>
                 <span class="section-num">02 — COLECCIÓN</span>
-                <h2 class="font-display leading-none" style="font-size: clamp(2.2rem, 4.8vw, 4rem); line-height: .92; letter-spacing: -0.02em;">Colección<br>2026</h2>
+                <h2 class="font-display leading-none" style="font-size: clamp(2.5rem, 6vw, 5rem);">Hardware<br>2026</h2>
             </div>
             <button class="hidden lg:block btn-khrysos">
                 Ver Instalaciones
@@ -405,7 +382,7 @@
         <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
             <div class="relative overflow-hidden group cursor-crosshair gold-tint" style="aspect-ratio: 3/4;">
                 <img src="assets/look1.jpg"
-                     alt="KHRYSOS Pieza Look 1"
+                     alt="KHRYSOS Hardware Look 1"
                      class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                      style="filter: grayscale(20%) contrast(115%);">
                 <div class="absolute inset-0 group-hover:bg-black/20 transition-colors duration-300" style="background: rgba(0,0,0,0)"></div>
@@ -415,7 +392,7 @@
             </div>
             <div class="relative overflow-hidden group cursor-crosshair gold-tint" style="aspect-ratio: 3/4;">
                 <img src="assets/look2.jpg"
-                     alt="KHRYSOS Pieza Look 2"
+                     alt="KHRYSOS Hardware Look 2"
                      class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                      style="filter: grayscale(20%) contrast(115%);">
                 <div class="absolute inset-0 group-hover:bg-black/20 transition-colors duration-300"></div>
@@ -425,7 +402,7 @@
             </div>
             <div class="relative overflow-hidden group cursor-crosshair gold-tint" style="aspect-ratio: 3/4;">
                 <img src="assets/look3.jpg"
-                     alt="KHRYSOS Pieza Look 3"
+                     alt="KHRYSOS Hardware Look 3"
                      class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                      style="filter: grayscale(20%) contrast(115%);">
                 <div class="absolute inset-0 group-hover:bg-black/20 transition-colors duration-300"></div>
@@ -440,15 +417,15 @@
     </section>
 
     <!-- Nuevas Instalaciones (New Arrivals equivalent) -->
-    <section class="py-14 lg:py-16 px-4 lg:px-8 border-t fade-up" style="border-color: rgba(255,255,255,0.08);">
-        <div class="flex items-center justify-between mb-10">
+    <section class="py-16 px-4 lg:px-8 border-t fade-up" style="border-color: rgba(255,255,255,0.1);">
+        <div class="flex items-center justify-between mb-8">
             <div>
                 <span class="section-num">03 — PIEZAS</span>
-                <h2 class="font-display leading-none" style="font-size: clamp(2rem, 4vw, 3rem); line-height: .96; letter-spacing: -0.02em;">Nuevas Instalaciones</h2>
+                <h2 class="font-display text-2xl">Nuevas Instalaciones</h2>
             </div>
             <a href="khrysos-catalogo.html" class="hover-gold text-xs uppercase tracking-widest" style="color: var(--hype-gold);">→</a>
         </div>
-        <div class="flex gap-5 overflow-x-auto hide-scrollbar pb-4">
+        <div class="flex gap-4 overflow-x-auto hide-scrollbar pb-4">
 
             <!-- Card 1 -->
             <div class="flex-none w-60 product-card group cursor-crosshair">
@@ -458,13 +435,13 @@
                          class="w-full h-full object-cover product-image"
                          style="filter: grayscale(30%) contrast(120%);">
                     <div class="absolute bottom-0 left-0 right-0 p-2 quick-add" style="background: rgba(10,10,10,0.9);">
-                        <a href="schedule.html" class="w-full btn-khrysos" style="padding: 0.5rem; display:block; text-align:center; text-decoration:none;">Agendar</a>
+                        <button class="w-full btn-khrysos" style="padding: 0.5rem;">Agendar</button>
                     </div>
                     <div class="absolute top-2 left-2">
                         <span class="mono text-xs px-2 py-1" style="background: var(--hype-gold); color: var(--void-black); font-size: 0.6rem;">NUEVO</span>
                     </div>
                 </div>
-                <h3 class="mono text-xs uppercase tracking-wide font-medium mb-1" style="color: rgba(255,255,255,0.88);">Grillz Titanio Negro</h3>
+                <h3 class="mono text-xs uppercase tracking-wide font-medium mb-1" style="color: rgba(255,255,255,0.8);">Grillz Titanio Negro</h3>
                 <p class="mono text-xs" style="color: var(--hype-gold);">$4.200.000 CLP</p>
             </div>
 
@@ -476,10 +453,10 @@
                          class="w-full h-full object-cover product-image"
                          style="filter: grayscale(30%) contrast(120%);">
                     <div class="absolute bottom-0 left-0 right-0 p-2 quick-add" style="background: rgba(10,10,10,0.9);">
-                        <a href="schedule.html" class="w-full btn-khrysos" style="padding: 0.5rem; display:block; text-align:center; text-decoration:none;">Agendar</a>
+                        <button class="w-full btn-khrysos" style="padding: 0.5rem;">Agendar</button>
                     </div>
                 </div>
-                <h3 class="mono text-xs uppercase tracking-wide font-medium mb-1" style="color: rgba(255,255,255,0.88);">Carillas Porcelana VVS</h3>
+                <h3 class="mono text-xs uppercase tracking-wide font-medium mb-1" style="color: rgba(255,255,255,0.8);">Carillas Porcelana VVS</h3>
                 <p class="mono text-xs" style="color: var(--hype-gold);">$8.800.000 CLP</p>
             </div>
 
@@ -491,10 +468,10 @@
                          class="w-full h-full object-cover product-image"
                          style="filter: grayscale(30%) contrast(120%);">
                     <div class="absolute bottom-0 left-0 right-0 p-2 quick-add" style="background: rgba(10,10,10,0.9);">
-                        <a href="schedule.html" class="w-full btn-khrysos" style="padding: 0.5rem; display:block; text-align:center; text-decoration:none;">Agendar</a>
+                        <button class="w-full btn-khrysos" style="padding: 0.5rem;">Agendar</button>
                     </div>
                 </div>
-                <h3 class="mono text-xs uppercase tracking-wide font-medium mb-1" style="color: rgba(255,255,255,0.88);">Grillz Oro 18K Full</h3>
+                <h3 class="mono text-xs uppercase tracking-wide font-medium mb-1" style="color: rgba(255,255,255,0.8);">Grillz Oro 18K Full</h3>
                 <p class="mono text-xs" style="color: var(--hype-gold);">$12.500.000 CLP</p>
             </div>
 
@@ -506,10 +483,10 @@
                          class="w-full h-full object-cover product-image"
                          style="filter: grayscale(30%) contrast(120%);">
                     <div class="absolute bottom-0 left-0 right-0 p-2 quick-add" style="background: rgba(10,10,10,0.9);">
-                        <a href="schedule.html" class="w-full btn-khrysos" style="padding: 0.5rem; display:block; text-align:center; text-decoration:none;">Agendar</a>
+                        <button class="w-full btn-khrysos" style="padding: 0.5rem;">Agendar</button>
                     </div>
                 </div>
-                <h3 class="mono text-xs uppercase tracking-wide font-medium mb-1" style="color: rgba(255,255,255,0.88);">Diamond Set Incrustado</h3>
+                <h3 class="mono text-xs uppercase tracking-wide font-medium mb-1" style="color: rgba(255,255,255,0.8);">Diamond Set Incrustado</h3>
                 <p class="mono text-xs" style="color: var(--hype-gold);">$18.000.000 CLP</p>
             </div>
 
@@ -521,10 +498,10 @@
                          class="w-full h-full object-cover product-image"
                          style="filter: grayscale(30%) contrast(120%);">
                     <div class="absolute bottom-0 left-0 right-0 p-2 quick-add" style="background: rgba(10,10,10,0.9);">
-                        <a href="schedule.html" class="w-full btn-khrysos" style="padding: 0.5rem; display:block; text-align:center; text-decoration:none;">Agendar</a>
+                        <button class="w-full btn-khrysos" style="padding: 0.5rem;">Agendar</button>
                     </div>
                 </div>
-                <h3 class="mono text-xs uppercase tracking-wide font-medium mb-1" style="color: rgba(255,255,255,0.88);">Platinum Overlay Custom</h3>
+                <h3 class="mono text-xs uppercase tracking-wide font-medium mb-1" style="color: rgba(255,255,255,0.8);">Platinum Overlay Custom</h3>
                 <p class="mono text-xs" style="color: var(--hype-gold);">$6.300.000 CLP</p>
             </div>
 
@@ -536,10 +513,10 @@
                          class="w-full h-full object-cover product-image"
                          style="filter: grayscale(30%) contrast(120%);">
                     <div class="absolute bottom-0 left-0 right-0 p-2 quick-add" style="background: rgba(10,10,10,0.9);">
-                        <a href="schedule.html" class="w-full btn-khrysos" style="padding: 0.5rem; display:block; text-align:center; text-decoration:none;">Agendar</a>
+                        <button class="w-full btn-khrysos" style="padding: 0.5rem;">Agendar</button>
                     </div>
                 </div>
-                <h3 class="mono text-xs uppercase tracking-wide font-medium mb-1" style="color: rgba(255,255,255,0.88);">Pieza K™ Signature</h3>
+                <h3 class="mono text-xs uppercase tracking-wide font-medium mb-1" style="color: rgba(255,255,255,0.8);">Pieza K™ Signature</h3>
                 <p class="mono text-xs" style="color: var(--hype-gold);">Precio a consultar</p>
             </div>
 
@@ -547,11 +524,11 @@
     </section>
 
     <!-- Shop by Category -->
-    <section class="py-14 lg:py-16 px-4 lg:px-8 border-t fade-up" style="border-color: rgba(255,255,255,0.08);">
-        <div class="flex items-center justify-between mb-10">
+    <section class="py-16 px-4 lg:px-8 border-t fade-up" style="border-color: rgba(255,255,255,0.1);">
+        <div class="flex items-center justify-between mb-8">
             <div>
                 <span class="section-num">04 — MATERIALES</span>
-                <h2 class="font-display leading-none" style="font-size: clamp(2rem, 4vw, 3rem); line-height: .96; letter-spacing: -0.02em;">Por Material</h2>
+                <h2 class="font-display text-2xl">Por Material</h2>
             </div>
             <div class="flex gap-2">
                 <button class="w-8 h-8 industrial-border flex items-center justify-center hover-gold text-sm">←</button>
@@ -568,7 +545,7 @@
                      style="filter: grayscale(40%) contrast(120%);">
                 <div class="cat-overlay absolute inset-0" style="background: rgba(0,0,0,0.45);"></div>
                 <!-- Gold grain overlay -->
-                <div class="absolute inset-0" style="background: linear-gradient(135deg, rgba(255,215,0,0.06), transparent);"></div>
+                <div class="absolute inset-0" style="background: linear-gradient(135deg, rgba(255,215,0,0.08), transparent);"></div>
                 <div class="absolute bottom-8 left-8">
                     <h3 class="font-display text-3xl mb-4">TITANIO</h3>
                     <button class="btn-khrysos">
@@ -587,7 +564,7 @@
                      class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                      style="filter: grayscale(40%) contrast(120%);">
                 <div class="cat-overlay absolute inset-0" style="background: rgba(0,0,0,0.45);"></div>
-                <div class="absolute inset-0" style="background: linear-gradient(135deg, rgba(255,215,0,0.06), transparent);"></div>
+                <div class="absolute inset-0" style="background: linear-gradient(135deg, rgba(255,215,0,0.08), transparent);"></div>
                 <div class="absolute bottom-8 left-8">
                     <h3 class="font-display text-3xl mb-4">ORO 18K</h3>
                     <button class="btn-khrysos">
@@ -606,7 +583,7 @@
                      class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                      style="filter: grayscale(40%) contrast(120%);">
                 <div class="cat-overlay absolute inset-0" style="background: rgba(0,0,0,0.45);"></div>
-                <div class="absolute inset-0" style="background: linear-gradient(135deg, rgba(255,215,0,0.06), transparent);"></div>
+                <div class="absolute inset-0" style="background: linear-gradient(135deg, rgba(255,215,0,0.08), transparent);"></div>
                 <div class="absolute bottom-8 left-8">
                     <h3 class="font-display text-3xl mb-4">VVS</h3>
                     <button class="btn-khrysos">
@@ -621,16 +598,16 @@
         </div>
     </section>
 
-    <!-- Core Collection / Piezas Esenciales -->
-    <section class="py-14 lg:py-16 px-4 lg:px-8 border-t fade-up" style="border-color: rgba(255,255,255,0.08);">
-        <div class="flex items-center justify-between mb-10">
+    <!-- Core Collection / Hardware Clásico -->
+    <section class="py-16 px-4 lg:px-8 border-t fade-up" style="border-color: rgba(255,255,255,0.1);">
+        <div class="flex items-center justify-between mb-8">
             <div>
                 <span class="section-num">05 — CORE</span>
-                <h2 class="font-display leading-none" style="font-size: clamp(2rem, 4vw, 3rem); line-height: .96; letter-spacing: -0.02em;">Piezas Esenciales</h2>
+                <h2 class="font-display text-2xl">Hardware Esencial</h2>
             </div>
             <a href="khrysos-catalogo.html" class="text-xs uppercase tracking-widest hover-gold" style="color: var(--hype-gold);">→</a>
         </div>
-        <div class="flex gap-5 overflow-x-auto hide-scrollbar pb-4">
+        <div class="flex gap-4 overflow-x-auto hide-scrollbar pb-4">
 
             <div class="flex-none w-60 product-card group cursor-crosshair">
                 <div class="mb-4 overflow-hidden industrial-border" style="aspect-ratio: 3/4; background: var(--industrial);">
@@ -639,7 +616,7 @@
                          class="w-full h-full object-cover product-image"
                          style="filter: grayscale(40%) contrast(120%);">
                 </div>
-                <h3 class="mono text-xs uppercase tracking-wide mb-1" style="color: rgba(255,255,255,0.88);">Grillz Base Titanio</h3>
+                <h3 class="mono text-xs uppercase tracking-wide mb-1" style="color: rgba(255,255,255,0.8);">Grillz Base Titanio</h3>
                 <p class="mono text-xs" style="color: var(--hype-gold);">$2.900.000 CLP</p>
             </div>
 
@@ -650,7 +627,7 @@
                          class="w-full h-full object-cover product-image"
                          style="filter: grayscale(40%) contrast(120%);">
                 </div>
-                <h3 class="mono text-xs uppercase tracking-wide mb-1" style="color: rgba(255,255,255,0.88);">Carilla Porcelana Estándar</h3>
+                <h3 class="mono text-xs uppercase tracking-wide mb-1" style="color: rgba(255,255,255,0.8);">Carilla Porcelana Estándar</h3>
                 <p class="mono text-xs" style="color: var(--hype-gold);">$5.400.000 CLP</p>
             </div>
 
@@ -661,7 +638,7 @@
                          class="w-full h-full object-cover product-image"
                          style="filter: grayscale(40%) contrast(120%);">
                 </div>
-                <h3 class="mono text-xs uppercase tracking-wide mb-1" style="color: rgba(255,255,255,0.88);">Incrustación Diamond Single</h3>
+                <h3 class="mono text-xs uppercase tracking-wide mb-1" style="color: rgba(255,255,255,0.8);">Incrustación Diamond Single</h3>
                 <p class="mono text-xs" style="color: var(--hype-gold);">$1.600.000 CLP</p>
             </div>
 
@@ -672,7 +649,7 @@
                          class="w-full h-full object-cover product-image"
                          style="filter: grayscale(40%) contrast(120%);">
                 </div>
-                <h3 class="mono text-xs uppercase tracking-wide mb-1" style="color: rgba(255,255,255,0.88);">Grillz Open Face Oro</h3>
+                <h3 class="mono text-xs uppercase tracking-wide mb-1" style="color: rgba(255,255,255,0.8);">Grillz Open Face Oro</h3>
                 <p class="mono text-xs" style="color: var(--hype-gold);">$3.800.000 CLP</p>
             </div>
 
@@ -683,7 +660,7 @@
                          class="w-full h-full object-cover product-image"
                          style="filter: grayscale(40%) contrast(120%);">
                 </div>
-                <h3 class="mono text-xs uppercase tracking-wide mb-1" style="color: rgba(255,255,255,0.88);">Blanqueamiento K™ Pro</h3>
+                <h3 class="mono text-xs uppercase tracking-wide mb-1" style="color: rgba(255,255,255,0.8);">Blanqueamiento K™ Pro</h3>
                 <p class="mono text-xs" style="color: var(--hype-gold);">$980.000 CLP</p>
             </div>
 
@@ -694,7 +671,7 @@
                          class="w-full h-full object-cover product-image"
                          style="filter: grayscale(40%) contrast(120%);">
                 </div>
-                <h3 class="mono text-xs uppercase tracking-wide mb-1" style="color: rgba(255,255,255,0.88);">Full Set Custom K™</h3>
+                <h3 class="mono text-xs uppercase tracking-wide mb-1" style="color: rgba(255,255,255,0.8);">Full Set Custom K™</h3>
                 <p class="mono text-xs" style="color: var(--hype-gold);">Desde $22.000.000 CLP</p>
             </div>
 
@@ -702,28 +679,28 @@
     </section>
 
     <!-- KRYSTAL — Colección -->
-    <section class="py-18 lg:py-20 px-4 lg:px-8 border-t fade-up" style="border-color: rgba(255,255,255,0.08); background: #0b0b0d;">
+    <section class="py-20 px-4 lg:px-8 border-t fade-up" style="border-color: rgba(255,255,255,0.1); background: #0d0d0f;">
 
         <!-- Header -->
-        <div class="flex flex-col lg:flex-row lg:items-end lg:justify-between mb-10 gap-6">
+        <div class="flex flex-col lg:flex-row lg:items-end lg:justify-between mb-12 gap-6">
             <div>
                 <span class="section-num">05.5 — LÍNEA</span>
-                <h2 class="font-display leading-none" style="font-size: clamp(3rem, 6.6vw, 5.4rem); line-height: .88; letter-spacing: -0.02em;">
-                    <span class="sh-ice">KRYSTAL</span><span style="color: var(--pure-white); -webkit-text-fill-color: var(--pure-white);">™</span>
+                <h2 class="font-display leading-none" style="font-size: clamp(3rem, 7vw, 6rem);">
+                    KRYSTAL<span style="background: linear-gradient(135deg, #e0f7ff 0%, #a8d8ff 50%, #ffffff 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">™</span>
                 </h2>
-                <p class="mt-3 font-light max-w-md" style="color: rgba(255,255,255,0.42); font-size: 0.95rem; line-height: 1.66;">
+                <p class="mt-3 font-light max-w-md" style="color: rgba(255,255,255,0.5); font-size: 0.95rem; line-height: 1.7;">
                     Pequeño. Permanente. Imposible de ignorar.<br>
                     Un cristal sobre el diente no es decoración — es una toma de posición.
                 </p>
             </div>
             <div class="flex flex-col items-start lg:items-end gap-2">
-                <span class="mono text-xs uppercase tracking-widest" style="color: rgba(255,255,255,0.18);">// Tooth gems & incrustaciones</span>
-                <a href="krystal.html" class="btn-khrysos-inv" style="text-decoration:none; display:inline-block;">Ver Colección Completa</a>
+                <span class="mono text-xs uppercase tracking-widest" style="color: rgba(255,255,255,0.25);">// Tooth gems & incrustaciones</span>
+                <button class="btn-khrysos-inv">Ver Colección Completa</button>
             </div>
         </div>
 
         <!-- Divider line crystal -->
-        <div class="mb-10 w-full h-px" style="background: linear-gradient(90deg, transparent, rgba(168,216,255,0.18), transparent);"></div>
+        <div class="mb-10 w-full h-px" style="background: linear-gradient(90deg, transparent, rgba(168,216,255,0.3), transparent);"></div>
 
         <!-- Carousel -->
         <div class="flex gap-5 overflow-x-auto hide-scrollbar pb-4">
@@ -737,18 +714,18 @@
                          style="filter: grayscale(10%) contrast(115%) brightness(1.05);">
                     <div class="absolute inset-0" style="background: linear-gradient(135deg, rgba(168,216,255,0.06), transparent);"></div>
                     <div class="absolute bottom-0 left-0 right-0 p-2 quick-add" style="background: rgba(10,10,15,0.92);">
-                        <a href="schedule.html" class="w-full btn-khrysos" style="padding: 0.5rem; display:block; text-align:center; text-decoration:none;">Agendar</a>
+                        <button class="w-full btn-khrysos" style="padding: 0.5rem;">Agendar</button>
                     </div>
                     <div class="absolute top-2 left-2">
-                        <span class="mono text-xs px-2 py-1" style="background: linear-gradient(135deg, rgba(168,216,255,0.92), rgba(255,255,255,0.92)); color: #0a0a0a; font-size: 0.6rem; font-weight: 700;">KRYSTAL</span>
+                        <span class="mono text-xs px-2 py-1" style="background: linear-gradient(135deg, #a8d8ff, #ffffff); color: #0a0a0a; font-size: 0.6rem; font-weight: 700;">KRYSTAL</span>
                     </div>
                     <div class="absolute top-2 right-2">
-                        <span class="mono text-xs" style="color: rgba(168,216,255,0.55);">K-01</span>
+                        <span class="mono text-xs" style="color: rgba(168,216,255,0.6);">K-01</span>
                     </div>
                 </div>
                 <h3 class="mono text-xs uppercase tracking-wide font-medium mb-1" style="color: rgba(255,255,255,0.85);">Cristal Simple</h3>
-                <p class="mono text-xs mb-1" style="color: rgba(168,216,255,0.72);">$180.000 CLP</p>
-                <p class="mono text-xs" style="color: rgba(255,255,255,0.42);">Zirconia · 1 diente</p>
+                <p class="mono text-xs mb-1" style="color: rgba(168,216,255,0.8);">$180.000 CLP</p>
+                <p class="mono text-xs" style="color: rgba(255,255,255,0.3);">Zirconia · 1 diente</p>
             </div>
 
             <!-- K-02 Cristal Dorado -->
@@ -760,18 +737,18 @@
                          style="filter: grayscale(10%) contrast(115%) brightness(1.05);">
                     <div class="absolute inset-0" style="background: linear-gradient(135deg, rgba(255,215,0,0.06), transparent);"></div>
                     <div class="absolute bottom-0 left-0 right-0 p-2 quick-add" style="background: rgba(10,10,15,0.92);">
-                        <a href="schedule.html" class="w-full btn-khrysos" style="padding: 0.5rem; display:block; text-align:center; text-decoration:none;">Agendar</a>
+                        <button class="w-full btn-khrysos" style="padding: 0.5rem;">Agendar</button>
                     </div>
                     <div class="absolute top-2 left-2">
-                        <span class="mono text-xs px-2 py-1" style="background: linear-gradient(135deg, rgba(168,216,255,0.92), rgba(255,255,255,0.92)); color: #0a0a0a; font-size: 0.6rem; font-weight: 700;">KRYSTAL</span>
+                        <span class="mono text-xs px-2 py-1" style="background: linear-gradient(135deg, #a8d8ff, #ffffff); color: #0a0a0a; font-size: 0.6rem; font-weight: 700;">KRYSTAL</span>
                     </div>
                     <div class="absolute top-2 right-2">
-                        <span class="mono text-xs" style="color: rgba(168,216,255,0.55);">K-02</span>
+                        <span class="mono text-xs" style="color: rgba(168,216,255,0.6);">K-02</span>
                     </div>
                 </div>
                 <h3 class="mono text-xs uppercase tracking-wide font-medium mb-1" style="color: rgba(255,255,255,0.85);">Cristal Dorado</h3>
-                <p class="mono text-xs mb-1" style="color: rgba(168,216,255,0.72);">$220.000 CLP</p>
-                <p class="mono text-xs" style="color: rgba(255,255,255,0.42);">Gold-dipped · 1 diente</p>
+                <p class="mono text-xs mb-1" style="color: rgba(168,216,255,0.8);">$220.000 CLP</p>
+                <p class="mono text-xs" style="color: rgba(255,255,255,0.3);">Gold-dipped · 1 diente</p>
             </div>
 
             <!-- K-03 Incrustación Diamond Single -->
@@ -783,18 +760,18 @@
                          style="filter: grayscale(10%) contrast(115%) brightness(1.05);">
                     <div class="absolute inset-0" style="background: linear-gradient(135deg, rgba(168,216,255,0.06), transparent);"></div>
                     <div class="absolute bottom-0 left-0 right-0 p-2 quick-add" style="background: rgba(10,10,15,0.92);">
-                        <a href="schedule.html" class="w-full btn-khrysos" style="padding: 0.5rem; display:block; text-align:center; text-decoration:none;">Agendar</a>
+                        <button class="w-full btn-khrysos" style="padding: 0.5rem;">Agendar</button>
                     </div>
                     <div class="absolute top-2 left-2">
-                        <span class="mono text-xs px-2 py-1" style="background: linear-gradient(135deg, rgba(168,216,255,0.92), rgba(255,255,255,0.92)); color: #0a0a0a; font-size: 0.6rem; font-weight: 700;">KRYSTAL</span>
+                        <span class="mono text-xs px-2 py-1" style="background: linear-gradient(135deg, #a8d8ff, #ffffff); color: #0a0a0a; font-size: 0.6rem; font-weight: 700;">KRYSTAL</span>
                     </div>
                     <div class="absolute top-2 right-2">
-                        <span class="mono text-xs" style="color: rgba(168,216,255,0.55);">K-03</span>
+                        <span class="mono text-xs" style="color: rgba(168,216,255,0.6);">K-03</span>
                     </div>
                 </div>
                 <h3 class="mono text-xs uppercase tracking-wide font-medium mb-1" style="color: rgba(255,255,255,0.85);">Incrustación Diamond Single</h3>
-                <p class="mono text-xs mb-1" style="color: rgba(168,216,255,0.72);">$1.600.000 CLP</p>
-                <p class="mono text-xs" style="color: rgba(255,255,255,0.42);">VVS · permanente</p>
+                <p class="mono text-xs mb-1" style="color: rgba(168,216,255,0.8);">$1.600.000 CLP</p>
+                <p class="mono text-xs" style="color: rgba(255,255,255,0.3);">VVS · permanente</p>
             </div>
 
             <!-- K-04 Incrustación Cluster -->
@@ -806,18 +783,18 @@
                          style="filter: grayscale(10%) contrast(115%) brightness(1.05);">
                     <div class="absolute inset-0" style="background: linear-gradient(135deg, rgba(168,216,255,0.06), transparent);"></div>
                     <div class="absolute bottom-0 left-0 right-0 p-2 quick-add" style="background: rgba(10,10,15,0.92);">
-                        <a href="schedule.html" class="w-full btn-khrysos" style="padding: 0.5rem; display:block; text-align:center; text-decoration:none;">Agendar</a>
+                        <button class="w-full btn-khrysos" style="padding: 0.5rem;">Agendar</button>
                     </div>
                     <div class="absolute top-2 left-2">
-                        <span class="mono text-xs px-2 py-1" style="background: linear-gradient(135deg, rgba(168,216,255,0.92), rgba(255,255,255,0.92)); color: #0a0a0a; font-size: 0.6rem; font-weight: 700;">KRYSTAL</span>
+                        <span class="mono text-xs px-2 py-1" style="background: linear-gradient(135deg, #a8d8ff, #ffffff); color: #0a0a0a; font-size: 0.6rem; font-weight: 700;">KRYSTAL</span>
                     </div>
                     <div class="absolute top-2 right-2">
-                        <span class="mono text-xs" style="color: rgba(168,216,255,0.55);">K-04</span>
+                        <span class="mono text-xs" style="color: rgba(168,216,255,0.6);">K-04</span>
                     </div>
                 </div>
                 <h3 class="mono text-xs uppercase tracking-wide font-medium mb-1" style="color: rgba(255,255,255,0.85);">Incrustación Cluster</h3>
-                <p class="mono text-xs mb-1" style="color: rgba(168,216,255,0.72);">$3.200.000 CLP</p>
-                <p class="mono text-xs" style="color: rgba(255,255,255,0.42);">Multi-stone · 1–3 dientes</p>
+                <p class="mono text-xs mb-1" style="color: rgba(168,216,255,0.8);">$3.200.000 CLP</p>
+                <p class="mono text-xs" style="color: rgba(255,255,255,0.3);">Multi-stone · 1–3 dientes</p>
             </div>
 
             <!-- K-05 Grillz Krystal Open Face -->
@@ -829,18 +806,18 @@
                          style="filter: grayscale(10%) contrast(115%) brightness(1.05);">
                     <div class="absolute inset-0" style="background: linear-gradient(135deg, rgba(168,216,255,0.06), transparent);"></div>
                     <div class="absolute bottom-0 left-0 right-0 p-2 quick-add" style="background: rgba(10,10,15,0.92);">
-                        <a href="schedule.html" class="w-full btn-khrysos" style="padding: 0.5rem; display:block; text-align:center; text-decoration:none;">Agendar</a>
+                        <button class="w-full btn-khrysos" style="padding: 0.5rem;">Agendar</button>
                     </div>
                     <div class="absolute top-2 left-2">
-                        <span class="mono text-xs px-2 py-1" style="background: linear-gradient(135deg, rgba(168,216,255,0.92), rgba(255,255,255,0.92)); color: #0a0a0a; font-size: 0.6rem; font-weight: 700;">KRYSTAL</span>
+                        <span class="mono text-xs px-2 py-1" style="background: linear-gradient(135deg, #a8d8ff, #ffffff); color: #0a0a0a; font-size: 0.6rem; font-weight: 700;">KRYSTAL</span>
                     </div>
                     <div class="absolute top-2 right-2">
-                        <span class="mono text-xs" style="color: rgba(168,216,255,0.55);">K-05</span>
+                        <span class="mono text-xs" style="color: rgba(168,216,255,0.6);">K-05</span>
                     </div>
                 </div>
                 <h3 class="mono text-xs uppercase tracking-wide font-medium mb-1" style="color: rgba(255,255,255,0.85);">Grillz Open Face Krystal</h3>
-                <p class="mono text-xs mb-1" style="color: rgba(168,216,255,0.72);">$4.800.000 CLP</p>
-                <p class="mono text-xs" style="color: rgba(255,255,255,0.42);">Plata 925 + cristales · removible</p>
+                <p class="mono text-xs mb-1" style="color: rgba(168,216,255,0.8);">$4.800.000 CLP</p>
+                <p class="mono text-xs" style="color: rgba(255,255,255,0.3);">Plata 925 + cristales · removible</p>
             </div>
 
             <!-- K-06 Grillz Full Iced -->
@@ -852,18 +829,18 @@
                          style="filter: grayscale(10%) contrast(115%) brightness(1.05);">
                     <div class="absolute inset-0" style="background: linear-gradient(135deg, rgba(168,216,255,0.08), transparent);"></div>
                     <div class="absolute bottom-0 left-0 right-0 p-2 quick-add" style="background: rgba(10,10,15,0.92);">
-                        <a href="schedule.html" class="w-full btn-khrysos" style="padding: 0.5rem; display:block; text-align:center; text-decoration:none;">Agendar</a>
+                        <button class="w-full btn-khrysos" style="padding: 0.5rem;">Agendar</button>
                     </div>
                     <div class="absolute top-2 left-2">
-                        <span class="mono text-xs px-2 py-1" style="background: linear-gradient(135deg, rgba(168,216,255,0.92), rgba(255,255,255,0.92)); color: #0a0a0a; font-size: 0.6rem; font-weight: 700;">KRYSTAL</span>
+                        <span class="mono text-xs px-2 py-1" style="background: linear-gradient(135deg, #a8d8ff, #ffffff); color: #0a0a0a; font-size: 0.6rem; font-weight: 700;">KRYSTAL</span>
                     </div>
                     <div class="absolute top-2 right-2">
-                        <span class="mono text-xs" style="color: rgba(168,216,255,0.55);">K-06</span>
+                        <span class="mono text-xs" style="color: rgba(168,216,255,0.6);">K-06</span>
                     </div>
                 </div>
                 <h3 class="mono text-xs uppercase tracking-wide font-medium mb-1" style="color: rgba(255,255,255,0.85);">Grillz Full Iced</h3>
-                <p class="mono text-xs mb-1" style="color: rgba(168,216,255,0.72);">Desde $8.500.000 CLP</p>
-                <p class="mono text-xs" style="color: rgba(255,255,255,0.42);">Custom · full set</p>
+                <p class="mono text-xs mb-1" style="color: rgba(168,216,255,0.8);">Desde $8.500.000 CLP</p>
+                <p class="mono text-xs" style="color: rgba(255,255,255,0.3);">Custom · full set</p>
             </div>
 
         </div>
@@ -878,14 +855,14 @@
     </section>
 
     <!-- Tu Idea Nuestras Manos -->
-    <section class="relative flex items-center" style="min-height: 74vh; padding: 5rem 0; background: var(--void-black); overflow: hidden;">
+    <section class="relative flex items-center" style="min-height: 80vh; padding: 6rem 0; background: var(--void-black); overflow: hidden;">
         <!-- Animated diagonal stripes -->
-        <div class="absolute inset-0" style="background: repeating-linear-gradient(45deg, transparent, transparent 40px, rgba(255,215,0,0.06) 40px, rgba(255,215,0,0.06) 41px); pointer-events: none;"></div>
+        <div class="absolute inset-0" style="background: repeating-linear-gradient(45deg, transparent, transparent 40px, rgba(255,215,0,0.03) 40px, rgba(255,215,0,0.03) 41px); pointer-events: none;"></div>
 
         <!-- Big scrolling text — vertically centered, clipped cleanly -->
         <div class="absolute inset-0 flex items-center pointer-events-none" style="overflow: hidden;">
             <div style="width: 100%; overflow: hidden; white-space: nowrap;">
-                <div class="marquee-content font-display leading-none" style="display: inline-block; font-size: clamp(5rem, 12vw, 10rem); color: rgba(255,215,0,0.04); letter-spacing: -0.02em; white-space: nowrap;">
+                <div class="marquee-content font-display leading-none" style="display: inline-block; font-size: clamp(5rem, 12vw, 10rem); color: rgba(255,215,0,0.06); letter-spacing: -0.02em; white-space: nowrap;">
                     TU IDEA NUESTRAS MANOS • TU IDEA NUESTRAS MANOS • TU IDEA NUESTRAS MANOS •&nbsp;
                 </div>
             </div>
@@ -894,13 +871,13 @@
         <!-- Gold left stripe -->
         <div class="absolute left-0 top-0 bottom-0 w-1" style="background: var(--hype-gold);"></div>
 
-        <div class="relative z-10 px-8 lg:px-16 max-w-2xl" style="padding-top: 2rem; padding-bottom: 2rem;">
+        <div class="relative z-10 px-8 lg:px-16 max-w-2xl">
             <span class="section-num">06 — CUSTOM</span>
-            <h2 class="font-display leading-none mb-5" style="font-size: clamp(2.7rem, 6.2vw, 5.2rem); line-height: .88; letter-spacing: -0.02em; max-width: 11ch;">
+            <h2 class="font-display leading-none mb-6" style="font-size: clamp(3rem, 7vw, 6rem);">
                 Tu Idea<br><span class="text-gold">Nuestras Manos</span>
             </h2>
-            <p class="mb-4 font-light" style="color: rgba(255,255,255,0.68); font-size: 1.02rem; line-height: 1.66; max-width: 31rem;">El objeto no empieza en el material. Empieza en el momento en que decides que algo tuyo merece existir en el mundo de una forma que nadie más puede reclamar.</p>
-            <p class="mb-10 mono text-xs uppercase tracking-widest" style="color: rgba(255,215,0,0.55);">// La autoría es tuya. La ejecución, nuestra.</p>
+            <p class="mb-4 font-light" style="color: rgba(255,255,255,0.6); font-size: 1.1rem; line-height: 1.7;">El objeto no empieza en el material. Empieza en el momento en que decides que algo tuyo merece existir en el mundo de una forma que nadie más puede reclamar.</p>
+            <p class="mb-10 mono text-xs uppercase tracking-widest" style="color: rgba(255,215,0,0.5);">// La autoría es tuya. La ejecución, nuestra.</p>
             <a href="#estudio" class="btn-khrysos " style="display: inline-block; text-decoration: none;">
                 Estudio →
             </a>
@@ -908,12 +885,12 @@
 
         <!-- Right side decorative element -->
         <div class="absolute right-8 lg:right-16 top-1/2 -translate-y-1/2 hidden lg:block text-right">
-            <div class="font-display text-stroke" style="font-size: 6.5rem; -webkit-text-stroke: 1px rgba(255,215,0,0.08); color: transparent;">K™</div>
+            <div class="font-display text-stroke" style="font-size: 8rem; -webkit-text-stroke: 1px rgba(255,215,0,0.2); color: transparent;">K™</div>
         </div>
     </section>
 
     <!-- Material Study / Proceso -->
-    <section class="py-14 lg:py-16 px-4 lg:px-8 border-t fade-up" style="border-color: rgba(255,255,255,0.08);">
+    <section class="py-16 px-4 lg:px-8 border-t fade-up" style="border-color: rgba(255,255,255,0.1);">
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
             <div class="overflow-hidden industrial-border relative gold-tint" style="aspect-ratio: 4/3; background: var(--industrial);">
                 <img src="assets/material_study.jpg"
@@ -926,16 +903,16 @@
                     <span class="mono text-xs" style="color: var(--hype-gold);">REF-260426-V1 // MATERIAL STUDY</span>
                 </div>
             </div>
-            <div class="lg:pl-8" style="max-width: 36rem;">
+            <div class="lg:pl-8">
                 <span class="section-num">07 — PROCESO</span>
-                <h2 class="font-display leading-none mb-5" style="font-size: clamp(2.4rem, 5vw, 4rem); line-height: .94; letter-spacing: -0.02em;">
-                    Material Study 01:<br><span class="text-gold">Cultura Instalada</span>
+                <h2 class="font-display mb-4" style="font-size: clamp(2rem, 4vw, 3.5rem);">
+                    Material Study 01:<br><span class="text-gold">Joyería Biomecánica</span>
                 </h2>
-                <p class="mb-6 leading-relaxed" style="color: rgba(255,255,255,0.68);">
-                    Cada pieza KHRYSOS™ no se recomienda. Se instala. Cada pieza se trabaja con precisión médica — donde el material no es un detalle, es toda la conversación.
+                <p class="mb-6 leading-relaxed" style="color: rgba(255,255,255,0.65);">
+                    Cada pieza KHRYSOS™ no se recomienda. Se instala. Ingeniería clínica aplicada al cuerpo — donde el material no es un detalle, es toda la conversación.
                 </p>
-                <p class="mb-8 leading-relaxed" style="color: rgba(255,255,255,0.42);">
-                    Titanio grado médico, oro 18K certificado y VVS con precisión médica. El resultado visual habla por sí solo — eso es el argumento.
+                <p class="mb-8 leading-relaxed" style="color: rgba(255,255,255,0.45);">
+                    Titanio grado médico, oro 18K certificado y VVS con precisión suiza. El resultado visual habla por sí solo — eso es el argumento.
                 </p>
                 <button class="btn-khrysos-inv flex items-center gap-2">
                     Saber Más →
@@ -945,18 +922,20 @@
     </section>
 
     <!-- Newsletter / Contact -->
-    <section id="estudio" class="py-14 lg:py-16 px-4 lg:px-8 border-t fade-up" style="border-color: rgba(255,255,255,0.08); background: #111111;">
-        <div class="max-w-4xl mx-auto text-center" style="padding-top: .5rem;">
+    <section id="estudio" class="py-16 px-4 lg:px-8 border-t fade-up" style="border-color: rgba(255,255,255,0.1); background: var(--industrial);">
+        <div class="max-w-4xl mx-auto text-center">
             <span class="section-num" style="justify-content: center; display: block;">08 — ESTUDIO</span>
-            <h2 class="font-display leading-none mb-5" style="font-size: clamp(2.2rem, 4.5vw, 3.6rem); line-height: .95; letter-spacing: -0.02em;">
+            <h2 class="font-display mb-4" style="font-size: clamp(1.8rem, 4vw, 3rem);">
                 Sé de los primeros en conocer<br>nuevas instalaciones y piezas KHRYSOS™.
             </h2>
-            <form class="flex flex-col sm:flex-row gap-4 max-w-xl mx-auto mt-10" onsubmit="return false;">
-                <input type="text" placeholder="NOMBRE" class="flex-1 px-4 py-3 mono text-xs uppercase tracking-widest focus:outline-none" style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.12); color: white;">
-                <input type="email" placeholder="EMAIL" class="flex-1 px-4 py-3 mono text-xs uppercase tracking-widest focus:outline-none" style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.12); color: white;">
-                <a href="schedule.html" class="btn-khrysos" style="display:inline-block; text-decoration:none; text-align:center;">Agendar</a>
+            <form class="flex flex-col sm:flex-row gap-4 max-w-xl mx-auto mt-8" onsubmit="return false;">
+                <input type="text" placeholder="NOMBRE" class="flex-1 px-4 py-3 mono text-xs uppercase tracking-widest focus:outline-none" style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.15); color: white;">
+                <input type="email" placeholder="EMAIL" class="flex-1 px-4 py-3 mono text-xs uppercase tracking-widest focus:outline-none" style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.15); color: white;">
+                <button type="submit" class="btn-khrysos">
+                    Agendar
+                </button>
             </form>
-            <label class="flex items-center justify-center gap-2 mt-4 mono text-xs cursor-crosshair" style="color: rgba(255,255,255,0.42);">
+            <label class="flex items-center justify-center gap-2 mt-4 mono text-xs cursor-crosshair" style="color: rgba(255,255,255,0.4);">
                 <input type="checkbox" class="w-3 h-3" style="accent-color: var(--hype-gold);">
                 Acepto la política de privacidad
             </label>
@@ -964,12 +943,12 @@
     </section>
 
     <!-- Footer -->
-    <footer class="pt-16 pb-8 px-4 lg:px-8 border-t" style="border-color: rgba(255,255,255,0.08);">
+    <footer class="pt-16 pb-8 px-4 lg:px-8 border-t" style="border-color: rgba(255,255,255,0.1);">
         <div class="grid grid-cols-2 md:grid-cols-4 gap-8 mb-16">
             <div>
                 <h4 class="font-display text-lg mb-4">KHRYSOS<span class="text-gold">™</span></h4>
-                <ul class="space-y-2 mono text-xs uppercase tracking-wide" style="color: rgba(255,255,255,0.42);">
-                    <li><a href="schedule.html" class="hover-gold transition-colors">Agenda & Reservas</a></li>
+                <ul class="space-y-2 mono text-xs uppercase tracking-wide" style="color: rgba(255,255,255,0.45);">
+                    <li><a href="khrysos-estudio.html" class="hover-gold transition-colors">Agenda & Reservas</a></li>
                     <li><a href="#" class="hover-gold transition-colors">Términos de Servicio</a></li>
                     <li><a href="#" class="hover-gold transition-colors">Política de Privacidad</a></li>
                     <li><a href="#" class="hover-gold transition-colors">Política de Devolución</a></li>
@@ -978,7 +957,7 @@
             </div>
             <div>
                 <h4 class="mono font-bold mb-4 text-xs uppercase tracking-widest" style="color: var(--hype-gold);">Social</h4>
-                <ul class="space-y-2 mono text-xs uppercase tracking-wide" style="color: rgba(255,255,255,0.42);">
+                <ul class="space-y-2 mono text-xs uppercase tracking-wide" style="color: rgba(255,255,255,0.45);">
                     <li><a href="#" class="hover-gold transition-colors">Instagram</a></li>
                     <li><a href="#" class="hover-gold transition-colors">TikTok</a></li>
                     <li><a href="#" class="hover-gold transition-colors">Spotify</a></li>
@@ -986,15 +965,15 @@
             </div>
             <div>
                 <h4 class="mono font-bold mb-4 text-xs uppercase tracking-widest" style="color: var(--hype-gold);">Materiales</h4>
-                <ul class="space-y-2 mono text-xs uppercase tracking-wide" style="color: rgba(255,255,255,0.42);">
-                    <li><a href="#" class="hover-gold transition-colors">Cultura Instalada</a></li>
+                <ul class="space-y-2 mono text-xs uppercase tracking-wide" style="color: rgba(255,255,255,0.45);">
+                    <li><a href="#" class="hover-gold transition-colors">Joyería Biomecánica</a></li>
                     <li><a href="#" class="hover-gold transition-colors">Certificaciones</a></li>
                     <li><a href="khrysos1_5.html" class="hover-gold transition-colors">Sistema de Identidad</a></li>
                 </ul>
             </div>
             <div>
                 <h4 class="mono font-bold mb-4 text-xs uppercase tracking-widest" style="color: var(--hype-gold);">Estudio</h4>
-                <address class="not-italic mono text-xs uppercase tracking-wide leading-relaxed" style="color: rgba(255,255,255,0.42);">
+                <address class="not-italic mono text-xs uppercase tracking-wide leading-relaxed" style="color: rgba(255,255,255,0.45);">
                     By Appointment Only<br>
                     Santiago, Chile<br>
                     <a href="/cdn-cgi/l/email-protection#670e091413060b06040e08090214270c0615061349040b" class="hover-gold"><span class="__cf_email__" data-cfemail="0960677a7d6865686a6066676c7a4962687b687d276a65">[email&#160;protected]</span></a>
@@ -1003,13 +982,13 @@
         </div>
 
         <!-- Large K footer mark -->
-        <div class="border-t pt-8" style="border-color: rgba(255,255,255,0.08);">
+        <div class="border-t pt-8" style="border-color: rgba(255,255,255,0.1);">
             <div class="flex flex-col md:flex-row justify-between items-end gap-4">
                 <div>
-                    <p class="mono text-xs uppercase tracking-widest" style="color: rgba(255,255,255,0.18);">© 2026 KHRYSOS™. All rights reserved.</p>
-                    <p class="mono text-xs uppercase tracking-widest mt-1" style="color: rgba(255,255,255,0.18);">Sistema de Identidad v3.0 — Marzo 2026</p>
+                    <p class="mono text-xs uppercase tracking-widest" style="color: rgba(255,255,255,0.25);">© 2026 KHRYSOS™. All rights reserved.</p>
+                    <p class="mono text-xs uppercase tracking-widest mt-1" style="color: rgba(255,255,255,0.15);">Sistema de Identidad v2.0 — Marzo 2026</p>
                 </div>
-                <div class="font-display leading-none text-stroke hidden md:block" style="font-size: 5rem; -webkit-text-stroke: 1px rgba(255,215,0,0.10); color: transparent;">K™</div>
+                <div class="font-display leading-none text-stroke hidden md:block" style="font-size: 5rem; -webkit-text-stroke: 1px rgba(255,215,0,0.15); color: transparent;">K™</div>
             </div>
         </div>
     </footer>
@@ -1022,7 +1001,7 @@
                 a.style.borderBottom = '1px solid var(--hype-gold)';
                 a.style.paddingBottom = '2px';
             } else {
-                a.style.color = 'rgba(255,255,255,0.42)';
+                a.style.color = 'rgba(255,255,255,0.5)';
             }
         });
 
@@ -1070,7 +1049,7 @@
         // ── Input focus gold border ──
         document.querySelectorAll('input[type="text"], input[type="email"]').forEach(input => {
             input.addEventListener('focus', () => { input.style.borderColor = 'rgba(255,215,0,0.6)'; });
-            input.addEventListener('blur',  () => { input.style.borderColor = 'rgba(255,255,255,0.18)'; });
+            input.addEventListener('blur',  () => { input.style.borderColor = 'rgba(255,255,255,0.15)'; });
         });
 
         // ── Carousel: drag-to-scroll + ghost arrows + trailing spacer ──
@@ -1105,10 +1084,10 @@
                 btn.style.cssText = `position:absolute; top:38%; transform:translateY(-50%);
                     ${dir === 'prev' ? 'left:0;' : 'right:0;'} z-index:10;
                     width:1.6rem; height:4rem; background:transparent; border:none;
-                    color:rgba(255,215,0,0.10); font-size:1.6rem; line-height:1;
+                    color:rgba(255,215,0,0.2); font-size:1.6rem; line-height:1;
                     cursor:pointer; transition:color 0.35s ease, opacity 0.45s ease; padding:0; outline:none;`;
                 btn.addEventListener('mouseenter', () => { btn.style.color = 'rgba(255,215,0,0.7)'; btn.style.background = 'rgba(10,10,10,0.55)'; });
-                btn.addEventListener('mouseleave', () => { btn.style.color = 'rgba(255,215,0,0.10)'; btn.style.background = 'transparent'; });
+                btn.addEventListener('mouseleave', () => { btn.style.color = 'rgba(255,215,0,0.2)'; btn.style.background = 'transparent'; });
                 btn.addEventListener('click', () => carousel.scrollBy({ left: dir === 'prev' ? -300 : 300, behavior: 'smooth' }));
                 return btn;
             };
@@ -1146,22 +1125,5 @@
         });
     </script>
 
-<script>
-/* ACTIVE_NAV_inicio */
-document.querySelectorAll('.nav-link[data-page]').forEach(a => {
-    if (a.dataset.page === 'inicio') {
-        a.style.color = '#FFD700';
-        a.style.borderBottom = '1px solid #FFD700';
-        a.style.paddingBottom = '2px';
-    }
-});
-</script>
 </body>
 </html>
-
-
-
-
-
-
-

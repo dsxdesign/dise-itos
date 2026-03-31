@@ -1,0 +1,680 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ASKLEPIUS™ | Odontología General — KHRYSOS™</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,300;0,400;0,700;1,300&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --void: #0a0a0a;
+            --white: #ffffff;
+            --mint: #A8E0C4;
+            --mint-deep: #6dbf9b;
+            --mint-pale: #C8F0DC;
+            --mint-glow: #E8FAF0;
+            --offwhite: #f5f5f0;
+            --border: rgba(168,224,196,0.12);
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: 'DM Sans', sans-serif;
+            background: var(--void);
+            color: var(--white);
+            cursor: crosshair;
+            overflow-x: hidden;
+        }
+
+        .font-display { font-family: 'Bebas Neue', sans-serif; text-transform: uppercase; letter-spacing: 0.02em; }
+        .mono { font-family: 'Space Mono', monospace; }
+
+        ::-webkit-scrollbar { width: 4px; }
+        ::-webkit-scrollbar-track { background: #0a0a0a; }
+        ::-webkit-scrollbar-thumb { background: rgba(168,224,196,0.35); }
+        ::selection { background: #A8E0C4; color: #0a0a0a; }
+
+        /* Shimmer */
+        @keyframes shimmer {
+            0%   { background-position: -200% center; }
+            100% { background-position:  200% center; }
+        }
+        .sh-mint {
+            background: linear-gradient(90deg, #6dbf9b, #A8E0C4, #C8F0DC, #E8FAF0, #ffffff, #C8F0DC, #A8E0C4, #6dbf9b);
+            background-size: 200% auto;
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+            animation: shimmer 5s linear infinite;
+        }
+
+        /* Glitch */
+        .glitch:hover { animation: glitch 0.3s both infinite; cursor: crosshair; }
+        @keyframes glitch {
+            0%  { transform: translate(0); }
+            20% { transform: translate(-2px,  2px); }
+            40% { transform: translate(-2px, -2px); }
+            60% { transform: translate( 2px,  2px); }
+            80% { transform: translate( 2px, -2px); }
+            100%{ transform: translate(0); }
+        }
+
+        /* Fade up */
+        .fu { opacity: 0; transform: translateY(24px); transition: opacity 0.65s ease, transform 0.65s ease; }
+        .fu.vis { opacity: 1; transform: translateY(0); }
+        .fu.d1 { transition-delay: 0.1s; } .fu.d2 { transition-delay: 0.2s; }
+        .fu.d3 { transition-delay: 0.3s; } .fu.d4 { transition-delay: 0.4s; }
+        .fu.d5 { transition-delay: 0.5s; }
+
+        /* Glow orb */
+        .glow-orb {
+            position: absolute; border-radius: 50%;
+            filter: blur(120px); pointer-events: none;
+            animation: glow-pulse 9s ease-in-out infinite;
+        }
+        @keyframes glow-pulse { 0%,100% { opacity:0.06; } 50% { opacity:0.13; } }
+
+        /* Scan grid */
+        .scan-bg {
+            background-image:
+                linear-gradient(rgba(168,224,196,0.025) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(168,224,196,0.025) 1px, transparent 1px);
+            background-size: 30px 30px;
+        }
+        .nav-item:hover { color: var(--mint); }
+
+        /* Marquee */
+        .mq-wrap { overflow: hidden; white-space: nowrap; }
+        .mq-inner { display: inline-block; animation: mq 45s linear infinite; }
+        @keyframes mq { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+
+        /* Buttons */
+        .btn-mint {
+            background: var(--mint); color: var(--void);
+            padding: 0.75rem 2.5rem;
+            font-family: 'Space Mono', monospace;
+            font-size: 0.65rem; letter-spacing: 0.15em; font-weight: 700;
+            text-transform: uppercase;
+            border: 2px solid var(--mint);
+            transition: all 0.3s; cursor: crosshair;
+        }
+        .btn-mint:hover { background: transparent; color: var(--mint); }
+
+        .btn-outline-mint {
+            background: transparent; color: var(--mint);
+            padding: 0.75rem 2.5rem;
+            font-family: 'Space Mono', monospace;
+            font-size: 0.65rem; letter-spacing: 0.15em; font-weight: 700;
+            text-transform: uppercase;
+            border: 2px solid rgba(168,224,196,0.3);
+            transition: all 0.3s; cursor: crosshair;
+        }
+        .btn-outline-mint:hover { border-color: var(--mint); background: rgba(168,224,196,0.04); }
+
+        /* Hero */
+        .hero-name {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: clamp(4.5rem, 14vw, 16rem);
+            line-height: 0.82; letter-spacing: -0.02em; text-transform: uppercase;
+        }
+        .hero-wm {
+            position: absolute; right: -4vw; top: 50%; transform: translateY(-50%);
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: clamp(20rem, 55vw, 75rem);
+            line-height: 1; -webkit-text-stroke: 1px rgba(168,224,196,0.04); color: transparent;
+            pointer-events: none; user-select: none; z-index: 1;
+        }
+
+        /* Checklist items */
+        .check-item {
+            display: flex; align-items: flex-start; gap: 1rem;
+            padding: 1.25rem 0;
+            border-bottom: 1px solid rgba(168,224,196,0.07);
+        }
+        .check-icon {
+            flex-shrink: 0; width: 18px; height: 18px;
+            border: 1px solid rgba(168,224,196,0.4);
+            border-radius: 2px;
+            display: flex; align-items: center; justify-content: center;
+            margin-top: 2px;
+        }
+        .check-icon::after {
+            content: '✓';
+            font-family: 'Space Mono', monospace;
+            font-size: 0.55rem;
+            color: var(--mint);
+        }
+
+        /* Package card */
+        .pkg-card {
+            border: 1px solid rgba(168,224,196,0.12);
+            padding: 2.5rem 2rem;
+            transition: all 0.4s;
+            cursor: crosshair;
+            position: relative;
+        }
+        .pkg-card:hover { border-color: rgba(168,224,196,0.3); }
+        .pkg-card.featured {
+            border-color: rgba(168,224,196,0.35);
+            background: rgba(168,224,196,0.03);
+        }
+        .pkg-card.featured::before {
+            content: 'RECOMENDADO';
+            position: absolute; top: -1px; right: 2rem;
+            font-family: 'Space Mono', monospace;
+            font-size: 0.42rem; letter-spacing: 0.2em;
+            background: var(--mint); color: var(--void);
+            padding: 2px 10px;
+        }
+
+        /* Frequency meter */
+        .freq-item {
+            display: grid; grid-template-columns: 1fr auto;
+            align-items: center; gap: 1rem;
+            padding: 1rem 0;
+            border-bottom: 1px solid rgba(168,224,196,0.07);
+        }
+        .freq-badge {
+            font-family: 'Space Mono', monospace; font-size: 0.48rem;
+            letter-spacing: 0.1em; padding: 3px 10px;
+            border: 1px solid rgba(168,224,196,0.3);
+            color: rgba(168,224,196,0.6);
+            white-space: nowrap;
+        }
+
+        /* Urgency widget */
+        .urgency-dot {
+            display: inline-block; width: 7px; height: 7px;
+            border-radius: 50%; background: var(--mint);
+            animation: pulse-dot 2s ease-in-out infinite;
+        }
+        @keyframes pulse-dot {
+            0%,100% { opacity:0.6; transform:scale(1); }
+            50% { opacity:1; transform:scale(1.3); }
+        }
+
+        /* Chip */
+        .chip {
+            font-family: 'Space Mono', monospace; font-size: 0.5rem; letter-spacing: 0.12em;
+            padding: 4px 12px; border: 1px solid rgba(168,224,196,0.2);
+            color: rgba(168,224,196,0.5); display: inline-block; margin: 0 4px 6px 0;
+        }
+
+        /* FAQ */
+        .faq-item { border-top: 1px solid rgba(168,224,196,0.08); }
+        .faq-q {
+            width:100%; display:flex; justify-content:space-between; align-items:center;
+            padding: 1.25rem 0; background:none; border:none; color:var(--white);
+            font-family:'DM Sans',sans-serif; font-size:1rem; font-weight:400;
+            cursor:crosshair; text-align:left; transition: color 0.3s;
+        }
+        .faq-q:hover { color: var(--mint); }
+        .faq-q .faq-icon { font-family:'Space Mono',monospace; font-size:1rem; color:rgba(168,224,196,0.4); transition: transform 0.3s; }
+        .faq-a { display:none; padding: 0 0 1.25rem 0; color:rgba(255,255,255,0.5); font-size:0.9rem; line-height:1.8; font-weight:300; }
+        .faq-item.open .faq-a { display:block; }
+        .faq-item.open .faq-icon { transform:rotate(45deg); }
+        .faq-item.open .faq-q { color: var(--mint); }
+
+        /* Stat bar */
+        .stat-bar { display: grid; grid-template-columns: repeat(4,1fr); border-top: 1px solid rgba(168,224,196,0.08); }
+        @media(max-width:700px){ .stat-bar { grid-template-columns: repeat(2,1fr); } }
+        .stat-cell { padding: 2rem 1.5rem; border-right: 1px solid rgba(168,224,196,0.08); }
+        .stat-cell:last-child { border-right: none; }
+
+        .hover-mint { transition: color 0.3s; }
+        .hover-mint:hover { color: var(--mint); }
+
+        /* ── Unified nav ── */
+        .text-gold {
+            background: linear-gradient(135deg, #FFD700 0%, #FFA500 50%, #FFD700 100%);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+        }
+        .hover-gold { transition: color 0.3s; }
+        .hover-gold:hover { color: #FFD700 !important; -webkit-text-fill-color: #FFD700 !important; }
+        .btn-nav-cta {
+            background: #FFD700; color: #0a0a0a;
+            padding: 0.4rem 1.2rem;
+            font-family: 'Space Mono', monospace;
+            font-size: 0.65rem; letter-spacing: 0.1em; font-weight: 700;
+            text-transform: uppercase; border: 2px solid #FFD700;
+            transition: all 0.3s; cursor: crosshair;
+        }
+        .btn-nav-cta:hover { background: transparent; color: #FFD700; }
+        .hide-scrollbar::-webkit-scrollbar { display: none; }
+        .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+        @keyframes pulse-gold { 0%,100% { opacity:1; } 50% { opacity:0.7; } }
+        .pulse-gold { animation: pulse-gold 2.5s ease-in-out infinite; }
+        .nav-dropdown-menu a:hover { color: #FFD700 !important; }
+        .nav-dropdown-btn:focus { outline: none; }
+    </style>
+</head>
+<body class="antialiased">
+
+        <!-- Top Bar -->
+    <div style="background: #FFD700; color: #0a0a0a;" class="text-[10px] uppercase tracking-widest py-2 px-4 text-center font-bold mono pulse-gold">
+        KHRYSOS™ · Solo con cita previa · <a href="schedule-mock.html?branch=asklepius" style="text-decoration:underline; color: #0a0a0a;">Reserva tu sesión</a>
+    </div>
+    <!-- Navigation -->
+    <nav class="sticky top-0 z-50 border-b" style="border-color: rgba(255,255,255,0.1); backdrop-filter: blur(12px); background: rgba(10,10,10,0.95);">
+        <div class="flex items-center justify-between px-4 py-4 lg:px-8">
+            <div class="flex items-center gap-8">
+                <a href="index.html" class="font-display text-xl font-bold tracking-tight">
+                    KHRYSOS<span class="text-gold">™</span>
+                </a>
+                <div class="hidden lg:flex items-center gap-6 mono text-xs uppercase tracking-widest">
+                    <a href="index.html" class="nav-link hover-gold" data-page="inicio">Inicio</a>
+                    <a href="khrysos-catalogo.html" class="nav-link hover-gold" data-page="catalogo">Catálogo</a>
+                    <a href="khrysos-estudio.html" class="nav-link hover-gold" data-page="estudio">Estudio</a>
+                    <a href="khrysos-brand_statement.html" class="nav-link hover-gold" data-page="khrysos">Khrysos</a>
+                    <div class="nav-dropdown" style="position:relative;">
+                        <button class="nav-link hover-gold nav-dropdown-btn" style="background:none;border:none;cursor:crosshair;padding:0;font-family:inherit;font-size:inherit;letter-spacing:inherit;text-transform:inherit;color:rgba(255,255,255,0.5);">
+                            Servicios <span style="font-size:0.55rem;opacity:0.6;">▼</span>
+                        </button>
+                        <div class="nav-dropdown-menu" style="display:none;position:absolute;top:calc(100% + 12px);left:0;min-width:240px;background:rgba(10,10,10,0.98);border:1px solid rgba(255,255,255,0.1);padding:0.5rem 0;z-index:200;">
+                            <a href="krystal.html" class="nav-dropdown-item hover-gold" style="display:block;padding:0.6rem 1.25rem;color:rgba(255,255,255,0.45);text-decoration:none;font-size:0.6rem;letter-spacing:0.12em;transition:color 0.2s;">
+                                <span style="color:rgba(168,216,255,0.75);margin-right:0.5rem;">✦</span>KRYSTAL · Cristales Dentales
+                            </a>
+                            <a href="kallisto.html" class="nav-dropdown-item hover-gold" style="display:block;padding:0.6rem 1.25rem;color:rgba(255,255,255,0.45);text-decoration:none;font-size:0.6rem;letter-spacing:0.12em;transition:color 0.2s;">
+                                <span style="color:rgba(255,105,160,0.7);margin-right:0.5rem;">✦</span>KALLISTO · Armonización Facial
+                            </a>
+                            <a href="leukos.html" class="nav-dropdown-item hover-gold" style="display:block;padding:0.6rem 1.25rem;color:rgba(255,255,255,0.45);text-decoration:none;font-size:0.6rem;letter-spacing:0.12em;transition:color 0.2s;">
+                                <span style="color:rgba(212,212,212,0.7);margin-right:0.5rem;">✦</span>LEUKOS · Odontología Estética
+                            </a>
+                            <a href="asklepius.html" class="nav-dropdown-item hover-gold" style="display:block;padding:0.6rem 1.25rem;color:rgba(255,255,255,0.45);text-decoration:none;font-size:0.6rem;letter-spacing:0.12em;transition:color 0.2s;">
+                                <span style="color:rgba(168,224,196,0.7);margin-right:0.5rem;">✦</span>ASKLEPIUS · Cuidado General
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="flex items-center gap-4 mono text-xs uppercase tracking-widest">
+                <a href="schedule-mock.html#reservas" class="hover-gold hidden lg:block" style="color: rgba(255,255,255,0.5); text-decoration:none; cursor:crosshair;">Mis Reservas</a>
+                <a href="schedule-mock.html?branch=asklepius" class="btn-nav-cta" style="text-decoration:none;">Agendar</a>
+            </div>
+        </div>
+        <div class="lg:hidden border-t px-4 py-3 flex gap-6 mono text-xs uppercase tracking-widest overflow-x-auto hide-scrollbar" style="border-color: rgba(255,255,255,0.06);">
+            <a href="index.html" class="nav-link hover-gold whitespace-nowrap" data-page="inicio">Inicio</a>
+            <a href="khrysos-catalogo.html" class="nav-link hover-gold whitespace-nowrap" data-page="catalogo">Catálogo</a>
+            <a href="khrysos-estudio.html" class="nav-link hover-gold whitespace-nowrap" data-page="estudio">Estudio</a>
+            <a href="khrysos-brand_statement.html" class="nav-link hover-gold whitespace-nowrap" data-page="khrysos">Khrysos</a>
+            <a href="krystal.html" class="nav-link whitespace-nowrap" style="color:rgba(168,216,255,0.78);" data-page="krystal">Krystal</a>
+            <a href="kallisto.html" class="nav-link whitespace-nowrap" style="color:rgba(255,105,160,0.72);" data-page="kallisto">Kallisto</a>
+            <a href="leukos.html" class="nav-link whitespace-nowrap" style="color:rgba(212,212,212,0.72);" data-page="leukos">Leukos</a>
+            <a href="asklepius.html" class="nav-link whitespace-nowrap" style="color:rgba(168,224,196,0.72);" data-page="asklepius">Asklepius</a>
+        </div>
+    </nav>
+
+    <!-- HERO -->
+    <section class="min-h-screen flex flex-col justify-center px-6 lg:px-12 pt-28 pb-0 relative overflow-hidden scan-bg">
+        <div class="glow-orb" style="width:600px;height:600px;background:#A8E0C4;top:-150px;right:-150px;animation-delay:0s;"></div>
+        <div class="glow-orb" style="width:350px;height:350px;background:#6dbf9b;bottom:0;left:-100px;animation-delay:6s;"></div>
+        <div class="hero-wm">A</div>
+
+        <div style="position:relative;z-index:2;max-width:1400px;margin:0 auto;width:100%;">
+            <div class="fu mono" style="font-size:0.55rem;letter-spacing:0.2em;color:rgba(168,224,196,0.5);margin-bottom:1.5rem;">
+                ODONTOLOGÍA GENERAL · SANTIAGO CHILE
+            </div>
+
+            <h1 class="hero-name sh-mint fu d1">ASKLEPIUS</h1>
+
+            <div class="fu d1" style="height:2px;width:80px;background:linear-gradient(90deg,#A8E0C4,transparent);margin:2rem 0;"></div>
+
+            <div class="fu d2 max-w-2xl">
+                <p style="font-size:clamp(1rem,2vw,1.35rem);font-weight:300;color:rgba(255,255,255,0.5);line-height:1.9;margin-bottom:2rem;">
+                    La base que hace posible todo lo demás.<br>
+                    Limpieza, diagnóstico y prevención de excelencia.
+                </p>
+            </div>
+
+            <!-- Live availability indicator -->
+            <div class="fu d3 flex items-center gap-3 mb-8" style="padding:0.75rem 1.25rem;border:1px solid rgba(168,224,196,0.2);background:rgba(168,224,196,0.03);display:inline-flex;">
+                <span class="urgency-dot"></span>
+                <span class="mono" style="font-size:0.55rem;letter-spacing:0.15em;color:rgba(168,224,196,0.6);">AGENDA DISPONIBLE ESTA SEMANA</span>
+            </div>
+
+            <br>
+            <div class="fu d4 flex gap-4 flex-wrap mt-4">
+                <a href="schedule-mock.html?branch=asklepius" class="btn-mint">Agendar Limpieza</a>
+                <a href="#servicios" class="btn-outline-mint">Ver Servicios</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- MARQUEE -->
+    <div class="mq-wrap py-3 border-t border-b" style="border-color:rgba(168,224,196,0.07);">
+        <div class="mq-inner mono" style="font-size:0.55rem;letter-spacing:0.15em;color:rgba(168,224,196,0.15);">
+            &nbsp;&nbsp;&nbsp;ASKLEPIUS™ &nbsp;·&nbsp; ODONTOLOGÍA GENERAL &nbsp;·&nbsp; LIMPIEZA DENTAL &nbsp;·&nbsp; DIAGNÓSTICO INTEGRAL &nbsp;·&nbsp; PREVENCIÓN &nbsp;·&nbsp; RADIOGRAFÍAS &nbsp;·&nbsp; ENDODONCIA &nbsp;·&nbsp; IMPLANTES &nbsp;·&nbsp; KHRYSOS™ · SANTIAGO CHILE &nbsp;·&nbsp;
+            &nbsp;&nbsp;&nbsp;ASKLEPIUS™ &nbsp;·&nbsp; ODONTOLOGÍA GENERAL &nbsp;·&nbsp; LIMPIEZA DENTAL &nbsp;·&nbsp; DIAGNÓSTICO INTEGRAL &nbsp;·&nbsp; PREVENCIÓN &nbsp;·&nbsp; RADIOGRAFÍAS &nbsp;·&nbsp; ENDODONCIA &nbsp;·&nbsp; IMPLANTES &nbsp;·&nbsp; KHRYSOS™ · SANTIAGO CHILE &nbsp;·&nbsp;
+        </div>
+    </div>
+
+    <!-- STAT BAR -->
+    <div class="stat-bar">
+        <div class="stat-cell fu">
+            <div class="font-display" style="font-size:3rem;line-height:1;color:var(--mint);">2X</div>
+            <div class="mono mt-2" style="font-size:0.48rem;letter-spacing:0.18em;color:rgba(255,255,255,0.2);">AL AÑO MÍNIMO</div>
+            <div class="mono mt-1" style="font-size:0.42rem;letter-spacing:0.1em;color:rgba(168,224,196,0.3);">CONTROL RECOMENDADO</div>
+        </div>
+        <div class="stat-cell fu d1">
+            <div class="font-display" style="font-size:3rem;line-height:1;color:var(--mint);">90%</div>
+            <div class="mono mt-2" style="font-size:0.48rem;letter-spacing:0.18em;color:rgba(255,255,255,0.2);">PROBLEMAS EVITABLES</div>
+            <div class="mono mt-1" style="font-size:0.42rem;letter-spacing:0.1em;color:rgba(168,224,196,0.3);">CON PREVENCIÓN</div>
+        </div>
+        <div class="stat-cell fu d2">
+            <div class="font-display" style="font-size:3rem;line-height:1;color:var(--mint);">1H</div>
+            <div class="mono mt-2" style="font-size:0.48rem;letter-spacing:0.18em;color:rgba(255,255,255,0.2);">LIMPIEZA COMPLETA</div>
+            <div class="mono mt-1" style="font-size:0.42rem;letter-spacing:0.1em;color:rgba(168,224,196,0.3);">CON PULIDO Y FLÚOR</div>
+        </div>
+        <div class="stat-cell fu d3">
+            <div class="font-display" style="font-size:3rem;line-height:1;color:var(--mint);">∅</div>
+            <div class="mono mt-2" style="font-size:0.48rem;letter-spacing:0.18em;color:rgba(255,255,255,0.2);">DOLOR ESPERADO</div>
+            <div class="mono mt-1" style="font-size:0.42rem;letter-spacing:0.1em;color:rgba(168,224,196,0.3);">ANESTESIA DISPONIBLE</div>
+        </div>
+    </div>
+
+    <!-- SERVICIOS -->
+    <section id="servicios" class="px-6 lg:px-12 py-24 relative" style="border-top:1px solid rgba(168,224,196,0.06);">
+        <div class="glow-orb" style="width:500px;height:500px;background:#A8E0C4;top:20%;left:-150px;animation-delay:3s;"></div>
+        <div style="max-width:1400px;margin:0 auto;">
+            <div class="fu">
+                <span class="mono block mb-4" style="font-size:0.55rem;letter-spacing:0.2em;color:rgba(168,224,196,0.45);">01 — SERVICIOS</span>
+                <h2 class="font-display mb-16" style="font-size:clamp(3rem,7vw,7rem);line-height:0.9;">
+                    <span class="sh-mint">CUIDADO</span><br>
+                    <span style="color:rgba(255,255,255,0.1);">COMPLETO</span>
+                </h2>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-0 fu d1" style="border:1px solid rgba(168,224,196,0.08);">
+                <!-- Limpieza -->
+                <div style="padding:3rem 2.5rem;border-right:1px solid rgba(168,224,196,0.08);border-bottom:1px solid rgba(168,224,196,0.08);">
+                    <h3 class="font-display mb-3" style="font-size:2.5rem;color:var(--mint);">LIMPIEZA<br>DENTAL</h3>
+                    <p style="font-size:0.9rem;color:rgba(255,255,255,0.4);line-height:1.8;font-weight:300;margin-bottom:1.5rem;">
+                        Detartraje ultrasónico, pulido coronal y aplicación de flúor. Eliminamos placa, sarro y manchas externas. La base de toda salud oral.
+                    </p>
+                    <div class="flex flex-wrap gap-1 mb-4">
+                        <span class="chip">ULTRASÓNICO</span>
+                        <span class="chip">PULIDO</span>
+                        <span class="chip">FLÚOR</span>
+                        <span class="chip">AIR FLOW</span>
+                    </div>
+                    <div class="check-item">
+                        <div class="check-icon"></div>
+                        <div style="font-size:0.82rem;color:rgba(255,255,255,0.35);">Incluye examen clínico completo</div>
+                    </div>
+                    <div class="check-item">
+                        <div class="check-icon"></div>
+                        <div style="font-size:0.82rem;color:rgba(255,255,255,0.35);">Radiografías de control si corresponde</div>
+                    </div>
+                    <div class="check-item" style="border-bottom:none;">
+                        <div class="check-icon"></div>
+                        <div style="font-size:0.82rem;color:rgba(255,255,255,0.35);">Instrucciones de higiene personalizadas</div>
+                    </div>
+                </div>
+
+                <!-- Diagnóstico -->
+                <div style="padding:3rem 2.5rem;border-bottom:1px solid rgba(168,224,196,0.08);">
+                    <h3 class="font-display mb-3" style="font-size:2.5rem;color:var(--mint);">DIAGNÓSTICO<br>INTEGRAL</h3>
+                    <p style="font-size:0.9rem;color:rgba(255,255,255,0.4);line-height:1.8;font-weight:300;margin-bottom:1.5rem;">
+                        Evaluación completa con radiografías panorámicas, periapicales y bitewing. Detección temprana de caries, patologías óseas y anomalías.
+                    </p>
+                    <div class="flex flex-wrap gap-1 mb-4">
+                        <span class="chip">PANORÁMICA</span>
+                        <span class="chip">PERIAPICAL</span>
+                        <span class="chip">CBCT 3D</span>
+                    </div>
+                    <div class="check-item">
+                        <div class="check-icon"></div>
+                        <div style="font-size:0.82rem;color:rgba(255,255,255,0.35);">Odontograma digital completo</div>
+                    </div>
+                    <div class="check-item">
+                        <div class="check-icon"></div>
+                        <div style="font-size:0.82rem;color:rgba(255,255,255,0.35);">Plan de tratamiento escrito y priorizado</div>
+                    </div>
+                    <div class="check-item" style="border-bottom:none;">
+                        <div class="check-icon"></div>
+                        <div style="font-size:0.82rem;color:rgba(255,255,255,0.35);">Derivación oportuna si se requiere</div>
+                    </div>
+                </div>
+
+                <!-- Obturaciones -->
+                <div style="padding:3rem 2.5rem;border-right:1px solid rgba(168,224,196,0.08);">
+                    <h3 class="font-display mb-3" style="font-size:2.5rem;color:var(--mint);">RESTAURACIONES<br>& RELLENOS</h3>
+                    <p style="font-size:0.9rem;color:rgba(255,255,255,0.4);line-height:1.8;font-weight:300;margin-bottom:1.5rem;">
+                        Obturaciones de resina compuesta estética del color exacto de tu diente. Eliminamos caries y restauramos la función con materiales de última generación.
+                    </p>
+                    <div class="flex flex-wrap gap-1">
+                        <span class="chip">RESINA COMPUESTA</span>
+                        <span class="chip">ADHESIVO DUAL</span>
+                        <span class="chip">COLOR MATCH</span>
+                    </div>
+                </div>
+
+                <!-- Endodoncia + Implantes -->
+                <div style="padding:3rem 2.5rem;">
+                    <h3 class="font-display mb-3" style="font-size:2.5rem;color:var(--mint);">ENDODONCIA<br>& IMPLANTES</h3>
+                    <p style="font-size:0.9rem;color:rgba(255,255,255,0.4);line-height:1.8;font-weight:300;margin-bottom:1.5rem;">
+                        Tratamientos de conducto con rotary instrumentado y sellado definitivo. Implantes de titanio de marcas premium con protocolo de carga inmediata.
+                    </p>
+                    <div class="flex flex-wrap gap-1">
+                        <span class="chip">ENDODONCIA ROTARY</span>
+                        <span class="chip">IMPLANTES TI</span>
+                        <span class="chip">CARGA INMEDIATA</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FRECUENCIA RECOMENDADA -->
+    <section class="px-6 lg:px-12 py-24" style="border-top:1px solid rgba(168,224,196,0.06);">
+        <div style="max-width:1000px;margin:0 auto;">
+            <div class="fu">
+                <span class="mono block mb-4" style="font-size:0.55rem;letter-spacing:0.2em;color:rgba(168,224,196,0.45);">02 — PROTOCOLO</span>
+                <h2 class="font-display mb-4" style="font-size:clamp(2.5rem,6vw,6rem);line-height:0.9;">FRECUENCIA<br><span style="color:rgba(255,255,255,0.1);">RECOMENDADA</span></h2>
+                <p class="mb-12" style="font-size:1rem;color:rgba(255,255,255,0.35);font-weight:300;">Cada boca es diferente. Este es el protocolo base — tu dentista te ajustará el plan.</p>
+            </div>
+            <div class="fu d1">
+                <div class="freq-item">
+                    <div>
+                        <div class="font-display mb-1" style="font-size:1.5rem;color:var(--mint);">LIMPIEZA DENTAL</div>
+                        <div style="font-size:0.82rem;color:rgba(255,255,255,0.35);font-weight:300;">Detartraje y pulido. Esencial para remover sarro que el cepillo no elimina.</div>
+                    </div>
+                    <span class="freq-badge">CADA 6 MESES</span>
+                </div>
+                <div class="freq-item">
+                    <div>
+                        <div class="font-display mb-1" style="font-size:1.5rem;color:var(--mint);">CONTROL CON RADIOGRAFÍAS</div>
+                        <div style="font-size:0.82rem;color:rgba(255,255,255,0.35);font-weight:300;">Detección temprana de caries interproximales y control óseo.</div>
+                    </div>
+                    <span class="freq-badge">CADA 12 MESES</span>
+                </div>
+                <div class="freq-item">
+                    <div>
+                        <div class="font-display mb-1" style="font-size:1.5rem;color:var(--mint);">RADIOGRAFÍA PANORÁMICA</div>
+                        <div style="font-size:0.82rem;color:rgba(255,255,255,0.35);font-weight:300;">Visión global de toda la dentición, hueso y articulaciones.</div>
+                    </div>
+                    <span class="freq-badge">CADA 3–5 AÑOS</span>
+                </div>
+                <div class="freq-item">
+                    <div>
+                        <div class="font-display mb-1" style="font-size:1.5rem;color:var(--mint);">CONTROL IMPLANTE</div>
+                        <div style="font-size:0.82rem;color:rgba(255,255,255,0.35);font-weight:300;">Evaluación de osteointegración y encía peri-implantar.</div>
+                    </div>
+                    <span class="freq-badge">ANUAL</span>
+                </div>
+                <div class="freq-item" style="border-bottom:none;">
+                    <div>
+                        <div class="font-display mb-1" style="font-size:1.5rem;color:var(--mint);">FLUORIZACIÓN</div>
+                        <div style="font-size:0.82rem;color:rgba(255,255,255,0.35);font-weight:300;">Para pacientes con alto riesgo de caries o sensibilidad dental.</div>
+                    </div>
+                    <span class="freq-badge">CADA 3–6 MESES</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="px-6 lg:px-12 py-24" style="border-top:1px solid rgba(168,224,196,0.06);">
+        <div style="max-width:800px;margin:0 auto;">
+            <div class="fu">
+                <span class="mono block mb-4" style="font-size:0.55rem;letter-spacing:0.2em;color:rgba(168,224,196,0.45);">03 — PREGUNTAS</span>
+                <h2 class="font-display mb-12" style="font-size:clamp(2.5rem,6vw,5rem);line-height:0.9;">FAQ<br><span style="color:rgba(255,255,255,0.1);">ASKLEPIUS</span></h2>
+            </div>
+            <div class="faq-item fu">
+                <button class="faq-q"><span>¿Por qué ir al dentista si no me duele nada?</span><span class="faq-icon">+</span></button>
+                <div class="faq-a">La mayoría de las patologías dentales — caries, enfermedad periodontal, quistes — son asintomáticas en sus etapas tempranas. Cuando duele, el problema ya es avanzado y el tratamiento más complejo y costoso. La prevención es siempre la mejor inversión.</div>
+            </div>
+            <div class="faq-item fu d1">
+                <button class="faq-q"><span>¿Cuánto tarda una limpieza dental?</span><span class="faq-icon">+</span></button>
+                <div class="faq-a">Una limpieza completa con examen clínico, detartraje ultrasónico, pulido y flúor toma entre 45 y 60 minutos. Si hay sarro subgingival o se requieren radiografías, el tiempo puede extenderse. No te apresuramos — hacemos el trabajo bien.</div>
+            </div>
+            <div class="faq-item fu d2">
+                <button class="faq-q"><span>¿Un implante duele?</span><span class="faq-icon">+</span></button>
+                <div class="faq-a">La cirugía de implante se realiza bajo anestesia local — no sientes nada durante el procedimiento. El post-operatorio es moderado los primeros 2–3 días: inflamación y sensibilidad controlables con analgésicos estándar. La mayoría de los pacientes lo describe como menos doloroso de lo esperado.</div>
+            </div>
+            <div class="faq-item fu d3">
+                <button class="faq-q"><span>¿ASKLEPIUS es para los que no se hacen grillz ni cristales?</span><span class="faq-icon">+</span></button>
+                <div class="faq-a">Al contrario. Todos los pacientes de KHRYSOS™ pasan primero por ASKLEPIUS. Ningún procedimiento estético — grillz, cristales, veneers, armonización — se hace sobre una boca que no está en salud. ASKLEPIUS es el punto de partida de todo.</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ECOSISTEMA KHRYSOS -->
+    <section class="px-6 lg:px-12 py-24" style="border-top:1px solid rgba(168,224,196,0.06);">
+        <div style="max-width:1400px;margin:0 auto;">
+            <div class="fu">
+                <span class="mono block mb-4" style="font-size:0.55rem;letter-spacing:0.2em;color:rgba(168,224,196,0.45);">04 — ECOSISTEMA</span>
+                <h2 class="font-display mb-4" style="font-size:clamp(2.5rem,6vw,6rem);line-height:0.9;">EL PUNTO<br><span style="color:rgba(255,255,255,0.1);">DE PARTIDA</span></h2>
+                <p class="mb-12" style="font-size:1rem;color:rgba(255,255,255,0.35);font-weight:300;max-width:500px;">
+                    ASKLEPIUS no es el servicio menos glamoroso — es el más importante. Sin base no hay estructura. Sin salud no hay estética.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-px fu d1" style="background:rgba(168,224,196,0.06);">
+                <a href="#" style="padding:2.5rem 2rem;background:rgba(168,224,196,0.04);text-decoration:none;transition:background 0.3s;display:block;" onmouseover="this.style.background='rgba(168,224,196,0.07)'" onmouseout="this.style.background='rgba(168,224,196,0.04)'">
+                    <div class="mono mb-2" style="font-size:0.45rem;letter-spacing:0.2em;color:rgba(168,224,196,0.4);">01 → PUNTO DE PARTIDA</div>
+                    <div class="font-display mb-2" style="font-size:2rem;color:var(--mint);">ASKLEPIUS</div>
+                    <div style="font-size:0.8rem;color:rgba(255,255,255,0.3);font-weight:300;">Cuidado general y prevención.</div>
+                </a>
+                <a href="index.html" style="padding:2.5rem 2rem;background:var(--void);text-decoration:none;transition:background 0.3s;display:block;border-left:1px solid rgba(168,224,196,0.06);" onmouseover="this.style.background='rgba(255,215,0,0.03)'" onmouseout="this.style.background='var(--void)'">
+                    <div class="mono mb-2" style="font-size:0.45rem;letter-spacing:0.2em;color:rgba(255,215,0,0.4);">02 → JOYERÍA</div>
+                    <div class="font-display mb-2" style="font-size:2rem;" style="background:linear-gradient(90deg,#FFD700,#FFA500);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;color:#FFD700">KHRYSOS</div>
+                    <div style="font-size:0.8rem;color:rgba(255,255,255,0.3);font-weight:300;">Grillz custom de metal precioso.</div>
+                </a>
+                <a href="khrysos-catalogo.html" style="padding:2.5rem 2rem;background:var(--void);text-decoration:none;transition:background 0.3s;display:block;border-left:1px solid rgba(168,224,196,0.06);" onmouseover="this.style.background='rgba(168,216,255,0.03)'" onmouseout="this.style.background='var(--void)'">
+                    <div class="mono mb-2" style="font-size:0.45rem;letter-spacing:0.2em;color:rgba(168,216,255,0.4);">03 → CRISTALES</div>
+                    <div class="font-display mb-2" style="font-size:2rem;color:#a8d8ff;">KRYSTAL</div>
+                    <div style="font-size:0.8rem;color:rgba(255,255,255,0.3);font-weight:300;">Piedras preciosas sobre esmalte.</div>
+                </a>
+                <a href="leukos.html" style="padding:2.5rem 2rem;background:var(--void);text-decoration:none;transition:background 0.3s;display:block;border-left:1px solid rgba(168,224,196,0.06);" onmouseover="this.style.background='rgba(212,212,212,0.03)'" onmouseout="this.style.background='var(--void)'">
+                    <div class="mono mb-2" style="font-size:0.45rem;letter-spacing:0.2em;color:rgba(212,212,212,0.4);">04 → ESTÉTICA</div>
+                    <div class="font-display mb-2" style="font-size:2rem;color:#D4D4D4;">LEUKOS</div>
+                    <div style="font-size:0.8rem;color:rgba(255,255,255,0.3);font-weight:300;">Veneers y blanqueamiento.</div>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA FINAL -->
+    <section class="px-6 lg:px-12 py-32 relative overflow-hidden text-center" style="border-top:1px solid rgba(168,224,196,0.06);">
+        <div class="glow-orb" style="width:600px;height:600px;background:#A8E0C4;top:50%;left:50%;transform:translate(-50%,-50%);"></div>
+        <div style="position:relative;z-index:2;max-width:700px;margin:0 auto;">
+            <div class="mono mb-4" style="font-size:0.5rem;letter-spacing:0.25em;color:rgba(168,224,196,0.4);">ASKLEPIUS™</div>
+            <h2 class="font-display fu" style="font-size:clamp(3.5rem,9vw,9rem);line-height:0.85;margin-bottom:2rem;">
+                <span class="sh-mint">LA BASE<br>DE TODO</span>
+            </h2>
+            <p class="fu d1 font-light" style="font-size:1.1rem;color:rgba(255,255,255,0.35);line-height:1.8;margin-bottom:3rem;">
+                Primera visita con diagnóstico completo.<br>By Appointment Only · Santiago, Chile.
+            </p>
+            <div class="fu d2">
+                <a href="schedule-mock.html?branch=asklepius" class="btn-mint">AGENDAR PRIMERA VISITA</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="px-6 lg:px-12 py-12" style="border-top:1px solid rgba(255,255,255,0.05);">
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-8 mb-12">
+            <div>
+                <h4 class="font-display text-lg mb-4">ASKLEPIUS<span style="color:var(--mint);">™</span></h4>
+                <ul class="space-y-2 mono text-xs uppercase tracking-wide" style="color:rgba(255,255,255,0.35);">
+                    <li><a href="schedule-mock.html?branch=asklepius" class="hover-mint">Agenda & Reservas</a></li>
+                    <li><a href="#servicios" class="hover-mint">Servicios</a></li>
+                    <li><a href="#" class="hover-mint">Política de Privacidad</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="mono font-bold mb-4 text-xs uppercase tracking-widest" style="color:var(--mint);">Casa KHRYSOS™</h4>
+                <ul class="space-y-2 mono text-xs uppercase tracking-wide" style="color:rgba(255,255,255,0.35);">
+                    <li><a href="index.html" class="hover-mint">KHRYSOS — Grillz</a></li>
+                    <li><a href="khrysos-catalogo.html" class="hover-mint">KRYSTAL — Cristales</a></li>
+                    <li><a href="kallisto.html" class="hover-mint">KALLISTO — Armonización</a></li>
+                    <li><a href="leukos.html" class="hover-mint">LEUKOS — Estética Dental</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="mono font-bold mb-4 text-xs uppercase tracking-widest" style="color:var(--mint);">Social</h4>
+                <ul class="space-y-2 mono text-xs uppercase tracking-wide" style="color:rgba(255,255,255,0.35);">
+                    <li><a href="#" class="hover-mint">Instagram</a></li>
+                    <li><a href="#" class="hover-mint">TikTok</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="mono font-bold mb-4 text-xs uppercase tracking-widest" style="color:var(--mint);">Estudio</h4>
+                <address class="not-italic mono text-xs uppercase tracking-wide leading-relaxed" style="color:rgba(255,255,255,0.35);">
+                    By Appointment Only<br>Santiago, Chile
+                </address>
+            </div>
+        </div>
+        <div class="flex justify-between items-end flex-wrap gap-4" style="border-top:1px solid rgba(255,255,255,0.05);padding-top:2rem;">
+            <p class="mono text-xs uppercase tracking-widest" style="color:rgba(255,255,255,0.15);">© 2026 KHRYSOS™. All rights reserved.</p>
+            <div class="font-display" style="font-size:4rem;line-height:1;-webkit-text-stroke:1px rgba(168,224,196,0.1);color:transparent;">·</div>
+        </div>
+    </footer>
+
+    <script>
+        const obs = new IntersectionObserver(entries => {
+            entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('vis'); });
+        }, { threshold: 0.04, rootMargin: '0px 0px -40px 0px' });
+        document.querySelectorAll('.fu').forEach(el => obs.observe(el));
+
+        document.querySelectorAll('a[href^="#"]').forEach(a => {
+            a.addEventListener('click', e => {
+                const t = document.querySelector(a.getAttribute('href'));
+                if (t) { e.preventDefault(); t.scrollIntoView({ behavior: 'smooth' }); }
+            });
+        });
+
+        document.querySelectorAll('.faq-item').forEach(item => {
+            item.querySelector('.faq-q').addEventListener('click', () => {
+                const wasOpen = item.classList.contains('open');
+                document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
+                if (!wasOpen) item.classList.add('open');
+            });
+        });
+    </script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var btn = document.querySelector('.nav-dropdown-btn');
+            var menu = document.querySelector('.nav-dropdown-menu');
+            if (btn && menu) {
+                btn.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    menu.style.display = menu.style.display === 'block' ? 'none' : 'block';
+                });
+                document.addEventListener('click', function() {
+                    menu.style.display = 'none';
+                });
+            }
+        });
+    </script>
+
+</body>
+</html>
+
+
+

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>KARAT™ | Catálogo</title>
+    <title>KHRYSOS™ | Catálogo</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -73,21 +73,21 @@
         .hover-gold { transition: color 0.3s; }
         .hover-gold:hover { color: var(--hype-gold); }
 
-        .btn-karat {
+        .btn-khrysos {
             background: var(--hype-gold); color: var(--void-black);
             padding: 0.75rem 2rem; text-transform: uppercase;
             letter-spacing: 0.1em; font-weight: 700; font-size: 0.7rem;
             transition: all 0.3s; border: 2px solid var(--hype-gold); cursor: crosshair;
         }
-        .btn-karat:hover { background: transparent; color: var(--hype-gold); }
+        .btn-khrysos:hover { background: transparent; color: var(--hype-gold); }
 
-        .btn-karat-inv {
+        .btn-khrysos-inv {
             background: transparent; color: var(--pure-white);
             padding: 0.75rem 2rem; text-transform: uppercase;
             letter-spacing: 0.1em; font-weight: 700; font-size: 0.7rem;
             transition: all 0.3s; border: 2px solid rgba(255,255,255,0.3); cursor: crosshair;
         }
-        .btn-karat-inv:hover { background: var(--hype-gold); border-color: var(--hype-gold); color: var(--void-black); }
+        .btn-khrysos-inv:hover { background: var(--hype-gold); border-color: var(--hype-gold); color: var(--void-black); }
 
         .section-num {
             font-family: 'Space Mono', monospace; font-size: 0.65rem;
@@ -176,7 +176,7 @@
             color: rgba(255,255,255,0.35); margin-bottom: 0.75rem; display: block;
         }
 
-        .glitch-hover:hover { animation: glitch 0.3s both infinite; }
+        .:hover { animation: glitch 0.3s both infinite; }
         @keyframes glitch {
             0% { transform: translate(0) } 20% { transform: translate(-2px, 2px) }
             40% { transform: translate(-2px, -2px) } 60% { transform: translate(2px, 2px) }
@@ -186,41 +186,82 @@
         /* Hover gold state for product card border */
         .product-card:hover .card-border { border-color: rgba(255,215,0,0.3); }
         .card-border { transition: border-color 0.3s; }
+
+        /* ── Unified nav ── */
+        .text-gold {
+            background: linear-gradient(135deg, #FFD700 0%, #FFA500 50%, #FFD700 100%);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+        }
+        .hover-gold { transition: color 0.3s; }
+        .hover-gold:hover { color: #FFD700 !important; -webkit-text-fill-color: #FFD700 !important; }
+        .btn-nav-cta {
+            background: #FFD700; color: #0a0a0a;
+            padding: 0.4rem 1.2rem;
+            font-family: 'Space Mono', monospace;
+            font-size: 0.65rem; letter-spacing: 0.1em; font-weight: 700;
+            text-transform: uppercase; border: 2px solid #FFD700;
+            transition: all 0.3s; cursor: crosshair;
+        }
+        .btn-nav-cta:hover { background: transparent; color: #FFD700; }
+        .hide-scrollbar::-webkit-scrollbar { display: none; }
+        .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+        @keyframes pulse-gold { 0%,100% { opacity:1; } 50% { opacity:0.7; } }
+        .pulse-gold { animation: pulse-gold 2.5s ease-in-out infinite; }
+        .nav-dropdown-menu a:hover { color: #FFD700 !important; }
+        .nav-dropdown-btn:focus { outline: none; }
     </style>
 </head>
 <body>
 
-        <!-- Top Bar -->
-    <div style="background: var(--hype-gold); color: var(--void-black);" class="text-[10px] uppercase tracking-widest py-2 px-4 text-center font-bold mono pulse-gold">
-        KARAT™ Hardware — Solo con cita previa → <a href="karat-estudio.html" style="text-decoration:underline; color: var(--void-black);">Reserva tu sesión</a>
+    <!-- Top Bar -->
+    <div style="background: #FFD700; color: #0a0a0a;" class="text-[10px] uppercase tracking-widest py-2 px-4 text-center font-bold mono pulse-gold">
+        KHRYSOS™ — Solo con cita previa → <a href="khrysos-estudio.html" style="text-decoration:underline; color: #0a0a0a;">Reserva tu sesión</a>
     </div>
-
     <!-- Navigation -->
     <nav class="sticky top-0 z-50 border-b" style="border-color: rgba(255,255,255,0.1); backdrop-filter: blur(12px); background: rgba(10,10,10,0.95);">
         <div class="flex items-center justify-between px-4 py-4 lg:px-8">
             <div class="flex items-center gap-8">
                 <a href="index.html" class="font-display text-xl font-bold tracking-tight">
-                    KARAT<span class="text-gold">™</span>
+                    KHRYSOS<span class="text-gold">™</span>
                 </a>
                 <div class="hidden lg:flex items-center gap-6 mono text-xs uppercase tracking-widest">
                     <a href="index.html" class="nav-link hover-gold" data-page="inicio">Inicio</a>
-                    <a href="karat-catalogo.html" class="nav-link hover-gold" data-page="catalogo">Catálogo</a>
-                    <a href="karat-estudio.html" class="nav-link hover-gold" data-page="estudio">Estudio</a>
-                    <a href="karat-brand_statement.html" class="nav-link hover-gold" data-page="karat">Karat</a>
+                    <a href="khrysos-catalogo.html" class="nav-link hover-gold" data-page="catalogo">Catálogo</a>
+                    <a href="khrysos-estudio.html" class="nav-link hover-gold" data-page="estudio">Estudio</a>
+                    <a href="khrysos-brand_statement.html" class="nav-link hover-gold" data-page="khrysos">Khrysos</a>
+                    <!-- Servicios dropdown -->
+                    <div class="nav-dropdown" style="position:relative;">
+                        <button class="nav-link hover-gold nav-dropdown-btn" style="background:none;border:none;cursor:crosshair;padding:0;font-family:inherit;font-size:inherit;letter-spacing:inherit;text-transform:inherit;color:rgba(255,255,255,0.5);">
+                            Servicios <span style="font-size:0.55rem;opacity:0.6;">▾</span>
+                        </button>
+                        <div class="nav-dropdown-menu" style="display:none;position:absolute;top:calc(100% + 12px);left:0;min-width:200px;background:rgba(10,10,10,0.98);border:1px solid rgba(255,255,255,0.1);padding:0.5rem 0;z-index:200;">
+                            <a href="kallisto.html" class="nav-dropdown-item hover-gold" style="display:block;padding:0.6rem 1.25rem;color:rgba(255,255,255,0.45);text-decoration:none;font-size:0.6rem;letter-spacing:0.12em;transition:color 0.2s;">
+                                <span style="color:rgba(255,105,160,0.6);margin-right:0.5rem;">●</span>KALLISTO — Armonización Facial
+                            </a>
+                            <a href="leukos.html" class="nav-dropdown-item hover-gold" style="display:block;padding:0.6rem 1.25rem;color:rgba(255,255,255,0.45);text-decoration:none;font-size:0.6rem;letter-spacing:0.12em;transition:color 0.2s;">
+                                <span style="color:rgba(212,212,212,0.6);margin-right:0.5rem;">●</span>LEUKOS — Odontología Estética
+                            </a>
+                            <a href="asklepius.html" class="nav-dropdown-item hover-gold" style="display:block;padding:0.6rem 1.25rem;color:rgba(255,255,255,0.45);text-decoration:none;font-size:0.6rem;letter-spacing:0.12em;transition:color 0.2s;">
+                                <span style="color:rgba(168,224,196,0.6);margin-right:0.5rem;">●</span>ASKLEPIUS — Cuidado General
+                            </a>
+                        </div>
+                    </div>
                 </div>
             </div>
             <div class="flex items-center gap-4 mono text-xs uppercase tracking-widest">
-                <button class="hidden lg:block hover-gold" style="color: rgba(255,255,255,0.5);">Buscar</button>
-                <a href="#" class="hover-gold" style="color: rgba(255,255,255,0.5); text-decoration:none; cursor:crosshair;">Mis Reservas</a>
-                <a href="karat-estudio.html" class="btn-karat" style="text-decoration:none; padding: 0.4rem 1.2rem; font-size: 0.65rem;">Agendar</a>
+                <a href="#" class="hover-gold hidden lg:block" style="color: rgba(255,255,255,0.5); text-decoration:none; cursor:crosshair;">Mis Reservas</a>
+                <a href="khrysos-estudio.html" class="btn-nav-cta" style="text-decoration:none;">Agendar</a>
             </div>
         </div>
         <!-- Mobile nav -->
         <div class="lg:hidden border-t px-4 py-3 flex gap-6 mono text-xs uppercase tracking-widest overflow-x-auto hide-scrollbar" style="border-color: rgba(255,255,255,0.06);">
             <a href="index.html" class="nav-link hover-gold whitespace-nowrap" data-page="inicio">Inicio</a>
-            <a href="karat-catalogo.html" class="nav-link hover-gold whitespace-nowrap" data-page="catalogo">Catálogo</a>
-            <a href="karat-estudio.html" class="nav-link hover-gold whitespace-nowrap" data-page="estudio">Estudio</a>
-            <a href="karat-brand_statement.html" class="nav-link hover-gold whitespace-nowrap" data-page="karat">Karat</a>
+            <a href="khrysos-catalogo.html" class="nav-link hover-gold whitespace-nowrap" data-page="catalogo">Catálogo</a>
+            <a href="khrysos-estudio.html" class="nav-link hover-gold whitespace-nowrap" data-page="estudio">Estudio</a>
+            <a href="khrysos-brand_statement.html" class="nav-link hover-gold whitespace-nowrap" data-page="khrysos">Khrysos</a>
+            <a href="kallisto.html" class="nav-link whitespace-nowrap" style="color:rgba(255,105,160,0.65);" data-page="kallisto">Kallisto</a>
+            <a href="leukos.html" class="nav-link whitespace-nowrap" style="color:rgba(212,212,212,0.65);" data-page="leukos">Leukos</a>
+            <a href="asklepius.html" class="nav-link whitespace-nowrap" style="color:rgba(168,224,196,0.65);" data-page="asklepius">Asklepius</a>
         </div>
     </nav>
 
@@ -233,7 +274,7 @@
         <div class="relative z-10">
             <span class="section-num">00 — CATÁLOGO COMPLETO</span>
             <h1 class="font-display leading-none" style="font-size: clamp(3rem, 9vw, 8rem);">
-                PIEZAS<br><span class="text-gold">KARAT™</span>
+                PIEZAS<br><span class="text-gold">KHRYSOS™</span>
             </h1>
             <p class="mt-4 mono text-xs uppercase tracking-widest" style="color: rgba(255,255,255,0.3);">
                 // Joyería Biomecánica · Instalación Clínica · Santiago, Chile
@@ -306,7 +347,7 @@
                         <div class="font-display text-4xl text-center" style="color: rgba(255,215,0,0.15);">K™</div>
                     </div>
                     <div class="absolute bottom-0 left-0 right-0 p-2 quick-add" style="background: rgba(10,10,10,0.92);">
-                        <a href="karat-estudio.html" class="btn-karat w-full block text-center" style="padding: 0.5rem; font-size: 0.6rem;">Agendar →</a>
+                        <a href="khrysos-estudio.html" class="btn-khrysos w-full block text-center" style="padding: 0.5rem; font-size: 0.6rem;">Agendar →</a>
                     </div>
                     <div class="absolute top-2 left-2">
                         <span class="mono text-xs px-2 py-1 tag-nuevo" style="font-size: 0.55rem; font-weight: 700;">NUEVO</span>
@@ -328,7 +369,7 @@
                         <div class="font-display text-4xl" style="color: rgba(192,192,192,0.15);">VVS</div>
                     </div>
                     <div class="absolute bottom-0 left-0 right-0 p-2 quick-add" style="background: rgba(10,10,10,0.92);">
-                        <a href="karat-estudio.html" class="btn-karat w-full block text-center" style="padding: 0.5rem; font-size: 0.6rem;">Agendar →</a>
+                        <a href="khrysos-estudio.html" class="btn-khrysos w-full block text-center" style="padding: 0.5rem; font-size: 0.6rem;">Agendar →</a>
                     </div>
                     <div class="absolute top-2 right-2">
                         <span class="mono" style="color: rgba(255,215,0,0.4); font-size: 0.55rem;">REF-002</span>
@@ -347,7 +388,7 @@
                         <div class="font-display text-4xl" style="color: rgba(255,215,0,0.2);">18K</div>
                     </div>
                     <div class="absolute bottom-0 left-0 right-0 p-2 quick-add" style="background: rgba(10,10,10,0.92);">
-                        <a href="karat-estudio.html" class="btn-karat w-full block text-center" style="padding: 0.5rem; font-size: 0.6rem;">Agendar →</a>
+                        <a href="khrysos-estudio.html" class="btn-khrysos w-full block text-center" style="padding: 0.5rem; font-size: 0.6rem;">Agendar →</a>
                     </div>
                     <div class="absolute top-2 left-2">
                         <span class="mono text-xs px-2 py-1 tag-nuevo" style="font-size: 0.55rem; font-weight: 700;">NUEVO</span>
@@ -369,7 +410,7 @@
                         <div class="font-display text-3xl text-crystal">DIAMOND</div>
                     </div>
                     <div class="absolute bottom-0 left-0 right-0 p-2 quick-add" style="background: rgba(10,10,10,0.92);">
-                        <a href="karat-estudio.html" class="btn-karat w-full block text-center" style="padding: 0.5rem; font-size: 0.6rem;">Agendar →</a>
+                        <a href="khrysos-estudio.html" class="btn-khrysos w-full block text-center" style="padding: 0.5rem; font-size: 0.6rem;">Agendar →</a>
                     </div>
                     <div class="absolute top-2 left-2">
                         <span class="mono text-xs px-2 py-1 tag-limited" style="font-size: 0.55rem; font-weight: 700;">LIMITED</span>
@@ -391,7 +432,7 @@
                         <div class="font-display text-4xl text-silver">PT</div>
                     </div>
                     <div class="absolute bottom-0 left-0 right-0 p-2 quick-add" style="background: rgba(10,10,10,0.92);">
-                        <a href="karat-estudio.html" class="btn-karat w-full block text-center" style="padding: 0.5rem; font-size: 0.6rem;">Agendar →</a>
+                        <a href="khrysos-estudio.html" class="btn-khrysos w-full block text-center" style="padding: 0.5rem; font-size: 0.6rem;">Agendar →</a>
                     </div>
                     <div class="absolute top-2 right-2">
                         <span class="mono" style="color: rgba(255,215,0,0.4); font-size: 0.55rem;">REF-005</span>
@@ -410,7 +451,7 @@
                         <div class="font-display text-5xl text-gold">K™</div>
                     </div>
                     <div class="absolute bottom-0 left-0 right-0 p-2 quick-add" style="background: rgba(10,10,10,0.92);">
-                        <a href="karat-estudio.html" class="btn-karat w-full block text-center" style="padding: 0.5rem; font-size: 0.6rem;">Consultar →</a>
+                        <a href="khrysos-estudio.html" class="btn-khrysos w-full block text-center" style="padding: 0.5rem; font-size: 0.6rem;">Consultar →</a>
                     </div>
                     <div class="absolute top-2 left-2">
                         <span class="mono text-xs px-2 py-1 tag-custom" style="font-size: 0.55rem; font-weight: 700;">SIGNATURE</span>
@@ -445,7 +486,7 @@
                         <div class="mono text-xs text-center" style="color: rgba(255,255,255,0.15);">BASE<br>TITANIO</div>
                     </div>
                     <div class="absolute bottom-0 left-0 right-0 p-2 quick-add" style="background: rgba(10,10,10,0.92);">
-                        <a href="karat-estudio.html" class="btn-karat w-full block text-center" style="padding: 0.5rem; font-size: 0.6rem;">Agendar →</a>
+                        <a href="khrysos-estudio.html" class="btn-khrysos w-full block text-center" style="padding: 0.5rem; font-size: 0.6rem;">Agendar →</a>
                     </div>
                     <div class="absolute top-2 right-2">
                         <span class="mono" style="color: rgba(255,215,0,0.4); font-size: 0.55rem;">CORE-01</span>
@@ -464,7 +505,7 @@
                         <div class="mono text-xs text-center" style="color: rgba(255,255,255,0.15);">CARILLA<br>ESTÁNDAR</div>
                     </div>
                     <div class="absolute bottom-0 left-0 right-0 p-2 quick-add" style="background: rgba(10,10,10,0.92);">
-                        <a href="karat-estudio.html" class="btn-karat w-full block text-center" style="padding: 0.5rem; font-size: 0.6rem;">Agendar →</a>
+                        <a href="khrysos-estudio.html" class="btn-khrysos w-full block text-center" style="padding: 0.5rem; font-size: 0.6rem;">Agendar →</a>
                     </div>
                     <div class="absolute top-2 right-2">
                         <span class="mono" style="color: rgba(255,215,0,0.4); font-size: 0.55rem;">CORE-02</span>
@@ -483,7 +524,7 @@
                         <div class="font-display text-3xl" style="color: rgba(168,216,255,0.2);">◆</div>
                     </div>
                     <div class="absolute bottom-0 left-0 right-0 p-2 quick-add" style="background: rgba(10,10,10,0.92);">
-                        <a href="karat-estudio.html" class="btn-karat w-full block text-center" style="padding: 0.5rem; font-size: 0.6rem;">Agendar →</a>
+                        <a href="khrysos-estudio.html" class="btn-khrysos w-full block text-center" style="padding: 0.5rem; font-size: 0.6rem;">Agendar →</a>
                     </div>
                     <div class="absolute top-2 right-2">
                         <span class="mono" style="color: rgba(255,215,0,0.4); font-size: 0.55rem;">CORE-03</span>
@@ -502,7 +543,7 @@
                         <div class="mono text-xs text-center" style="color: rgba(255,215,0,0.2);">OPEN<br>FACE</div>
                     </div>
                     <div class="absolute bottom-0 left-0 right-0 p-2 quick-add" style="background: rgba(10,10,10,0.92);">
-                        <a href="karat-estudio.html" class="btn-karat w-full block text-center" style="padding: 0.5rem; font-size: 0.6rem;">Agendar →</a>
+                        <a href="khrysos-estudio.html" class="btn-khrysos w-full block text-center" style="padding: 0.5rem; font-size: 0.6rem;">Agendar →</a>
                     </div>
                     <div class="absolute top-2 right-2">
                         <span class="mono" style="color: rgba(255,215,0,0.4); font-size: 0.55rem;">CORE-04</span>
@@ -521,7 +562,7 @@
                         <div class="font-display text-3xl" style="color: rgba(255,255,255,0.1);">K™ PRO</div>
                     </div>
                     <div class="absolute bottom-0 left-0 right-0 p-2 quick-add" style="background: rgba(10,10,10,0.92);">
-                        <a href="karat-estudio.html" class="btn-karat w-full block text-center" style="padding: 0.5rem; font-size: 0.6rem;">Agendar →</a>
+                        <a href="khrysos-estudio.html" class="btn-khrysos w-full block text-center" style="padding: 0.5rem; font-size: 0.6rem;">Agendar →</a>
                     </div>
                     <div class="absolute top-2 right-2">
                         <span class="mono" style="color: rgba(255,215,0,0.4); font-size: 0.55rem;">CORE-05</span>
@@ -540,7 +581,7 @@
                         <div class="font-display text-3xl text-gold text-center">FULL<br>SET</div>
                     </div>
                     <div class="absolute bottom-0 left-0 right-0 p-2 quick-add" style="background: rgba(10,10,10,0.92);">
-                        <a href="karat-estudio.html" class="btn-karat w-full block text-center" style="padding: 0.5rem; font-size: 0.6rem;">Consultar →</a>
+                        <a href="khrysos-estudio.html" class="btn-khrysos w-full block text-center" style="padding: 0.5rem; font-size: 0.6rem;">Consultar →</a>
                     </div>
                     <div class="absolute top-2 left-2">
                         <span class="mono text-xs px-2 py-1 tag-custom" style="font-size: 0.55rem; font-weight: 700;">CUSTOM</span>
@@ -582,7 +623,7 @@
                     </div>
                     <div class="absolute inset-0" style="background: linear-gradient(135deg, rgba(168,216,255,0.04), transparent);"></div>
                     <div class="absolute bottom-0 left-0 right-0 p-2 quick-add" style="background: rgba(10,10,15,0.92);">
-                        <a href="karat-estudio.html" class="btn-karat w-full block text-center" style="padding: 0.5rem; font-size: 0.6rem;">Agendar →</a>
+                        <a href="khrysos-estudio.html" class="btn-khrysos w-full block text-center" style="padding: 0.5rem; font-size: 0.6rem;">Agendar →</a>
                     </div>
                     <div class="absolute top-2 left-2">
                         <span class="mono text-xs px-2 py-1 tag-krystal" style="font-size: 0.55rem; font-weight: 700;">KRYSTAL</span>
@@ -605,7 +646,7 @@
                     </div>
                     <div class="absolute inset-0" style="background: linear-gradient(135deg, rgba(255,215,0,0.04), transparent);"></div>
                     <div class="absolute bottom-0 left-0 right-0 p-2 quick-add" style="background: rgba(10,10,15,0.92);">
-                        <a href="karat-estudio.html" class="btn-karat w-full block text-center" style="padding: 0.5rem; font-size: 0.6rem;">Agendar →</a>
+                        <a href="khrysos-estudio.html" class="btn-khrysos w-full block text-center" style="padding: 0.5rem; font-size: 0.6rem;">Agendar →</a>
                     </div>
                     <div class="absolute top-2 left-2">
                         <span class="mono text-xs px-2 py-1 tag-krystal" style="font-size: 0.55rem; font-weight: 700;">KRYSTAL</span>
@@ -627,7 +668,7 @@
                         <div class="font-display text-2xl text-crystal">DIAMOND<br>SINGLE</div>
                     </div>
                     <div class="absolute bottom-0 left-0 right-0 p-2 quick-add" style="background: rgba(10,10,15,0.92);">
-                        <a href="karat-estudio.html" class="btn-karat w-full block text-center" style="padding: 0.5rem; font-size: 0.6rem;">Agendar →</a>
+                        <a href="khrysos-estudio.html" class="btn-khrysos w-full block text-center" style="padding: 0.5rem; font-size: 0.6rem;">Agendar →</a>
                     </div>
                     <div class="absolute top-2 left-2">
                         <span class="mono text-xs px-2 py-1 tag-krystal" style="font-size: 0.55rem; font-weight: 700;">KRYSTAL</span>
@@ -649,7 +690,7 @@
                         <div class="font-display text-3xl text-crystal">CLUSTER</div>
                     </div>
                     <div class="absolute bottom-0 left-0 right-0 p-2 quick-add" style="background: rgba(10,10,15,0.92);">
-                        <a href="karat-estudio.html" class="btn-karat w-full block text-center" style="padding: 0.5rem; font-size: 0.6rem;">Agendar →</a>
+                        <a href="khrysos-estudio.html" class="btn-khrysos w-full block text-center" style="padding: 0.5rem; font-size: 0.6rem;">Agendar →</a>
                     </div>
                     <div class="absolute top-2 left-2">
                         <span class="mono text-xs px-2 py-1 tag-krystal" style="font-size: 0.55rem; font-weight: 700;">KRYSTAL</span>
@@ -671,7 +712,7 @@
                         <div class="font-display text-2xl" style="color: rgba(168,216,255,0.2);">OPEN<br>FACE</div>
                     </div>
                     <div class="absolute bottom-0 left-0 right-0 p-2 quick-add" style="background: rgba(10,10,15,0.92);">
-                        <a href="karat-estudio.html" class="btn-karat w-full block text-center" style="padding: 0.5rem; font-size: 0.6rem;">Agendar →</a>
+                        <a href="khrysos-estudio.html" class="btn-khrysos w-full block text-center" style="padding: 0.5rem; font-size: 0.6rem;">Agendar →</a>
                     </div>
                     <div class="absolute top-2 left-2">
                         <span class="mono text-xs px-2 py-1 tag-krystal" style="font-size: 0.55rem; font-weight: 700;">KRYSTAL</span>
@@ -693,7 +734,7 @@
                         <div class="font-display text-3xl text-crystal text-center">FULL<br>ICED</div>
                     </div>
                     <div class="absolute bottom-0 left-0 right-0 p-2 quick-add" style="background: rgba(10,10,15,0.92);">
-                        <a href="karat-estudio.html" class="btn-karat w-full block text-center" style="padding: 0.5rem; font-size: 0.6rem;">Consultar →</a>
+                        <a href="khrysos-estudio.html" class="btn-khrysos w-full block text-center" style="padding: 0.5rem; font-size: 0.6rem;">Consultar →</a>
                     </div>
                     <div class="absolute top-2 left-2">
                         <span class="mono text-xs px-2 py-1 tag-krystal" style="font-size: 0.55rem; font-weight: 700;">KRYSTAL</span>
@@ -716,7 +757,7 @@
                 ¿No ves lo que buscas?<br><span class="text-gold">Diseñamos desde cero.</span>
             </h2>
             <p class="mb-8 mono text-xs uppercase tracking-widest" style="color: rgba(255,255,255,0.35);">// La autoría es tuya. La ejecución, nuestra.</p>
-            <a href="karat-estudio.html" class="btn-karat glitch-hover" style="display:inline-block; text-decoration:none;">Agendar Consulta →</a>
+            <a href="khrysos-estudio.html" class="btn-khrysos " style="display:inline-block; text-decoration:none;">Agendar Consulta →</a>
         </div>
 
     </main>
@@ -725,9 +766,9 @@
     <footer class="pt-16 pb-8 px-4 lg:px-8 border-t" style="border-color: rgba(255,255,255,0.1);">
         <div class="grid grid-cols-2 md:grid-cols-4 gap-8 mb-16">
             <div>
-                <h4 class="font-display text-lg mb-4">KARAT<span class="text-gold">™</span></h4>
+                <h4 class="font-display text-lg mb-4">KHRYSOS<span class="text-gold">™</span></h4>
                 <ul class="space-y-2 mono text-xs uppercase tracking-wide" style="color: rgba(255,255,255,0.45);">
-                    <li><a href="karat-estudio.html" class="hover-gold transition-colors">Agenda & Reservas</a></li>
+                    <li><a href="khrysos-estudio.html" class="hover-gold transition-colors">Agenda & Reservas</a></li>
                     <li><a href="#" class="hover-gold transition-colors">Términos de Servicio</a></li>
                     <li><a href="#" class="hover-gold transition-colors">Política de Privacidad</a></li>
                     <li><a href="#" class="hover-gold transition-colors">Contacto</a></li>
@@ -755,13 +796,13 @@
                 <address class="not-italic mono text-xs uppercase tracking-wide leading-relaxed" style="color: rgba(255,255,255,0.45);">
                     By Appointment Only<br>
                     Santiago, Chile<br>
-                    <a href="karat-estudio.html" class="hover-gold">Agendar →</a>
+                    <a href="khrysos-estudio.html" class="hover-gold">Agendar →</a>
                 </address>
             </div>
         </div>
         <div class="border-t pt-8 flex flex-col md:flex-row justify-between items-end gap-4" style="border-color: rgba(255,255,255,0.1);">
             <div>
-                <p class="mono text-xs uppercase tracking-widest" style="color: rgba(255,255,255,0.25);">© 2026 KARAT™. All rights reserved.</p>
+                <p class="mono text-xs uppercase tracking-widest" style="color: rgba(255,255,255,0.25);">© 2026 KHRYSOS™. All rights reserved.</p>
                 <p class="mono text-xs uppercase tracking-widest mt-1" style="color: rgba(255,255,255,0.15);">Sistema de Identidad v2.0 — Marzo 2026</p>
             </div>
             <div class="font-display leading-none hidden md:block" style="font-size: 5rem; -webkit-text-stroke: 1px rgba(255,215,0,0.15); color: transparent;">K™</div>
@@ -844,6 +885,23 @@
         document.getElementById('sort-select').addEventListener('change', function() {
             countEl.textContent = '↻ Ordenando...';
             setTimeout(() => updateCards(), 300);
+        });
+    </script>
+
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var btn = document.querySelector('.nav-dropdown-btn');
+            var menu = document.querySelector('.nav-dropdown-menu');
+            if (btn && menu) {
+                btn.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    menu.style.display = menu.style.display === 'block' ? 'none' : 'block';
+                });
+                document.addEventListener('click', function() {
+                    menu.style.display = 'none';
+                });
+            }
         });
     </script>
 

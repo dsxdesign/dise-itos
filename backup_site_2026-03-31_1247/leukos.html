@@ -1,0 +1,677 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LEUKOS™ | Odontología Estética — KHRYSOS™</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,300;0,400;0,700;1,300&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --void: #0a0a0a;
+            --white: #ffffff;
+            --silver: #D4D4D4;
+            --silver-light: #ECECEC;
+            --silver-deep: #808080;
+            --offwhite: #f5f5f0;
+            --border: rgba(200,200,200,0.12);
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: 'DM Sans', sans-serif;
+            background: var(--void);
+            color: var(--white);
+            cursor: crosshair;
+            overflow-x: hidden;
+        }
+
+        .font-display { font-family: 'Bebas Neue', sans-serif; text-transform: uppercase; letter-spacing: 0.02em; }
+        .mono { font-family: 'Space Mono', monospace; }
+
+        ::-webkit-scrollbar { width: 4px; }
+        ::-webkit-scrollbar-track { background: #0a0a0a; }
+        ::-webkit-scrollbar-thumb { background: rgba(212,212,212,0.35); }
+        ::selection { background: #D4D4D4; color: #0a0a0a; }
+
+        /* Shimmer */
+        @keyframes shimmer {
+            0%   { background-position: -200% center; }
+            100% { background-position:  200% center; }
+        }
+        .sh-white {
+            background: linear-gradient(90deg, #808080, #D4D4D4, #ECECEC, #ffffff, #ECECEC, #D4D4D4, #808080);
+            background-size: 200% auto;
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+            animation: shimmer 6s linear infinite;
+        }
+        .sh-white-slow {
+            background: linear-gradient(90deg, #606060, #C0C0C0, #F0F0F0, #ffffff, #F0F0F0, #C0C0C0, #606060);
+            background-size: 200% auto;
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+            animation: shimmer 9s linear infinite;
+        }
+
+        /* Glitch */
+        .glitch:hover { animation: glitch 0.3s both infinite; cursor: crosshair; }
+        @keyframes glitch {
+            0%  { transform: translate(0); }
+            20% { transform: translate(-2px,  2px); }
+            40% { transform: translate(-2px, -2px); }
+            60% { transform: translate( 2px,  2px); }
+            80% { transform: translate( 2px, -2px); }
+            100%{ transform: translate(0); }
+        }
+
+        /* Fade up */
+        .fu { opacity: 0; transform: translateY(24px); transition: opacity 0.65s ease, transform 0.65s ease; }
+        .fu.vis { opacity: 1; transform: translateY(0); }
+        .fu.d1 { transition-delay: 0.1s; } .fu.d2 { transition-delay: 0.2s; }
+        .fu.d3 { transition-delay: 0.3s; } .fu.d4 { transition-delay: 0.4s; }
+        .fu.d5 { transition-delay: 0.5s; }
+
+        /* Glow orb */
+        .glow-orb {
+            position: absolute; border-radius: 50%;
+            filter: blur(130px); pointer-events: none;
+            animation: glow-pulse 10s ease-in-out infinite;
+        }
+        @keyframes glow-pulse { 0%,100% { opacity:0.06; } 50% { opacity:0.12; } }
+
+        /* Grid bg */
+        .grid-bg {
+            background-image:
+                linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
+            background-size: 24px 24px;
+        }
+        .nav-item:hover { color: var(--silver); }
+
+        /* Marquee */
+        .mq-wrap { overflow: hidden; white-space: nowrap; }
+        .mq-inner { display: inline-block; animation: mq 50s linear infinite; }
+        @keyframes mq { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+
+        /* Buttons */
+        .btn-silver {
+            background: var(--silver); color: var(--void);
+            padding: 0.75rem 2.5rem;
+            font-family: 'Space Mono', monospace;
+            font-size: 0.65rem; letter-spacing: 0.15em; font-weight: 700;
+            text-transform: uppercase;
+            border: 2px solid var(--silver);
+            transition: all 0.3s; cursor: crosshair;
+        }
+        .btn-silver:hover { background: transparent; color: var(--silver); }
+
+        .btn-outline-silver {
+            background: transparent; color: var(--silver);
+            padding: 0.75rem 2.5rem;
+            font-family: 'Space Mono', monospace;
+            font-size: 0.65rem; letter-spacing: 0.15em; font-weight: 700;
+            text-transform: uppercase;
+            border: 2px solid rgba(212,212,212,0.3);
+            transition: all 0.3s; cursor: crosshair;
+        }
+        .btn-outline-silver:hover { border-color: var(--silver); background: rgba(212,212,212,0.04); }
+
+        /* Hero */
+        .hero-name {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: clamp(6rem, 20vw, 20rem);
+            line-height: 0.82; letter-spacing: -0.02em; text-transform: uppercase;
+        }
+        .hero-wm {
+            position: absolute; right: -4vw; top: 50%; transform: translateY(-50%);
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: clamp(20rem, 55vw, 75rem);
+            line-height: 1; -webkit-text-stroke: 1px rgba(212,212,212,0.04); color: transparent;
+            pointer-events: none; user-select: none; z-index: 1;
+        }
+
+        /* Veneer showcase */
+        .veneer-strip {
+            display: grid;
+            grid-template-columns: repeat(10, 1fr);
+            gap: 3px;
+            margin: 3rem 0;
+        }
+        .tooth {
+            aspect-ratio: 2/3;
+            border-radius: 40% 40% 30% 30%;
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.3s, filter 0.3s;
+            cursor: crosshair;
+        }
+        .tooth:hover { transform: translateY(-4px) scale(1.05); filter: brightness(1.1); }
+        .tooth-inner {
+            width: 100%; height: 100%;
+            background: linear-gradient(160deg, #ffffff 0%, #e8e8e8 40%, #c0c0c0 100%);
+            border-radius: inherit;
+            box-shadow: inset 0 2px 8px rgba(255,255,255,0.4), 0 4px 16px rgba(0,0,0,0.5);
+        }
+        .tooth-highlight {
+            position: absolute; top: 8%; left: 20%; width: 25%; height: 35%;
+            background: linear-gradient(160deg, rgba(255,255,255,0.9), transparent);
+            border-radius: 50%;
+            filter: blur(2px);
+        }
+
+        /* Service table */
+        .svc-row {
+            display: grid; grid-template-columns: auto 1fr auto auto;
+            align-items: center; gap: 1.5rem;
+            padding: 1.5rem 0;
+            border-bottom: 1px solid rgba(255,255,255,0.06);
+            cursor: crosshair;
+            transition: background 0.3s;
+        }
+        .svc-row:hover { background: rgba(255,255,255,0.02); padding-left: 0.5rem; }
+        @media(max-width:640px){ .svc-row { grid-template-columns: 1fr auto; } .svc-row .svc-num, .svc-row .svc-duration { display:none; } }
+
+        /* Progress bars */
+        .progress-track { background: rgba(255,255,255,0.06); height: 2px; }
+        .progress-fill { height: 100%; background: linear-gradient(90deg, #808080, #ffffff); transition: width 1.2s ease; }
+
+        /* Chip */
+        .chip {
+            font-family: 'Space Mono', monospace; font-size: 0.5rem; letter-spacing: 0.12em;
+            padding: 4px 12px; border: 1px solid rgba(212,212,212,0.2);
+            color: rgba(212,212,212,0.5); display: inline-block; margin: 0 4px 6px 0;
+        }
+
+        /* Comparison table */
+        .compare-table { border: 1px solid rgba(255,255,255,0.08); }
+        .compare-head { background: rgba(255,255,255,0.03); }
+        .compare-row { border-top: 1px solid rgba(255,255,255,0.05); }
+        .compare-row:hover { background: rgba(255,255,255,0.02); }
+
+        /* Stat bar */
+        .stat-bar { display: grid; grid-template-columns: repeat(3,1fr); border-top: 1px solid rgba(212,212,212,0.08); }
+        @media(max-width:600px){ .stat-bar { grid-template-columns:1fr; } }
+        .stat-cell { padding: 2.5rem 2rem; border-right: 1px solid rgba(212,212,212,0.08); }
+        .stat-cell:last-child { border-right: none; }
+
+        /* FAQ */
+        .faq-item { border-top: 1px solid rgba(212,212,212,0.08); }
+        .faq-q {
+            width:100%; display:flex; justify-content:space-between; align-items:center;
+            padding: 1.25rem 0; background:none; border:none; color:var(--white);
+            font-family:'DM Sans',sans-serif; font-size:1rem; font-weight:400;
+            cursor:crosshair; text-align:left; transition: color 0.3s;
+        }
+        .faq-q:hover { color: var(--silver); }
+        .faq-q .faq-icon { font-family:'Space Mono',monospace; font-size:1rem; color:rgba(212,212,212,0.4); transition: transform 0.3s; }
+        .faq-a { display:none; padding: 0 0 1.25rem 0; color:rgba(255,255,255,0.5); font-size:0.9rem; line-height:1.8; font-weight:300; }
+        .faq-item.open .faq-a { display:block; }
+        .faq-item.open .faq-icon { transform:rotate(45deg); }
+        .faq-item.open .faq-q { color: var(--silver); }
+
+        .hover-silver { transition: color 0.3s; }
+        .hover-silver:hover { color: var(--silver); }
+
+        /* ── Unified nav ── */
+        .text-gold {
+            background: linear-gradient(135deg, #FFD700 0%, #FFA500 50%, #FFD700 100%);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+        }
+        .hover-gold { transition: color 0.3s; }
+        .hover-gold:hover { color: #FFD700 !important; -webkit-text-fill-color: #FFD700 !important; }
+        .btn-nav-cta {
+            background: #FFD700; color: #0a0a0a;
+            padding: 0.4rem 1.2rem;
+            font-family: 'Space Mono', monospace;
+            font-size: 0.65rem; letter-spacing: 0.1em; font-weight: 700;
+            text-transform: uppercase; border: 2px solid #FFD700;
+            transition: all 0.3s; cursor: crosshair;
+        }
+        .btn-nav-cta:hover { background: transparent; color: #FFD700; }
+        .hide-scrollbar::-webkit-scrollbar { display: none; }
+        .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+        @keyframes pulse-gold { 0%,100% { opacity:1; } 50% { opacity:0.7; } }
+        .pulse-gold { animation: pulse-gold 2.5s ease-in-out infinite; }
+        .nav-dropdown-menu a:hover { color: #FFD700 !important; }
+        .nav-dropdown-btn:focus { outline: none; }
+    </style>
+</head>
+<body class="antialiased">
+
+        <!-- Top Bar -->
+    <div style="background: #D4D4D4; color: #0a0a0a;" class="text-[10px] uppercase tracking-widest py-2 px-4 text-center font-bold mono">
+        KHRYSOS™ · Solo con cita previa · <a href="schedule-mock.html?branch=leukos" style="text-decoration:underline; color: #0a0a0a;">Reserva tu sesión</a>
+    </div>
+    <!-- Navigation -->
+    <nav class="sticky top-0 z-50 border-b" style="border-color: rgba(255,255,255,0.1); backdrop-filter: blur(12px); background: rgba(10,10,10,0.95);">
+        <div class="flex items-center justify-between px-4 py-4 lg:px-8">
+            <div class="flex items-center gap-8">
+                <a href="index.html" class="font-display text-xl font-bold tracking-tight">
+                    KHRYSOS<span class="text-gold">™</span>
+                </a>
+                <div class="hidden lg:flex items-center gap-6 mono text-xs uppercase tracking-widest">
+                    <a href="index.html" class="nav-link hover-gold" data-page="inicio">Inicio</a>
+                    <a href="khrysos-catalogo.html" class="nav-link hover-gold" data-page="catalogo">Catálogo</a>
+                    <a href="khrysos-estudio.html" class="nav-link hover-gold" data-page="estudio">Estudio</a>
+                    <a href="khrysos-brand_statement.html" class="nav-link hover-gold" data-page="khrysos">Khrysos</a>
+                    <div class="nav-dropdown" style="position:relative;">
+                        <button class="nav-link hover-gold nav-dropdown-btn" style="background:none;border:none;cursor:crosshair;padding:0;font-family:inherit;font-size:inherit;letter-spacing:inherit;text-transform:inherit;color:rgba(255,255,255,0.5);">
+                            Servicios <span style="font-size:0.55rem;opacity:0.6;">▼</span>
+                        </button>
+                        <div class="nav-dropdown-menu" style="display:none;position:absolute;top:calc(100% + 12px);left:0;min-width:240px;background:rgba(10,10,10,0.98);border:1px solid rgba(255,255,255,0.1);padding:0.5rem 0;z-index:200;">
+                            <a href="krystal.html" class="nav-dropdown-item hover-gold" style="display:block;padding:0.6rem 1.25rem;color:rgba(255,255,255,0.45);text-decoration:none;font-size:0.6rem;letter-spacing:0.12em;transition:color 0.2s;">
+                                <span style="color:rgba(168,216,255,0.75);margin-right:0.5rem;">✦</span>KRYSTAL · Cristales Dentales
+                            </a>
+                            <a href="kallisto.html" class="nav-dropdown-item hover-gold" style="display:block;padding:0.6rem 1.25rem;color:rgba(255,255,255,0.45);text-decoration:none;font-size:0.6rem;letter-spacing:0.12em;transition:color 0.2s;">
+                                <span style="color:rgba(255,105,160,0.7);margin-right:0.5rem;">✦</span>KALLISTO · Armonización Facial
+                            </a>
+                            <a href="leukos.html" class="nav-dropdown-item hover-gold" style="display:block;padding:0.6rem 1.25rem;color:rgba(255,255,255,0.45);text-decoration:none;font-size:0.6rem;letter-spacing:0.12em;transition:color 0.2s;">
+                                <span style="color:rgba(212,212,212,0.7);margin-right:0.5rem;">✦</span>LEUKOS · Odontología Estética
+                            </a>
+                            <a href="asklepius.html" class="nav-dropdown-item hover-gold" style="display:block;padding:0.6rem 1.25rem;color:rgba(255,255,255,0.45);text-decoration:none;font-size:0.6rem;letter-spacing:0.12em;transition:color 0.2s;">
+                                <span style="color:rgba(168,224,196,0.7);margin-right:0.5rem;">✦</span>ASKLEPIUS · Cuidado General
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="flex items-center gap-4 mono text-xs uppercase tracking-widest">
+                <a href="schedule-mock.html?branch=leukos" class="hover-gold hidden lg:block" style="color: rgba(255,255,255,0.5); text-decoration:none; cursor:crosshair;">Mis Reservas</a>
+                <a href="schedule-mock.html?branch=leukos" class="btn-nav-cta" style="text-decoration:none;">Agendar</a>
+            </div>
+        </div>
+        <div class="lg:hidden border-t px-4 py-3 flex gap-6 mono text-xs uppercase tracking-widest overflow-x-auto hide-scrollbar" style="border-color: rgba(255,255,255,0.06);">
+            <a href="index.html" class="nav-link hover-gold whitespace-nowrap" data-page="inicio">Inicio</a>
+            <a href="khrysos-catalogo.html" class="nav-link hover-gold whitespace-nowrap" data-page="catalogo">Catálogo</a>
+            <a href="khrysos-estudio.html" class="nav-link hover-gold whitespace-nowrap" data-page="estudio">Estudio</a>
+            <a href="khrysos-brand_statement.html" class="nav-link hover-gold whitespace-nowrap" data-page="khrysos">Khrysos</a>
+            <a href="krystal.html" class="nav-link whitespace-nowrap" style="color:rgba(168,216,255,0.78);" data-page="krystal">Krystal</a>
+            <a href="kallisto.html" class="nav-link whitespace-nowrap" style="color:rgba(255,105,160,0.72);" data-page="kallisto">Kallisto</a>
+            <a href="leukos.html" class="nav-link whitespace-nowrap" style="color:rgba(212,212,212,0.72);" data-page="leukos">Leukos</a>
+            <a href="asklepius.html" class="nav-link whitespace-nowrap" style="color:rgba(168,224,196,0.72);" data-page="asklepius">Asklepius</a>
+        </div>
+    </nav>
+
+    <!-- HERO -->
+    <section class="min-h-screen flex flex-col justify-center px-6 lg:px-12 pt-28 pb-0 relative overflow-hidden grid-bg">
+        <div class="glow-orb" style="width:700px;height:700px;background:#D4D4D4;top:-200px;left:-200px;animation-delay:0s;"></div>
+        <div class="glow-orb" style="width:400px;height:400px;background:#ffffff;bottom:0;right:-100px;animation-delay:5s;"></div>
+        <div class="hero-wm">L</div>
+
+        <div style="position:relative;z-index:2;max-width:1400px;margin:0 auto;width:100%;">
+            <div class="fu mono" style="font-size:0.55rem;letter-spacing:0.2em;color:rgba(212,212,212,0.5);margin-bottom:1.5rem;">
+                ODONTOLOGÍA ESTÉTICA · SANTIAGO CHILE
+            </div>
+
+            <h1 class="hero-name sh-white fu d1">LEUKOS</h1>
+
+            <div class="fu d1" style="height:2px;width:80px;background:linear-gradient(90deg,#D4D4D4,transparent);margin:2rem 0;"></div>
+
+            <div class="fu d2 max-w-2xl">
+                <p style="font-size:clamp(1rem,2vw,1.35rem);font-weight:300;color:rgba(255,255,255,0.5);line-height:1.9;margin-bottom:2.5rem;">
+                    Veneers de porcelana y blanqueamiento clínico de alta gama.<br>
+                    Porcelana hecha sonrisa. Luz hecha diente.
+                </p>
+            </div>
+
+            <!-- Tooth display -->
+            <div class="fu d3" style="max-width:500px;margin-bottom:3rem;">
+                <div class="veneer-strip" id="teethRow">
+                    <!-- Generated by JS -->
+                </div>
+                <div class="mono" style="font-size:0.48rem;letter-spacing:0.15em;color:rgba(255,255,255,0.15);text-align:center;">PORCELANA E.MAX · ZIRCONIO · COMPOSITE — HOVER PARA INTERACTUAR</div>
+            </div>
+
+            <div class="fu d4 flex gap-4 flex-wrap">
+                <a href="schedule-mock.html?branch=leukos" class="btn-silver">Diseño de Sonrisa</a>
+                <a href="#servicios" class="btn-outline-silver">Ver Tratamientos</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- MARQUEE -->
+    <div class="mq-wrap py-3 border-t border-b" style="border-color:rgba(212,212,212,0.06);">
+        <div class="mq-inner mono" style="font-size:0.55rem;letter-spacing:0.15em;color:rgba(212,212,212,0.15);">
+            &nbsp;&nbsp;&nbsp;LEUKOS™ &nbsp;·&nbsp; ODONTOLOGÍA ESTÉTICA &nbsp;·&nbsp; VENEERS PORCELANA &nbsp;·&nbsp; E.MAX · ZIRCONIO &nbsp;·&nbsp; BLANQUEAMIENTO CLÍNICO &nbsp;·&nbsp; CARILLAS COMPOSITE &nbsp;·&nbsp; DISEÑO DE SONRISA &nbsp;·&nbsp; KHRYSOS™ &nbsp;·&nbsp;
+            &nbsp;&nbsp;&nbsp;LEUKOS™ &nbsp;·&nbsp; ODONTOLOGÍA ESTÉTICA &nbsp;·&nbsp; VENEERS PORCELANA &nbsp;·&nbsp; E.MAX · ZIRCONIO &nbsp;·&nbsp; BLANQUEAMIENTO CLÍNICO &nbsp;·&nbsp; CARILLAS COMPOSITE &nbsp;·&nbsp; DISEÑO DE SONRISA &nbsp;·&nbsp; KHRYSOS™ &nbsp;·&nbsp;
+        </div>
+    </div>
+
+    <!-- STAT BAR -->
+    <div class="stat-bar fu">
+        <div class="stat-cell">
+            <div class="font-display" style="font-size:3.5rem;line-height:1;color:var(--silver);">16</div>
+            <div class="mono mt-2" style="font-size:0.5rem;letter-spacing:0.18em;color:rgba(255,255,255,0.2);">DIENTES EN SONRISA</div>
+        </div>
+        <div class="stat-cell">
+            <div class="font-display" style="font-size:3.5rem;line-height:1;color:var(--silver);">0.3<span style="font-size:1.8rem;color:rgba(212,212,212,0.4);">MM</span></div>
+            <div class="mono mt-2" style="font-size:0.5rem;letter-spacing:0.18em;color:rgba(255,255,255,0.2);">ESPESOR VENEER E.MAX</div>
+        </div>
+        <div class="stat-cell">
+            <div class="font-display" style="font-size:3.5rem;line-height:1;color:var(--silver);">10<span style="font-size:1.8rem;color:rgba(212,212,212,0.4);">+</span></div>
+            <div class="mono mt-2" style="font-size:0.5rem;letter-spacing:0.18em;color:rgba(255,255,255,0.2);">AÑOS DE DURABILIDAD</div>
+        </div>
+    </div>
+
+    <!-- SERVICIOS -->
+    <section id="servicios" class="px-6 lg:px-12 py-24 relative" style="border-top:1px solid rgba(212,212,212,0.06);">
+        <div class="glow-orb" style="width:500px;height:500px;background:#C0C0C0;top:30%;right:-150px;animation-delay:3s;"></div>
+        <div style="max-width:1400px;margin:0 auto;">
+            <div class="fu flex flex-col lg:flex-row gap-16 items-start">
+                <div style="flex:0 0 auto;max-width:420px;">
+                    <span class="mono block mb-4" style="font-size:0.55rem;letter-spacing:0.2em;color:rgba(212,212,212,0.45);">01 — TRATAMIENTOS</span>
+                    <h2 class="font-display mb-6" style="font-size:clamp(3rem,7vw,7rem);line-height:0.9;">
+                        <span class="sh-white">SONRISA</span><br>
+                        <span style="color:rgba(255,255,255,0.12);">DISEÑADA</span>
+                    </h2>
+                    <p style="font-size:1rem;color:rgba(255,255,255,0.4);line-height:1.8;font-weight:300;">
+                        Cada sonrisa es un sistema. Cada diente, una decisión. Trabajamos con laboratorios de cerámica dental de élite para resultados que duran décadas.
+                    </p>
+                </div>
+                <div style="flex:1;">
+                    <!-- Service list -->
+                    <div style="border-top:1px solid rgba(255,255,255,0.06);">
+                        <div class="svc-row fu">
+                            <span class="svc-num mono" style="font-size:0.5rem;color:rgba(255,255,255,0.2);letter-spacing:0.1em;">01</span>
+                            <div>
+                                <div class="font-display mb-1" style="font-size:1.8rem;color:var(--silver);">VENEERS PORCELANA E.MAX</div>
+                                <div style="font-size:0.82rem;color:rgba(255,255,255,0.35);font-weight:300;">Carillas ultrafinas de disilicato de litio. Translucidez natural, resistencia máxima.</div>
+                            </div>
+                            <span class="svc-duration mono" style="font-size:0.5rem;color:rgba(255,255,255,0.2);letter-spacing:0.1em;white-space:nowrap;">10–15 AÑ.</span>
+                            <div class="mono" style="font-size:0.6rem;color:rgba(212,212,212,0.4);">→</div>
+                        </div>
+                        <div class="svc-row fu d1">
+                            <span class="svc-num mono" style="font-size:0.5rem;color:rgba(255,255,255,0.2);letter-spacing:0.1em;">02</span>
+                            <div>
+                                <div class="font-display mb-1" style="font-size:1.8rem;color:var(--silver);">CORONAS ZIRCONIO</div>
+                                <div style="font-size:0.82rem;color:rgba(255,255,255,0.35);font-weight:300;">Resistencia superior para piezas posteriores y restauraciones completas.</div>
+                            </div>
+                            <span class="svc-duration mono" style="font-size:0.5rem;color:rgba(255,255,255,0.2);letter-spacing:0.1em;white-space:nowrap;">15–20 AÑ.</span>
+                            <div class="mono" style="font-size:0.6rem;color:rgba(212,212,212,0.4);">→</div>
+                        </div>
+                        <div class="svc-row fu d2">
+                            <span class="svc-num mono" style="font-size:0.5rem;color:rgba(255,255,255,0.2);letter-spacing:0.1em;">03</span>
+                            <div>
+                                <div class="font-display mb-1" style="font-size:1.8rem;color:var(--silver);">BLANQUEAMIENTO CLÍNICO</div>
+                                <div style="font-size:0.82rem;color:rgba(255,255,255,0.35);font-weight:300;">Peróxido de hidrógeno profesional activado con luz LED. Hasta 8 tonos en una sesión.</div>
+                            </div>
+                            <span class="svc-duration mono" style="font-size:0.5rem;color:rgba(255,255,255,0.2);letter-spacing:0.1em;white-space:nowrap;">60 MIN.</span>
+                            <div class="mono" style="font-size:0.6rem;color:rgba(212,212,212,0.4);">→</div>
+                        </div>
+                        <div class="svc-row fu d3">
+                            <span class="svc-num mono" style="font-size:0.5rem;color:rgba(255,255,255,0.2);letter-spacing:0.1em;">04</span>
+                            <div>
+                                <div class="font-display mb-1" style="font-size:1.8rem;color:var(--silver);">CARILLAS COMPOSITE</div>
+                                <div style="font-size:0.82rem;color:rgba(255,255,255,0.35);font-weight:300;">Directo en clínica. Sin desgaste. Sin laboratorio. Resultado inmediato en una sola cita.</div>
+                            </div>
+                            <span class="svc-duration mono" style="font-size:0.5rem;color:rgba(255,255,255,0.2);letter-spacing:0.1em;white-space:nowrap;">1 CITA</span>
+                            <div class="mono" style="font-size:0.6rem;color:rgba(212,212,212,0.4);">→</div>
+                        </div>
+                        <div class="svc-row fu d4">
+                            <span class="svc-num mono" style="font-size:0.5rem;color:rgba(255,255,255,0.2);letter-spacing:0.1em;">05</span>
+                            <div>
+                                <div class="font-display mb-1" style="font-size:1.8rem;color:var(--silver);">DISEÑO DE SONRISA DIGITAL</div>
+                                <div style="font-size:0.82rem;color:rgba(255,255,255,0.35);font-weight:300;">DSD — Digital Smile Design. Visualiza tu resultado antes de cualquier procedimiento.</div>
+                            </div>
+                            <span class="svc-duration mono" style="font-size:0.5rem;color:rgba(255,255,255,0.2);letter-spacing:0.1em;white-space:nowrap;">CONSULTA</span>
+                            <div class="mono" style="font-size:0.6rem;color:rgba(212,212,212,0.4);">→</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- COMPARATIVA -->
+    <section class="px-6 lg:px-12 py-24 relative" style="border-top:1px solid rgba(212,212,212,0.06);">
+        <div style="max-width:900px;margin:0 auto;">
+            <div class="fu">
+                <span class="mono block mb-4" style="font-size:0.55rem;letter-spacing:0.2em;color:rgba(212,212,212,0.45);">02 — MATERIALES</span>
+                <h2 class="font-display mb-12" style="font-size:clamp(2.5rem,6vw,5rem);line-height:0.9;">PORCELANA<br><span style="color:rgba(255,255,255,0.12);">VS COMPOSITE</span></h2>
+            </div>
+            <div class="compare-table fu d1">
+                <div class="compare-head grid grid-cols-3 py-3 px-4">
+                    <div class="mono" style="font-size:0.5rem;letter-spacing:0.15em;color:rgba(255,255,255,0.3);">CARACTERÍSTICA</div>
+                    <div class="mono text-center" style="font-size:0.5rem;letter-spacing:0.15em;color:rgba(212,212,212,0.6);">PORCELANA E.MAX</div>
+                    <div class="mono text-center" style="font-size:0.5rem;letter-spacing:0.15em;color:rgba(255,255,255,0.4);">COMPOSITE</div>
+                </div>
+                <div class="compare-row grid grid-cols-3 py-3 px-4">
+                    <div style="font-size:0.85rem;color:rgba(255,255,255,0.5);">Durabilidad</div>
+                    <div class="text-center mono" style="font-size:0.55rem;color:var(--silver);">10–15 años</div>
+                    <div class="text-center mono" style="font-size:0.55rem;color:rgba(255,255,255,0.35);">3–7 años</div>
+                </div>
+                <div class="compare-row grid grid-cols-3 py-3 px-4">
+                    <div style="font-size:0.85rem;color:rgba(255,255,255,0.5);">Translucidez</div>
+                    <div class="text-center mono" style="font-size:0.55rem;color:var(--silver);">Natural</div>
+                    <div class="text-center mono" style="font-size:0.55rem;color:rgba(255,255,255,0.35);">Limitada</div>
+                </div>
+                <div class="compare-row grid grid-cols-3 py-3 px-4">
+                    <div style="font-size:0.85rem;color:rgba(255,255,255,0.5);">Resistencia manchas</div>
+                    <div class="text-center mono" style="font-size:0.55rem;color:var(--silver);">Excelente</div>
+                    <div class="text-center mono" style="font-size:0.55rem;color:rgba(255,255,255,0.35);">Moderada</div>
+                </div>
+                <div class="compare-row grid grid-cols-3 py-3 px-4">
+                    <div style="font-size:0.85rem;color:rgba(255,255,255,0.5);">N° de citas</div>
+                    <div class="text-center mono" style="font-size:0.55rem;color:var(--silver);">2–3 citas</div>
+                    <div class="text-center mono" style="font-size:0.55rem;color:rgba(255,255,255,0.35);">1 cita</div>
+                </div>
+                <div class="compare-row grid grid-cols-3 py-3 px-4">
+                    <div style="font-size:0.85rem;color:rgba(255,255,255,0.5);">Reparabilidad</div>
+                    <div class="text-center mono" style="font-size:0.55rem;color:var(--silver);">Laboratorio</div>
+                    <div class="text-center mono" style="font-size:0.55rem;color:rgba(255,255,255,0.35);">Clínica</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PROCESO -->
+    <section class="px-6 lg:px-12 py-24" style="border-top:1px solid rgba(212,212,212,0.06);">
+        <div style="max-width:1400px;margin:0 auto;">
+            <div class="fu">
+                <span class="mono block mb-4" style="font-size:0.55rem;letter-spacing:0.2em;color:rgba(212,212,212,0.45);">03 — FLUJO DE TRABAJO</span>
+                <h2 class="font-display mb-16" style="font-size:clamp(2.5rem,6vw,6rem);line-height:0.9;">DEL ESMALTE<br><span style="color:rgba(255,255,255,0.1);">A LA PORCELANA</span></h2>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-5 gap-0 fu d1" style="border:1px solid rgba(212,212,212,0.08);">
+                <div style="padding:2.5rem 1.5rem;border-right:1px solid rgba(212,212,212,0.08);">
+                    <div class="font-display mb-3" style="font-size:4rem;line-height:1;-webkit-text-stroke:1px rgba(212,212,212,0.15);color:transparent;">01</div>
+                    <div class="font-display mb-2" style="font-size:1.2rem;color:var(--silver);">EVALUACIÓN</div>
+                    <p style="font-size:0.8rem;color:rgba(255,255,255,0.35);line-height:1.8;font-weight:300;">Radiografías, fotografías y análisis de oclusión. Diagnóstico integral.</p>
+                </div>
+                <div style="padding:2.5rem 1.5rem;border-right:1px solid rgba(212,212,212,0.08);">
+                    <div class="font-display mb-3" style="font-size:4rem;line-height:1;-webkit-text-stroke:1px rgba(212,212,212,0.15);color:transparent;">02</div>
+                    <div class="font-display mb-2" style="font-size:1.2rem;color:var(--silver);">DSD</div>
+                    <p style="font-size:0.8rem;color:rgba(255,255,255,0.35);line-height:1.8;font-weight:300;">Diseño digital de sonrisa. Apruebas el resultado antes de tocar tu diente.</p>
+                </div>
+                <div style="padding:2.5rem 1.5rem;border-right:1px solid rgba(212,212,212,0.08);">
+                    <div class="font-display mb-3" style="font-size:4rem;line-height:1;-webkit-text-stroke:1px rgba(212,212,212,0.15);color:transparent;">03</div>
+                    <div class="font-display mb-2" style="font-size:1.2rem;color:var(--silver);">MOCK-UP</div>
+                    <p style="font-size:0.8rem;color:rgba(255,255,255,0.35);line-height:1.8;font-weight:300;">Prototipo provisional en boca. Vives con la forma antes de la porcelana final.</p>
+                </div>
+                <div style="padding:2.5rem 1.5rem;border-right:1px solid rgba(212,212,212,0.08);">
+                    <div class="font-display mb-3" style="font-size:4rem;line-height:1;-webkit-text-stroke:1px rgba(212,212,212,0.15);color:transparent;">04</div>
+                    <div class="font-display mb-2" style="font-size:1.2rem;color:var(--silver);">LABORATORIO</div>
+                    <p style="font-size:0.8rem;color:rgba(255,255,255,0.35);line-height:1.8;font-weight:300;">Fabricación artesanal en cerámica de élite. Cada pieza, única.</p>
+                </div>
+                <div style="padding:2.5rem 1.5rem;">
+                    <div class="font-display mb-3" style="font-size:4rem;line-height:1;-webkit-text-stroke:1px rgba(212,212,212,0.15);color:transparent;">05</div>
+                    <div class="font-display mb-2" style="font-size:1.2rem;color:var(--silver);">ADHESIÓN</div>
+                    <p style="font-size:0.8rem;color:rgba(255,255,255,0.35);line-height:1.8;font-weight:300;">Cementación definitiva con adhesivos duales de nueva generación.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="px-6 lg:px-12 py-24 relative" style="border-top:1px solid rgba(212,212,212,0.06);">
+        <div style="max-width:800px;margin:0 auto;">
+            <div class="fu">
+                <span class="mono block mb-4" style="font-size:0.55rem;letter-spacing:0.2em;color:rgba(212,212,212,0.45);">04 — PREGUNTAS</span>
+                <h2 class="font-display mb-12" style="font-size:clamp(2.5rem,6vw,5rem);line-height:0.9;">FAQ<br><span style="color:rgba(255,255,255,0.1);">LEUKOS</span></h2>
+            </div>
+            <div class="faq-item fu">
+                <button class="faq-q"><span>¿Los veneers de porcelana duelen?</span><span class="faq-icon">+</span></button>
+                <div class="faq-a">El tallado minimal que requieren los veneers E.Max (0.3–0.5mm) se realiza bajo anestesia local. El post-operatorio es mínimo. La mayoría de los pacientes no necesita analgésicos después del procedimiento.</div>
+            </div>
+            <div class="faq-item fu d1">
+                <button class="faq-q"><span>¿Cuántos veneers necesito para cambiar mi sonrisa?</span><span class="faq-icon">+</span></button>
+                <div class="faq-a">Depende de la zona de sonrisa y tus objetivos. Generalmente trabajamos con 8 (dientes anteriores superiores), 10 o 12 piezas para una armonía completa. En la consulta de diseño digital determinamos juntos el plan más eficiente.</div>
+            </div>
+            <div class="faq-item fu d2">
+                <button class="faq-q"><span>¿Se pueden blanquear los veneers de porcelana?</span><span class="faq-icon">+</span></button>
+                <div class="faq-a">No. La porcelana no responde a los agentes blanqueadores. Por eso es crucial blanquear primero si el paciente lo desea, y luego fabricar los veneers en el tono objetivo. El orden del procedimiento importa.</div>
+            </div>
+            <div class="faq-item fu d3">
+                <button class="faq-q"><span>¿Cuánto tiempo duran las carillas de composite?</span><span class="faq-icon">+</span></button>
+                <div class="faq-a">Con buena higiene y controles regulares, las carillas de composite duran entre 3 y 7 años. Son una excelente opción para quienes quieren un cambio inmediato y reversible. El costo también es considerablemente menor que la porcelana.</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA FINAL -->
+    <section class="px-6 lg:px-12 py-32 relative overflow-hidden text-center" style="border-top:1px solid rgba(212,212,212,0.06);">
+        <div class="glow-orb" style="width:700px;height:700px;background:#D4D4D4;top:50%;left:50%;transform:translate(-50%,-50%);"></div>
+        <div style="position:relative;z-index:2;max-width:700px;margin:0 auto;">
+            <div class="mono mb-4" style="font-size:0.5rem;letter-spacing:0.25em;color:rgba(212,212,212,0.4);">LEUKOS™</div>
+            <h2 class="font-display fu" style="font-size:clamp(3.5rem,9vw,9rem);line-height:0.85;margin-bottom:2rem;">
+                <span class="sh-white-slow">DISEÑA TU<br>SONRISA</span>
+            </h2>
+            <p class="fu d1 font-light" style="font-size:1.1rem;color:rgba(255,255,255,0.35);line-height:1.8;margin-bottom:3rem;">
+                Consulta de diseño digital sin costo.<br>Verás tu resultado antes de cualquier procedimiento.
+            </p>
+            <div class="fu d2">
+                <a href="schedule-mock.html?branch=leukos" class="btn-silver">AGENDAR DISEÑO DE SONRISA</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="px-6 lg:px-12 py-12" style="border-top:1px solid rgba(255,255,255,0.05);">
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-8 mb-12">
+            <div>
+                <h4 class="font-display text-lg mb-4">LEUKOS<span style="background:linear-gradient(135deg,#D4D4D4,#fff);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">™</span></h4>
+                <ul class="space-y-2 mono text-xs uppercase tracking-wide" style="color:rgba(255,255,255,0.35);">
+                    <li><a href="schedule-mock.html?branch=leukos" class="hover-silver">Agenda & Reservas</a></li>
+                    <li><a href="#servicios" class="hover-silver">Tratamientos</a></li>
+                    <li><a href="#" class="hover-silver">Política de Privacidad</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="mono font-bold mb-4 text-xs uppercase tracking-widest" style="color:var(--silver);">Casa KHRYSOS™</h4>
+                <ul class="space-y-2 mono text-xs uppercase tracking-wide" style="color:rgba(255,255,255,0.35);">
+                    <li><a href="index.html" class="hover-silver">KHRYSOS — Grillz</a></li>
+                    <li><a href="khrysos-catalogo.html" class="hover-silver">KRYSTAL — Cristales</a></li>
+                    <li><a href="kallisto.html" class="hover-silver">KALLISTO — Armonización</a></li>
+                    <li><a href="asklepius.html" class="hover-silver">ASKLEPIUS — Cuidado General</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="mono font-bold mb-4 text-xs uppercase tracking-widest" style="color:var(--silver);">Social</h4>
+                <ul class="space-y-2 mono text-xs uppercase tracking-wide" style="color:rgba(255,255,255,0.35);">
+                    <li><a href="#" class="hover-silver">Instagram</a></li>
+                    <li><a href="#" class="hover-silver">TikTok</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="mono font-bold mb-4 text-xs uppercase tracking-widest" style="color:var(--silver);">Estudio</h4>
+                <address class="not-italic mono text-xs uppercase tracking-wide leading-relaxed" style="color:rgba(255,255,255,0.35);">
+                    By Appointment Only<br>Santiago, Chile
+                </address>
+            </div>
+        </div>
+        <div class="flex justify-between items-end flex-wrap gap-4" style="border-top:1px solid rgba(255,255,255,0.05);padding-top:2rem;">
+            <p class="mono text-xs uppercase tracking-widest" style="color:rgba(255,255,255,0.15);">© 2026 KHRYSOS™. All rights reserved.</p>
+            <div class="font-display" style="font-size:4rem;line-height:1;-webkit-text-stroke:1px rgba(212,212,212,0.12);color:transparent;">·</div>
+        </div>
+    </footer>
+
+    <script>
+        // Teeth row generator
+        const row = document.getElementById('teethRow');
+        if (row) {
+            for (let i = 0; i < 10; i++) {
+                const tooth = document.createElement('div');
+                tooth.className = 'tooth';
+                const brightness = 85 + Math.random() * 15;
+                tooth.innerHTML = `
+                    <div class="tooth-inner" style="background:linear-gradient(160deg, hsl(0,0%,${brightness+10}%) 0%, hsl(0,0%,${brightness}%) 45%, hsl(0,0%,${brightness-15}%) 100%);"></div>
+                    <div class="tooth-highlight"></div>
+                `;
+                row.appendChild(tooth);
+            }
+        }
+
+        // Fade up observer
+        const obs = new IntersectionObserver(entries => {
+            entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('vis'); });
+        }, { threshold: 0.04, rootMargin: '0px 0px -40px 0px' });
+        document.querySelectorAll('.fu').forEach(el => obs.observe(el));
+
+        // Smooth scroll
+        document.querySelectorAll('a[href^="#"]').forEach(a => {
+            a.addEventListener('click', e => {
+                const t = document.querySelector(a.getAttribute('href'));
+                if (t) { e.preventDefault(); t.scrollIntoView({ behavior: 'smooth' }); }
+            });
+        });
+
+        // FAQ
+        document.querySelectorAll('.faq-item').forEach(item => {
+            item.querySelector('.faq-q').addEventListener('click', () => {
+                const wasOpen = item.classList.contains('open');
+                document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
+                if (!wasOpen) item.classList.add('open');
+            });
+        });
+
+        // Animate progress bars on scroll
+        const progressObs = new IntersectionObserver(entries => {
+            entries.forEach(e => {
+                if (e.isIntersecting) {
+                    e.target.querySelectorAll('.progress-fill').forEach(bar => {
+                        bar.style.width = bar.dataset.width;
+                    });
+                }
+            });
+        }, { threshold: 0.3 });
+        document.querySelectorAll('[data-progress]').forEach(el => progressObs.observe(el));
+    </script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var btn = document.querySelector('.nav-dropdown-btn');
+            var menu = document.querySelector('.nav-dropdown-menu');
+            if (btn && menu) {
+                btn.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    menu.style.display = menu.style.display === 'block' ? 'none' : 'block';
+                });
+                document.addEventListener('click', function() {
+                    menu.style.display = 'none';
+                });
+            }
+        });
+    </script>
+
+<script>
+/* ACTIVE_NAV_leukos */
+document.querySelectorAll('.nav-link[data-page]').forEach(a => {
+    if (a.dataset.page === 'leukos') {
+        a.style.color = '#D4D4D4';
+        a.style.borderBottom = '1px solid #D4D4D4';
+        a.style.paddingBottom = '2px';
+    }
+});
+</script>
+</body>
+</html>
+
+
+
+
+
+
+

@@ -1,0 +1,509 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KRYSTAL™ | Piedras instaladas con precisión clínica</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --void-black: #0a0a0a;
+            --pure-white: #ffffff;
+            --ice: #a8d8ff;
+            --ice-soft: #dff2ff;
+            --industrial: #2a2a2a;
+            --steel: #131318;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: 'DM Sans', sans-serif;
+            background: var(--void-black);
+            color: var(--pure-white);
+            cursor: crosshair;
+            overflow-x: hidden;
+        }
+
+        .font-display {
+            font-family: 'Bebas Neue', sans-serif;
+            text-transform: uppercase;
+            letter-spacing: 0.02em;
+        }
+
+        .mono { font-family: 'Space Mono', monospace; }
+
+        .text-ice {
+            background: linear-gradient(135deg, #e0f7ff 0%, #a8d8ff 50%, #ffffff 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .section-num {
+            font-family: 'Space Mono', monospace;
+            font-size: 0.65rem;
+            letter-spacing: 0.12em;
+            color: var(--ice);
+            display: block;
+            margin-bottom: 0.75rem;
+            text-transform: uppercase;
+        }
+
+        .panel {
+            background: rgba(255,255,255,0.03);
+            border: 1px solid rgba(255,255,255,0.12);
+        }
+
+        .btn-krystal {
+            background: var(--ice);
+            color: var(--void-black);
+            padding: 0.95rem 1.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            font-weight: 700;
+            font-size: 0.72rem;
+            border: 2px solid var(--ice);
+            transition: all 0.3s;
+            cursor: crosshair;
+            text-decoration: none;
+            display: inline-block;
+            font-family: 'Space Mono', monospace;
+        }
+
+        .btn-krystal:hover {
+            background: transparent;
+            color: var(--ice);
+        }
+
+        .btn-ghost {
+            background: transparent;
+            color: var(--pure-white);
+            padding: 0.95rem 1.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            font-weight: 700;
+            font-size: 0.72rem;
+            border: 1px solid rgba(255,255,255,0.18);
+            transition: all 0.3s;
+            cursor: crosshair;
+            text-decoration: none;
+            display: inline-block;
+            font-family: 'Space Mono', monospace;
+        }
+
+        .btn-ghost:hover {
+            border-color: var(--ice);
+            color: var(--ice);
+        }
+
+        .grid-visual {
+            background-image:
+                linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px);
+            background-size: 24px 24px;
+        }
+
+        .hover-ice { transition: color 0.3s; }
+        .hover-ice:hover { color: var(--ice) !important; }
+
+        .btn-nav-cta {
+            background: var(--ice);
+            color: var(--void-black);
+            padding: 0.4rem 1.2rem;
+            font-family: 'Space Mono', monospace;
+            font-size: 0.65rem;
+            letter-spacing: 0.1em;
+            font-weight: 700;
+            text-transform: uppercase;
+            border: 2px solid var(--ice);
+            transition: all 0.3s;
+            cursor: crosshair;
+            text-decoration: none;
+        }
+
+        .btn-nav-cta:hover {
+            background: transparent;
+            color: var(--ice);
+        }
+
+        .fade-up {
+            opacity: 0;
+            transform: translateY(26px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+
+        .fade-up.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .marquee-container { overflow: hidden; white-space: nowrap; }
+        .marquee-content {
+            display: inline-block;
+            animation: marquee 28s linear infinite;
+        }
+
+        @keyframes marquee {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+
+        ::selection { background: var(--ice); color: var(--void-black); }
+        ::-webkit-scrollbar { width: 4px; }
+        ::-webkit-scrollbar-track { background: var(--void-black); }
+        ::-webkit-scrollbar-thumb { background: var(--ice); }
+
+        .scan {
+            background: repeating-linear-gradient(
+                0deg,
+                transparent,
+                transparent 3px,
+                rgba(255,255,255,0.03) 3px,
+                rgba(255,255,255,0.03) 4px
+            );
+        }
+
+        .hero-k {
+            position: absolute;
+            right: -2vw;
+            top: -4vw;
+            font-size: 24vw;
+            line-height: 1;
+            color: rgba(168,216,255,0.05);
+            pointer-events: none;
+            user-select: none;
+        }
+    </style>
+</head>
+<body class="grid-visual">
+
+    <div style="background:#a8d8ff;color:#0a0a0a;" class="text-[10px] uppercase tracking-widest py-2 px-4 text-center font-bold mono">
+        KRYSTAL™ · Con cita previa · Piedras instaladas sobre esmalte
+    </div>
+
+    <nav class="sticky top-0 z-50 border-b" style="border-color: rgba(255,255,255,0.1); backdrop-filter: blur(12px); background: rgba(10,10,10,0.95);">
+    <div class="flex items-center justify-between px-4 py-4 lg:px-8">
+        <div class="flex items-center gap-8">
+            <a href="index.html" class="font-display text-xl font-bold tracking-tight">
+                KHRYSOS<span class="text-gold">™</span>
+            </a>
+            <div class="hidden lg:flex items-center gap-6 mono text-xs uppercase tracking-widest">
+                <a href="index.html" class="nav-link hover-gold" data-page="inicio">Inicio</a>
+                <a href="khrysos-catalogo.html" class="nav-link hover-gold" data-page="catalogo">Catálogo</a>
+                <a href="khrysos-estudio.html" class="nav-link hover-gold" data-page="estudio">Estudio</a>
+                <a href="khrysos-brand_statement.html" class="nav-link hover-gold" data-page="khrysos">Khrysos</a>
+                <div class="nav-dropdown" style="position:relative;">
+                    <button class="nav-link hover-gold nav-dropdown-btn" style="background:none;border:none;cursor:crosshair;padding:0;font-family:inherit;font-size:inherit;letter-spacing:inherit;text-transform:inherit;color:rgba(255,255,255,0.5);">
+                        Servicios <span style="font-size:0.55rem;opacity:0.6;">▼</span>
+                    </button>
+                    <div class="nav-dropdown-menu" style="display:none;position:absolute;top:calc(100% + 12px);left:0;min-width:240px;background:rgba(10,10,10,0.98);border:1px solid rgba(255,255,255,0.1);padding:0.5rem 0;z-index:200;">
+                        <a href="krystal.html" class="nav-dropdown-item hover-gold" style="display:block;padding:0.6rem 1.25rem;color:rgba(255,255,255,0.85);text-decoration:none;font-size:0.6rem;letter-spacing:0.12em;transition:color 0.2s;">
+                            <span style="color:rgba(168,216,255,0.85);margin-right:0.5rem;">✦</span>KRYSTAL · Cristales Dentales
+                        </a>
+                        <a href="kallisto.html" class="nav-dropdown-item hover-gold" style="display:block;padding:0.6rem 1.25rem;color:rgba(255,255,255,0.45);text-decoration:none;font-size:0.6rem;letter-spacing:0.12em;transition:color 0.2s;">
+                            <span style="color:rgba(255,105,160,0.7);margin-right:0.5rem;">✦</span>KALLISTO · Armonización Facial
+                        </a>
+                        <a href="leukos.html" class="nav-dropdown-item hover-gold" style="display:block;padding:0.6rem 1.25rem;color:rgba(255,255,255,0.45);text-decoration:none;font-size:0.6rem;letter-spacing:0.12em;transition:color 0.2s;">
+                            <span style="color:rgba(212,212,212,0.7);margin-right:0.5rem;">✦</span>LEUKOS · Odontología Estética
+                        </a>
+                        <a href="asklepius.html" class="nav-dropdown-item hover-gold" style="display:block;padding:0.6rem 1.25rem;color:rgba(255,255,255,0.45);text-decoration:none;font-size:0.6rem;letter-spacing:0.12em;transition:color 0.2s;">
+                            <span style="color:rgba(168,224,196,0.7);margin-right:0.5rem;">✦</span>ASKLEPIUS · Cuidado General
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="flex items-center gap-4 mono text-xs uppercase tracking-widest">
+            <a href="schedule-mock.html#reservas" class="hover-gold hidden lg:block" style="color: rgba(255,255,255,0.5); text-decoration:none; cursor:crosshair;">Mis Reservas</a>
+            <a href="schedule-mock.html?branch=krystal" class="btn-nav-cta" style="text-decoration:none;">Agendar</a>
+        </div>
+    </div>
+    <div class="lg:hidden border-t px-4 py-3 flex gap-6 mono text-xs uppercase tracking-widest overflow-x-auto hide-scrollbar" style="border-color: rgba(255,255,255,0.06);">
+        <a href="index.html" class="nav-link hover-gold whitespace-nowrap" data-page="inicio">Inicio</a>
+        <a href="khrysos-catalogo.html" class="nav-link hover-gold whitespace-nowrap" data-page="catalogo">Catálogo</a>
+        <a href="khrysos-estudio.html" class="nav-link hover-gold whitespace-nowrap" data-page="estudio">Estudio</a>
+        <a href="khrysos-brand_statement.html" class="nav-link hover-gold whitespace-nowrap" data-page="khrysos">Khrysos</a>
+        <a href="krystal.html" class="nav-link whitespace-nowrap" style="color:rgba(168,216,255,0.92);" data-page="krystal">Krystal</a>
+        <a href="kallisto.html" class="nav-link whitespace-nowrap" style="color:rgba(255,105,160,0.72);" data-page="kallisto">Kallisto</a>
+        <a href="leukos.html" class="nav-link whitespace-nowrap" style="color:rgba(212,212,212,0.72);" data-page="leukos">Leukos</a>
+        <a href="asklepius.html" class="nav-link whitespace-nowrap" style="color:rgba(168,224,196,0.72);" data-page="asklepius">Asklepius</a>
+    </div>
+</nav>
+
+    <section class="relative overflow-hidden border-b" style="border-color: rgba(255,255,255,0.08); min-height: 88vh; display:flex; align-items:flex-end;">
+        <div class="hero-k font-display">K</div>
+        <div class="absolute inset-0">
+            <img src="assets/krystal_diamond_single.jpg" alt="KRYSTAL hero" class="w-full h-full object-cover" style="opacity:0.26; filter: grayscale(10%) contrast(125%) brightness(1.05);">
+        </div>
+        <div class="absolute inset-0" style="background: linear-gradient(180deg, rgba(10,10,10,0.2) 0%, rgba(10,10,10,0.7) 55%, rgba(10,10,10,0.95) 100%), linear-gradient(135deg, rgba(168,216,255,0.08), transparent 45%);"></div>
+
+        <div class="relative z-10 max-w-7xl mx-auto px-4 lg:px-8 pb-14 lg:pb-20 pt-24 w-full">
+            <span class="section-num fade-up">01 — KRYSTAL</span>
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-end">
+                <div class="lg:col-span-8 fade-up">
+                    <h1 class="font-display leading-none" style="font-size:clamp(4rem,10vw,9rem); line-height:.88;">
+                        KRYSTAL<br><span class="text-ice">INSTALADO</span>
+                    </h1>
+                    <p class="mt-5 max-w-2xl" style="color:rgba(255,255,255,0.75); font-size:1.05rem; line-height:1.75;">
+                        Piedras instaladas sobre esmalte con técnica clínica. No es adorno. Es un punto de precisión.
+                    </p>
+                </div>
+                <div class="lg:col-span-4 fade-up">
+                    <div class="panel p-5">
+                        <div class="mono text-xs uppercase tracking-[0.18em]" style="color:rgba(255,255,255,0.34); line-height:1.9;">
+                            // VVS Diamond · Zafiro · Rubí · Esmeralda<br>
+                            // Con cita previa<br>
+                            // Instalación clínica calibrada
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="absolute bottom-0 left-0 right-0 py-3 border-t" style="border-color: rgba(168,216,255,0.2); background: rgba(10,10,10,0.72);">
+            <div class="marquee-container">
+                <div class="marquee-content mono text-xs uppercase tracking-[0.18em]" style="color: rgba(168,216,255,0.55);">
+                    KRYSTAL™ · VVS DIAMOND · TOOTH GEMS · ZAFIRO · RUBÍ · ESMERALDA · INSTALACIÓN SOBRE ESMALTE · CON CITA PREVIA · KRYSTAL™ · VVS DIAMOND · TOOTH GEMS · ZAFIRO · RUBÍ · ESMERALDA · INSTALACIÓN SOBRE ESMALTE · CON CITA PREVIA ·&nbsp;
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-16 lg:py-20 px-4 lg:px-8 border-b fade-up" style="border-color: rgba(255,255,255,0.07);">
+        <div class="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-10">
+            <div class="lg:col-span-4">
+                <span class="section-num">02 — Qué es</span>
+                <h2 class="font-display leading-none" style="font-size:clamp(2.6rem,6vw,4.8rem);">BRILLO.<br>ESMALTE.<br>PRECISIÓN.</h2>
+            </div>
+            <div class="lg:col-span-8 space-y-6">
+                <p style="font-size:1.05rem; line-height:1.9; color:rgba(255,255,255,0.82); font-weight:300;">
+                    KRYSTAL es la línea de incrustación y cristales dentales de la casa KHRYSOS™. Piedras preciosas o semipreciosas adheridas directamente al esmalte con técnica dental de precisión.
+                </p>
+                <p style="font-size:1.05rem; line-height:1.9; color:rgba(255,255,255,0.56); font-weight:300;">
+                    La pieza no cubre el diente. No reemplaza forma. No simula otra cosa. Se instala donde importa y se deja hablar sola.
+                </p>
+                <p style="font-size:1.05rem; line-height:1.9; color:rgba(255,255,255,0.34); font-weight:300;">
+                    Diamante VVS. Zafiro. Rubí. Esmeralda. Cada decisión cambia el peso visual del resultado.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-16 lg:py-20 px-4 lg:px-8 border-b fade-up" style="border-color: rgba(255,255,255,0.07); background:#0d0d10;">
+        <div class="max-w-7xl mx-auto">
+            <div class="flex items-end justify-between gap-6 mb-10">
+                <div>
+                    <span class="section-num">03 — Piezas</span>
+                    <h2 class="font-display leading-none" style="font-size:clamp(2.6rem,6vw,4.8rem);">TIPOS DE<br>INSTALACIÓN</h2>
+                </div>
+                <div class="mono text-xs uppercase tracking-[0.16em] hidden lg:block" style="color:rgba(255,255,255,0.28);">
+                    // KRYSTAL line
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5">
+                <div class="panel p-5">
+                    <div class="font-display mb-2" style="font-size:2rem;">Cristal simple</div>
+                    <p style="color:rgba(255,255,255,0.62); line-height:1.7;">Un punto de brillo. Una sola lectura. Instalación rápida sobre un diente.</p>
+                    <div class="mt-4 mono text-xs uppercase tracking-[0.15em]" style="color:var(--ice);">\$180.000 CLP</div>
+                </div>
+                <div class="panel p-5">
+                    <div class="font-display mb-2" style="font-size:2rem;">Cristal dorado</div>
+                    <p style="color:rgba(255,255,255,0.62); line-height:1.7;">Mismo gesto, otro peso visual. Más presencia, menos silencio.</p>
+                    <div class="mt-4 mono text-xs uppercase tracking-[0.15em]" style="color:var(--ice);">\$220.000 CLP</div>
+                </div>
+                <div class="panel p-5">
+                    <div class="font-display mb-2" style="font-size:2rem;">Incrustación VVS</div>
+                    <p style="color:rgba(255,255,255,0.62); line-height:1.7;">Piedra de alta gama. Instalación clínica. Precisión total.</p>
+                    <div class="mt-4 mono text-xs uppercase tracking-[0.15em]" style="color:var(--ice);">\$1.600.000 CLP</div>
+                </div>
+                <div class="panel p-5">
+                    <div class="font-display mb-2" style="font-size:2rem;">Cluster</div>
+                    <p style="color:rgba(255,255,255,0.62); line-height:1.7;">Composición multi-stone sobre uno o varios dientes.</p>
+                    <div class="mt-4 mono text-xs uppercase tracking-[0.15em]" style="color:var(--ice);">\$3.200.000 CLP</div>
+                </div>
+                <div class="panel p-5">
+                    <div class="font-display mb-2" style="font-size:2rem;">Retiro / recambio</div>
+                    <p style="color:rgba(255,255,255,0.62); line-height:1.7;">Ajuste, retiro o reemplazo de una pieza ya instalada.</p>
+                    <div class="mt-4 mono text-xs uppercase tracking-[0.15em]" style="color:var(--ice);">A evaluar</div>
+                </div>
+                <div class="panel p-5 scan">
+                    <div class="font-display mb-2 text-ice" style="font-size:2rem;">Evaluación</div>
+                    <p style="color:rgba(255,255,255,0.62); line-height:1.7;">Si no sabes qué piedra o ubicación funciona mejor, aquí empieza.</p>
+                    <div class="mt-4 mono text-xs uppercase tracking-[0.15em]" style="color:var(--ice);">Con cita previa</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-16 lg:py-20 px-4 lg:px-8 border-b fade-up" style="border-color: rgba(255,255,255,0.07);">
+        <div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
+            <div class="relative overflow-hidden panel" style="min-height:520px;">
+                <img src="assets/krystal_cluster.jpg" alt="KRYSTAL cluster" class="absolute inset-0 w-full h-full object-cover" style="opacity:0.52; filter:grayscale(10%) contrast(118%) brightness(1.04);">
+                <div class="absolute inset-0" style="background:linear-gradient(135deg, rgba(168,216,255,0.12), transparent 45%), linear-gradient(180deg, transparent, rgba(10,10,10,0.72));"></div>
+                <div class="absolute bottom-5 left-5">
+                    <div class="mono text-xs uppercase tracking-[0.16em]" style="color:rgba(168,216,255,0.72);">FIG 02. COMPOSICIÓN KRYSTAL</div>
+                </div>
+            </div>
+            <div>
+                <span class="section-num">04 — Material</span>
+                <h2 class="font-display leading-none mb-5" style="font-size:clamp(2.6rem,6vw,4.8rem);">LA PIEDRA<br>NO DECORA</h2>
+                <p class="mb-5" style="color:rgba(255,255,255,0.78); line-height:1.9; font-size:1.02rem;">
+                    Una piedra bien instalada no “acompaña” el diente. Lo redefine sin cubrirlo. El material no es un detalle. El material es la decisión.
+                </p>
+                <div class="space-y-4">
+                    <div class="panel p-4 flex items-center justify-between gap-4">
+                        <div>
+                            <div class="font-display text-2xl">VVS Diamond</div>
+                            <div class="mono text-xs uppercase tracking-[0.14em] fine">Máximo brillo · máxima lectura</div>
+                        </div>
+                        <div class="mono text-xs uppercase tracking-[0.14em]" style="color:var(--ice);">High grade</div>
+                    </div>
+                    <div class="panel p-4 flex items-center justify-between gap-4">
+                        <div>
+                            <div class="font-display text-2xl">Zafiro / Rubí / Esmeralda</div>
+                            <div class="mono text-xs uppercase tracking-[0.14em] fine">Color como argumento</div>
+                        </div>
+                        <div class="mono text-xs uppercase tracking-[0.14em]" style="color:var(--ice);">Precious stone</div>
+                    </div>
+                    <div class="panel p-4 flex items-center justify-between gap-4">
+                        <div>
+                            <div class="font-display text-2xl">Instalación clínica</div>
+                            <div class="mono text-xs uppercase tracking-[0.14em] fine">Adhesión de precisión sobre esmalte</div>
+                        </div>
+                        <div class="mono text-xs uppercase tracking-[0.14em]" style="color:var(--ice);">Calibrada</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-16 lg:py-20 px-4 lg:px-8 border-b fade-up" style="border-color: rgba(255,255,255,0.07); background:#0d0d10;">
+        <div class="max-w-6xl mx-auto">
+            <span class="section-num">05 — Proceso</span>
+            <h2 class="font-display leading-none mb-10" style="font-size:clamp(2.6rem,6vw,4.8rem);">CUATRO<br>MOMENTOS</h2>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-5">
+                <div class="panel p-5">
+                    <div class="font-display mb-4" style="font-size:4rem; color:rgba(168,216,255,0.16);">I</div>
+                    <h3 class="font-display text-2xl mb-3">Evaluación</h3>
+                    <p style="color:rgba(255,255,255,0.56); line-height:1.8;">Se revisa diente, superficie y ubicación posible.</p>
+                </div>
+                <div class="panel p-5">
+                    <div class="font-display mb-4" style="font-size:4rem; color:rgba(168,216,255,0.16);">II</div>
+                    <h3 class="font-display text-2xl mb-3">Selección</h3>
+                    <p style="color:rgba(255,255,255,0.56); line-height:1.8;">Se define piedra, tamaño y lectura visual.</p>
+                </div>
+                <div class="panel p-5">
+                    <div class="font-display mb-4" style="font-size:4rem; color:rgba(168,216,255,0.16);">III</div>
+                    <h3 class="font-display text-2xl mb-3">Instalación</h3>
+                    <p style="color:rgba(255,255,255,0.56); line-height:1.8;">Adhesión clínica con técnica precisa sobre esmalte.</p>
+                </div>
+                <div class="panel p-5">
+                    <div class="font-display mb-4" style="font-size:4rem; color:rgba(168,216,255,0.16);">IV</div>
+                    <h3 class="font-display text-2xl mb-3">Control</h3>
+                    <p style="color:rgba(255,255,255,0.56); line-height:1.8;">Revisión posterior y seguimiento si aplica.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-20 px-4 lg:px-8 fade-up">
+        <div class="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
+            <div class="lg:col-span-8">
+                <span class="section-num">06 — Agenda</span>
+                <h2 class="font-display leading-none mb-4" style="font-size:clamp(2.8rem,6vw,5rem);">
+                    TU PIEZA,<br><span class="text-ice">TU BRILLO</span>
+                </h2>
+                <p style="color:rgba(255,255,255,0.68); line-height:1.9; max-width:42rem;">
+                    Si ya sabes qué instalar, agenda. Si todavía no, agenda igual. La evaluación también forma parte del sistema.
+                </p>
+            </div>
+            <div class="lg:col-span-4 flex flex-col gap-3 lg:items-end">
+                <a href="schedule-mock.html?branch=krystal" class="btn-krystal w-full lg:w-auto text-center">Agenda KRYSTAL →</a>
+                <a href="index.html" class="btn-ghost w-full lg:w-auto text-center">Volver a KHRYSOS</a>
+            </div>
+        </div>
+    </section>
+
+    <footer class="pt-16 pb-8 px-4 lg:px-8 border-t" style="border-color: rgba(255,255,255,0.1); background: var(--void-black);">
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-8 mb-16">
+            <div>
+                <h4 class="font-display text-lg mb-4">KRYSTAL<span class="text-ice">™</span></h4>
+                <ul class="space-y-2 mono text-xs uppercase tracking-wide" style="color: rgba(255,255,255,0.45);">
+                    <li><a href="schedule-mock.html?branch=krystal" class="hover-ice">Agenda & Reservas</a></li>
+                    <li><a href="index.html" class="hover-ice">Casa KHRYSOS</a></li>
+                    <li><a href="schedule-mock.html?branch=krystal" class="hover-ice">Estudio</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="mono font-bold mb-4 text-xs uppercase tracking-widest" style="color: var(--ice);">Materiales</h4>
+                <ul class="space-y-2 mono text-xs uppercase tracking-wide" style="color: rgba(255,255,255,0.45);">
+                    <li><a href="#" class="hover-ice">VVS Diamond</a></li>
+                    <li><a href="#" class="hover-ice">Zafiro</a></li>
+                    <li><a href="#" class="hover-ice">Rubí</a></li>
+                    <li><a href="#" class="hover-ice">Esmeralda</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="mono font-bold mb-4 text-xs uppercase tracking-widest" style="color: var(--ice);">Sistema</h4>
+                <ul class="space-y-2 mono text-xs uppercase tracking-wide" style="color: rgba(255,255,255,0.45);">
+                    <li><a href="kallisto.html" class="hover-ice">Kallisto</a></li>
+                    <li><a href="leukos.html" class="hover-ice">Leukos</a></li>
+                    <li><a href="asklepius.html" class="hover-ice">Asklepius</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="mono font-bold mb-4 text-xs uppercase tracking-widest" style="color: var(--ice);">Sede</h4>
+                <address class="not-italic mono text-xs uppercase tracking-wide leading-relaxed" style="color: rgba(255,255,255,0.45);">
+                    By Appointment Only<br>
+                    Santiago, Chile<br>
+                    KRYSTAL™ / KHRYSOS™
+                </address>
+            </div>
+        </div>
+
+        <div class="border-t pt-8 flex flex-col md:flex-row justify-between items-end gap-4" style="border-color: rgba(255,255,255,0.1);">
+            <div>
+                <p class="mono text-xs uppercase tracking-widest" style="color: rgba(255,255,255,0.25);">© 2026 KRYSTAL™ / KHRYSOS™. All rights reserved.</p>
+                <p class="mono text-xs uppercase tracking-widest mt-1" style="color: rgba(255,255,255,0.15);">Sistema de Identidad v3.0 · Marzo 2026</p>
+            </div>
+            <div class="font-display leading-none hidden md:block" style="font-size: 5rem; -webkit-text-stroke: 1px rgba(168,216,255,0.18); color: transparent;">K™</div>
+        </div>
+    </footer>
+
+    <script>
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) entry.target.classList.add('visible');
+            });
+        }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
+
+        document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+    </script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var btn = document.querySelector('.nav-dropdown-btn');
+            var menu = document.querySelector('.nav-dropdown-menu');
+            if (btn && menu) {
+                btn.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    menu.style.display = menu.style.display === 'block' ? 'none' : 'block';
+                });
+                document.addEventListener('click', function() {
+                    menu.style.display = 'none';
+                });
+            }
+        });
+    </script>
+</body>
+</html>
+
+
+
+

@@ -1,0 +1,779 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>KHRYSOS™ | Mock Booking Flow</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --void-black:#0a0a0a;
+      --pure-white:#ffffff;
+      --hype-gold:#FFD700;
+      --platinum:#C0C0C0;
+      --industrial:#2a2a2a;
+      --branch:#FFD700;
+    }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0;
+      background:var(--void-black);
+      color:var(--pure-white);
+      font-family:'DM Sans',sans-serif;
+      cursor:crosshair;
+      overflow-x:hidden;
+    }
+    .font-display{font-family:'Bebas Neue',sans-serif;text-transform:uppercase;letter-spacing:.02em}
+    .mono{font-family:'Space Mono',monospace}
+    .text-gold{
+      background:linear-gradient(135deg,#FFD700 0%,#FFA500 50%,#FFD700 100%);
+      -webkit-background-clip:text;
+      -webkit-text-fill-color:transparent;
+      background-clip:text;
+    }
+    .grid-visual{
+      background-image:
+        linear-gradient(rgba(255,255,255,.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,.03) 1px, transparent 1px);
+      background-size:24px 24px;
+    }
+    ::selection{background:#FFD700;color:#0a0a0a}
+    ::-webkit-scrollbar{width:4px;height:4px}
+    ::-webkit-scrollbar-track{background:#0a0a0a}
+    ::-webkit-scrollbar-thumb{background:#FFD700}
+    .panel{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.12)}
+    .panel-strong{background:linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.02));border:1px solid rgba(255,255,255,.14)}
+    .section-num{
+      font-family:'Space Mono',monospace;
+      font-size:.65rem;
+      letter-spacing:.12em;
+      color:var(--branch);
+      display:block;
+      margin-bottom:.75rem;
+      text-transform:uppercase;
+    }
+    .btn-main{
+      background:var(--branch);
+      color:#0a0a0a;
+      border:2px solid var(--branch);
+      padding:.95rem 1.6rem;
+      font-family:'Space Mono',monospace;
+      font-size:.72rem;
+      font-weight:700;
+      letter-spacing:.12em;
+      text-transform:uppercase;
+      transition:all .25s ease;
+      cursor:crosshair;
+    }
+    .btn-main:hover{background:transparent;color:var(--branch)}
+    .btn-ghost{
+      background:transparent;
+      color:rgba(255,255,255,.85);
+      border:1px solid rgba(255,255,255,.16);
+      padding:.95rem 1.6rem;
+      font-family:'Space Mono',monospace;
+      font-size:.72rem;
+      font-weight:700;
+      letter-spacing:.12em;
+      text-transform:uppercase;
+      transition:all .25s ease;
+      cursor:crosshair;
+    }
+    .btn-ghost:hover{border-color:var(--branch);color:var(--branch)}
+    .input-k{
+      width:100%;
+      background:rgba(255,255,255,.03);
+      border:1px solid rgba(255,255,255,.12);
+      color:#fff;
+      padding:1rem 1rem;
+      font-family:'Space Mono',monospace;
+      font-size:.72rem;
+      letter-spacing:.08em;
+      text-transform:uppercase;
+      outline:none;
+      transition:border-color .22s ease, background .22s ease;
+    }
+    .input-k:focus{border-color:var(--branch);background:rgba(255,255,255,.05)}
+    .input-k::placeholder{color:rgba(255,255,255,.28)}
+    .option-card,.slot-btn,.pay-card{
+      transition:all .2s ease;
+      cursor:crosshair;
+    }
+    .option-card:hover,.slot-btn:hover,.pay-card:hover{
+      border-color:var(--branch)!important;
+      background:rgba(255,255,255,.05);
+    }
+    .option-card.selected,.slot-btn.selected,.pay-card.selected{
+      border-color:var(--branch)!important;
+      background:linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03));
+      box-shadow:inset 0 0 0 1px rgba(255,255,255,.02);
+    }
+    .step{display:none}
+    .step.active{display:block}
+    .progress-wrap{
+      display:grid;
+      grid-template-columns:repeat(6,1fr);
+      gap:1rem;
+      position:relative;
+    }
+    .progress-wrap:before{
+      content:'';
+      position:absolute;
+      left:0; right:0; top:14px;
+      height:1px;
+      background:rgba(255,255,255,.12);
+    }
+    .progress-fill{
+      position:absolute;
+      top:14px; left:0;
+      height:1px;
+      background:var(--branch);
+      width:0%;
+      transition:width .3s ease;
+    }
+    .progress-item{
+      position:relative;
+      z-index:1;
+      display:flex;
+      flex-direction:column;
+      gap:.5rem;
+      align-items:flex-start;
+    }
+    .progress-dot{
+      width:28px;height:28px;border-radius:999px;
+      border:1px solid rgba(255,255,255,.2);
+      background:#0a0a0a;
+      color:rgba(255,255,255,.5);
+      display:flex;align-items:center;justify-content:center;
+      font-family:'Space Mono',monospace;
+      font-size:.65rem;
+    }
+    .progress-item span{
+      font-family:'Space Mono',monospace;
+      font-size:.6rem;
+      letter-spacing:.12em;
+      text-transform:uppercase;
+      color:rgba(255,255,255,.38);
+    }
+    .progress-item.active .progress-dot,
+    .progress-item.done .progress-dot{
+      background:var(--branch);
+      border-color:var(--branch);
+      color:#0a0a0a;
+    }
+    .progress-item.active span,
+    .progress-item.done span{color:rgba(255,255,255,.92)}
+    .muted{color:rgba(255,255,255,.58)}
+    .fine{color:rgba(255,255,255,.36)}
+    .hero-k{
+      position:absolute;
+      right:-2vw; top:-5vw;
+      font-size:26vw;
+      line-height:1;
+      color:rgba(255,215,0,.04);
+      pointer-events:none;
+      user-select:none;
+    }
+    .nav-link{color:rgba(255,255,255,.55);text-decoration:none}
+    .nav-link:hover{color:var(--branch)}
+    .btn-nav-cta{
+      background:#FFD700;color:#0a0a0a;
+      padding:.4rem 1.2rem;
+      font-family:'Space Mono',monospace;
+      font-size:.65rem;letter-spacing:.1em;font-weight:700;
+      text-transform:uppercase;border:2px solid #FFD700;
+      transition:all .3s;cursor:crosshair;text-decoration:none;
+    }
+    .btn-nav-cta:hover{background:transparent;color:#FFD700}
+    @media (max-width:900px){
+      .progress-wrap{grid-template-columns:repeat(3,1fr);row-gap:1.25rem}
+      .progress-wrap:before,.progress-fill{display:none}
+    }
+  </style>
+</head>
+<body class="grid-visual">
+  <div style="background:#FFD700;color:#0a0a0a" class="text-[10px] uppercase tracking-widest py-2 px-4 text-center font-bold mono">
+    KHRYSOS™ · Mock flow · Con cita previa
+  </div>
+
+  <nav class="sticky top-0 z-50 border-b" style="border-color:rgba(255,255,255,.1);backdrop-filter:blur(12px);background:rgba(10,10,10,.95);">
+    <div class="flex items-center justify-between px-4 py-4 lg:px-8">
+      <div class="flex items-center gap-8">
+        <a href="index.html" class="font-display text-xl font-bold tracking-tight text-white no-underline">
+          KHRYSOS<span class="text-gold">™</span>
+        </a>
+        <div class="hidden lg:flex items-center gap-6 mono text-xs uppercase tracking-widest">
+          <a href="index.html" class="nav-link">Inicio</a>
+          <a href="khrysos-catalogo.html" class="nav-link">Catálogo</a>
+          <a href="khrysos-estudio.html" class="nav-link">Estudio</a>
+        </div>
+      </div>
+      <div class="flex items-center gap-4 mono text-xs uppercase tracking-widest">
+        <a href="#reservas" class="nav-link">Mis Reservas</a>
+        <a href="schedule-mock.html" class="btn-nav-cta">Agenda</a>
+      </div>
+    </div>
+  </nav>
+
+  <section class="relative overflow-hidden border-b" style="border-color:rgba(255,255,255,.08);">
+    <div class="hero-k font-display">K</div>
+    <div class="max-w-7xl mx-auto px-4 lg:px-8 py-14 lg:py-20 relative z-10">
+      <span class="section-num">01 — Mock Workflow</span>
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-end">
+        <div class="lg:col-span-8">
+          <h1 class="font-display leading-none" style="font-size:clamp(4rem,10vw,9rem); line-height:.88;">
+            AGENDA<br><span id="heroAccent" class="text-gold">UNIFICADA</span>
+          </h1>
+          <p class="mt-5 max-w-2xl" style="color:rgba(255,255,255,.7); font-size:1.05rem; line-height:1.7;">
+            Mockup funcional para probar flujo, selección de línea, pago de reserva y confirmación.
+          </p>
+        </div>
+        <div class="lg:col-span-4">
+          <div class="panel p-5">
+            <div class="mono text-xs uppercase tracking-[0.18em]" style="color:rgba(255,255,255,.32); line-height:1.9;">
+              // Casa única<br>
+              // Pago antes de confirmación<br>
+              // Guarda reservas en local
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="mt-12">
+        <div class="progress-wrap">
+          <div class="progress-fill" id="progressFill"></div>
+          <div class="progress-item" data-step="1"><div class="progress-dot">01</div><span>Casa</span></div>
+          <div class="progress-item" data-step="2"><div class="progress-dot">02</div><span>Servicio</span></div>
+          <div class="progress-item" data-step="3"><div class="progress-dot">03</div><span>Agenda</span></div>
+          <div class="progress-item" data-step="4"><div class="progress-dot">04</div><span>ID</span></div>
+          <div class="progress-item" data-step="5"><div class="progress-dot">05</div><span>Pago</span></div>
+          <div class="progress-item" data-step="6"><div class="progress-dot">06</div><span>OK</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <main class="max-w-7xl mx-auto px-4 lg:px-8 py-10 lg:py-14">
+    <div class="grid grid-cols-1 xl:grid-cols-12 gap-8">
+      <section class="xl:col-span-8">
+        <div class="step active" id="step-1">
+          <span class="section-num">02 — Casa</span>
+          <h2 class="font-display leading-none mb-6" style="font-size:clamp(2.6rem,6vw,4.6rem);">SELECCIONA<br>LA CASA</h2>
+          <div class="space-y-4" id="branchList"></div>
+          <div class="mt-8 flex justify-end">
+            <button class="btn-main" id="toStep2" disabled style="opacity:.45;">Continuar →</button>
+          </div>
+        </div>
+
+        <div class="step" id="step-2">
+          <span class="section-num">03 — Servicio</span>
+          <h2 class="font-display leading-none mb-4" style="font-size:clamp(2.6rem,6vw,4.6rem);">SELECCIONA<br>EL SERVICIO</h2>
+          <div class="space-y-4" id="serviceList"></div>
+          <div class="mt-8 flex items-center justify-between gap-4">
+            <button class="btn-ghost" onclick="goToStep(1)">← Volver</button>
+            <button class="btn-main" id="toStep3" disabled style="opacity:.45;">Continuar →</button>
+          </div>
+        </div>
+
+        <div class="step" id="step-3">
+          <span class="section-num">04 — Agenda</span>
+          <h2 class="font-display leading-none mb-4" style="font-size:clamp(2.6rem,6vw,4.6rem);">FECHA<br>Y BLOQUE</h2>
+          <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            <div class="panel p-5">
+              <div class="mono text-xs uppercase tracking-[0.15em] mb-4 fine">Días disponibles</div>
+              <div class="grid grid-cols-2 sm:grid-cols-3 gap-3" id="dayList"></div>
+            </div>
+            <div class="panel p-5">
+              <div class="mono text-xs uppercase tracking-[0.15em] mb-4 fine">Bloques disponibles</div>
+              <div class="grid grid-cols-2 sm:grid-cols-3 gap-3" id="slotList"></div>
+            </div>
+          </div>
+          <div class="mt-8 flex items-center justify-between gap-4">
+            <button class="btn-ghost" onclick="goToStep(2)">← Volver</button>
+            <button class="btn-main" id="toStep4" disabled style="opacity:.45;">Continuar →</button>
+          </div>
+        </div>
+
+        <div class="step" id="step-4">
+          <span class="section-num">05 — Identificación</span>
+          <h2 class="font-display leading-none mb-4" style="font-size:clamp(2.6rem,6vw,4.6rem);">DATOS<br>DE RESERVA</h2>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <input id="name" class="input-k" placeholder="Nombre" />
+            <input id="email" class="input-k" placeholder="Email" />
+            <input id="phone" class="input-k" placeholder="Teléfono" />
+            <input id="instagram" class="input-k" placeholder="Instagram opcional" />
+            <textarea id="notes" class="input-k md:col-span-2" rows="5" placeholder="Referencia / idea / nota"></textarea>
+          </div>
+          <div class="mt-8 flex items-center justify-between gap-4">
+            <button class="btn-ghost" onclick="goToStep(3)">← Volver</button>
+            <button class="btn-main" id="toStep5">Continuar →</button>
+          </div>
+        </div>
+
+        <div class="step" id="step-5">
+          <span class="section-num">06 — Pago</span>
+          <h2 class="font-display leading-none mb-4" style="font-size:clamp(2.6rem,6vw,4.6rem);">PAGO DE<br>RESERVA</h2>
+          <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            <div class="panel p-6">
+              <div class="mono text-xs uppercase tracking-[0.15em] mb-4 fine">Resumen</div>
+              <div class="space-y-4">
+                <div><div class="mono text-[11px] uppercase tracking-[0.14em] fine">Casa</div><div id="sumBranch"></div></div>
+                <div><div class="mono text-[11px] uppercase tracking-[0.14em] fine">Servicio</div><div id="sumService"></div></div>
+                <div class="grid grid-cols-2 gap-4">
+                  <div><div class="mono text-[11px] uppercase tracking-[0.14em] fine">Fecha</div><div id="sumDate"></div></div>
+                  <div><div class="mono text-[11px] uppercase tracking-[0.14em] fine">Hora</div><div id="sumTime"></div></div>
+                </div>
+                <div><div class="mono text-[11px] uppercase tracking-[0.14em] fine">Nombre</div><div id="sumName"></div></div>
+              </div>
+            </div>
+            <div class="panel-strong p-6">
+              <div class="mono text-xs uppercase tracking-[0.15em] mb-4 fine">Método</div>
+              <div class="space-y-3" id="paymentMethods">
+                <button class="pay-card panel w-full text-left p-4" data-pay="transferencia">
+                  <div class="font-display text-2xl">Transferencia</div>
+                  <div class="muted">Mock method · confirmación instantánea</div>
+                </button>
+                <button class="pay-card panel w-full text-left p-4" data-pay="stripe">
+                  <div class="font-display text-2xl">Stripe</div>
+                  <div class="muted">Mock redirect · pago simulado</div>
+                </button>
+                <button class="pay-card panel w-full text-left p-4" data-pay="whatsapp">
+                  <div class="font-display text-2xl">WhatsApp</div>
+                  <div class="muted">Mock manual hold · reserva pendiente</div>
+                </button>
+              </div>
+              <div class="mt-6">
+                <div class="mono text-xs uppercase tracking-[0.15em] fine">Monto</div>
+                <div id="sumDeposit" class="font-display" style="font-size:clamp(2.5rem,6vw,4rem); line-height:.95;">\$10.000</div>
+              </div>
+              <div class="mt-6 flex flex-col sm:flex-row gap-3">
+                <button class="btn-main w-full" id="payNow">Pagar reserva →</button>
+                <button class="btn-ghost w-full" onclick="goToStep(4)">← Volver</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="step" id="step-6">
+          <span class="section-num">07 — Confirmación</span>
+          <h2 class="font-display leading-none mb-4" style="font-size:clamp(2.8rem,7vw,5.2rem);">RESERVA<br><span class="text-gold">CONFIRMADA</span></h2>
+          <div class="panel-strong p-6 lg:p-8">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+              <div>
+                <div class="mono text-xs uppercase tracking-[0.16em] mb-4 fine">Detalle</div>
+                <div class="space-y-4">
+                  <div><div class="mono text-[11px] uppercase tracking-[0.14em] fine">Casa</div><div id="confirmBranch"></div></div>
+                  <div><div class="mono text-[11px] uppercase tracking-[0.14em] fine">Servicio</div><div id="confirmService"></div></div>
+                  <div class="grid grid-cols-2 gap-4">
+                    <div><div class="mono text-[11px] uppercase tracking-[0.14em] fine">Fecha</div><div id="confirmDate"></div></div>
+                    <div><div class="mono text-[11px] uppercase tracking-[0.14em] fine">Hora</div><div id="confirmTime"></div></div>
+                  </div>
+                  <div><div class="mono text-[11px] uppercase tracking-[0.14em] fine">Pago</div><div id="confirmPayment"></div></div>
+                </div>
+              </div>
+              <div>
+                <div class="mono text-xs uppercase tracking-[0.16em] mb-4 fine">Siguiente</div>
+                <div class="space-y-4 muted">
+                  <p>Recibirás confirmación por email o WhatsApp.</p>
+                  <p>Llega 10 minutos antes.</p>
+                  <p>Si la pieza requiere referencia visual, envíala antes de la cita.</p>
+                </div>
+                <div class="mt-8 flex flex-col sm:flex-row gap-3">
+                  <a href="#reservas" class="btn-main text-center no-underline">Ver reservas</a>
+                  <button class="btn-ghost" onclick="resetFlow()">Nueva reserva</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <aside class="xl:col-span-4">
+        <div class="panel sticky top-28 p-6">
+          <div class="mono text-xs uppercase tracking-[0.16em] mb-4 fine">Resumen vivo</div>
+          <div class="space-y-5">
+            <div><div class="mono text-[11px] uppercase tracking-[0.14em] fine">Casa</div><div id="asideBranch">—</div></div>
+            <div><div class="mono text-[11px] uppercase tracking-[0.14em] fine">Servicio</div><div id="asideService">—</div></div>
+            <div class="grid grid-cols-2 gap-4">
+              <div><div class="mono text-[11px] uppercase tracking-[0.14em] fine">Fecha</div><div id="asideDate">—</div></div>
+              <div><div class="mono text-[11px] uppercase tracking-[0.14em] fine">Hora</div><div id="asideTime">—</div></div>
+            </div>
+            <div><div class="mono text-[11px] uppercase tracking-[0.14em] fine">Reserva</div><div id="asideDeposit">—</div></div>
+            <div><div class="mono text-[11px] uppercase tracking-[0.14em] fine">Estado</div><div id="asideStatus">En curso</div></div>
+          </div>
+        </div>
+      </aside>
+    </div>
+
+    <section id="reservas" class="mt-16 border-t pt-10" style="border-color:rgba(255,255,255,.08);">
+      <span class="section-num">08 — Mis Reservas</span>
+      <h2 class="font-display leading-none mb-6" style="font-size:clamp(2.6rem,6vw,4.6rem);">RESERVAS<br>GUARDADAS</h2>
+      <div id="savedBookings" class="space-y-4"></div>
+    </section>
+  </main>
+
+  <script>
+    const BRANCHES = {
+      khrysos: {
+        name: 'KHRYSOS',
+        color: '#FFD700',
+        services: [
+          { name:'Evaluación / molde', duration:'45–60 min', deposit:'\$10.000' },
+          { name:'Grillz base', duration:'60 min', deposit:'\$10.000' },
+          { name:'Open face', duration:'60–75 min', deposit:'\$10.000' },
+          { name:'Full set custom', duration:'75–90 min', deposit:'\$25.000' }
+        ],
+        desc:'Grillz dentales en oro y metales preciosos.'
+      },
+      krystal: {
+        name: 'KRYSTAL',
+        color: '#a8d8ff',
+        services: [
+          { name:'Evaluación', duration:'30 min', deposit:'\$10.000' },
+          { name:'Cristal simple', duration:'30 min', deposit:'\$10.000' },
+          { name:'Cristal dorado', duration:'30–45 min', deposit:'\$10.000' },
+          { name:'Incrustación VVS', duration:'45 min', deposit:'\$20.000' }
+        ],
+        desc:'Piedras instaladas sobre esmalte con técnica clínica.'
+      },
+      kallisto: {
+        name: 'KALLISTO',
+        color: '#FF69A0',
+        services: [
+          { name:'Evaluación facial', duration:'30–45 min', deposit:'\$10.000' },
+          { name:'Toxina botulínica', duration:'45 min', deposit:'\$20.000' },
+          { name:'Ácido hialurónico', duration:'60 min', deposit:'\$20.000' }
+        ],
+        desc:'Armonización facial con criterio médico y artístico.'
+      },
+      leukos: {
+        name: 'LEUKOS',
+        color: '#D4D4D4',
+        services: [
+          { name:'Evaluación estética', duration:'45–60 min', deposit:'\$10.000' },
+          { name:'Carillas de porcelana', duration:'60 min', deposit:'\$20.000' },
+          { name:'Blanqueamiento', duration:'45 min', deposit:'\$10.000' }
+        ],
+        desc:'Estética dental de alta gama.'
+      },
+      asklepius: {
+        name: 'ASKLEPIUS',
+        color: '#A8E0C4',
+        services: [
+          { name:'Revisión general', duration:'45 min', deposit:'\$10.000' },
+          { name:'Limpieza', duration:'45 min', deposit:'\$10.000' },
+          { name:'Continuación de tratamiento', duration:'60 min', deposit:'\$10.000' }
+        ],
+        desc:'Odontología general premium.'
+      }
+    };
+
+    const state = {
+      step:1,
+      branch:null,
+      service:null,
+      date:null,
+      time:null,
+      name:'',
+      email:'',
+      phone:'',
+      instagram:'',
+      notes:'',
+      paymentMethod:null,
+      paymentStatus:'En curso'
+    };
+
+    const branchList = document.getElementById('branchList');
+    const serviceList = document.getElementById('serviceList');
+    const dayList = document.getElementById('dayList');
+    const slotList = document.getElementById('slotList');
+
+    const days = (() => {
+      const out = [];
+      const base = new Date();
+      const months = ['ENE','FEB','MAR','ABR','MAY','JUN','JUL','AGO','SEP','OCT','NOV','DIC'];
+      for(let i=1;i<=8;i++){
+        const d = new Date(base);
+        d.setDate(base.getDate()+i);
+        out.push(`${String(d.getDate()).padStart(2,'0')} ${months[d.getMonth()]}`);
+      }
+      return out;
+    })();
+    const slots = ['10:00','11:30','13:00','15:00','16:30','18:00'];
+
+    function setBranchTheme(branchKey){
+      const b = BRANCHES[branchKey] || BRANCHES.khrysos;
+      document.documentElement.style.setProperty('--branch', b.color);
+    }
+
+    function renderBranches(){
+      branchList.innerHTML = '';
+      Object.entries(BRANCHES).forEach(([key,b]) => {
+        const el = document.createElement('button');
+        el.className = 'option-card panel w-full text-left p-5';
+        el.innerHTML = `
+          <div class="grid grid-cols-1 lg:grid-cols-12 gap-4 items-center">
+            <div class="lg:col-span-4">
+              <div class="font-display" style="font-size:2rem;line-height:.95;">${b.name}</div>
+            </div>
+            <div class="lg:col-span-6 muted">${b.desc}</div>
+            <div class="lg:col-span-2 mono text-xs uppercase tracking-[0.15em] fine text-left lg:text-right">Con cita previa</div>
+          </div>
+        `;
+        el.onclick = () => {
+          state.branch = key;
+          state.service = null;
+          setBranchTheme(key);
+          document.querySelectorAll('#branchList .option-card').forEach(x => x.classList.remove('selected'));
+          el.classList.add('selected');
+          renderServices();
+          syncAside();
+          toggleBtn('toStep2', true);
+        };
+        branchList.appendChild(el);
+      });
+    }
+
+    function renderServices(){
+      serviceList.innerHTML = '';
+      if(!state.branch) return;
+      BRANCHES[state.branch].services.forEach((s, idx) => {
+        const el = document.createElement('button');
+        el.className = 'option-card panel w-full text-left p-5';
+        el.innerHTML = `
+          <div class="grid grid-cols-1 lg:grid-cols-12 gap-4 items-center">
+            <div class="lg:col-span-6">
+              <div class="font-display" style="font-size:1.8rem;line-height:.95;">${s.name}</div>
+            </div>
+            <div class="lg:col-span-3 mono text-xs uppercase tracking-[0.15em] fine">${s.duration}</div>
+            <div class="lg:col-span-3 mono text-xs uppercase tracking-[0.15em] text-left lg:text-right" style="color:var(--branch)">${s.deposit}</div>
+          </div>
+        `;
+        el.onclick = () => {
+          state.service = s;
+          document.querySelectorAll('#serviceList .option-card').forEach(x => x.classList.remove('selected'));
+          el.classList.add('selected');
+          syncAside();
+          toggleBtn('toStep3', true);
+        };
+        serviceList.appendChild(el);
+      });
+    }
+
+    function renderDays(){
+      dayList.innerHTML = '';
+      days.forEach(d => {
+        const el = document.createElement('button');
+        el.className = 'slot-btn panel p-4 text-left';
+        el.innerHTML = `<div class="mono text-xs uppercase tracking-[0.15em]">${d}</div>`;
+        el.onclick = () => {
+          state.date = d;
+          document.querySelectorAll('#dayList .slot-btn').forEach(x => x.classList.remove('selected'));
+          el.classList.add('selected');
+          syncAside();
+          tryEnableStep4();
+        };
+        dayList.appendChild(el);
+      });
+    }
+
+    function renderSlots(){
+      slotList.innerHTML = '';
+      slots.forEach(t => {
+        const el = document.createElement('button');
+        el.className = 'slot-btn panel p-4 text-center';
+        el.innerHTML = `<div class="mono text-xs uppercase tracking-[0.15em]">${t}</div>`;
+        el.onclick = () => {
+          state.time = t;
+          document.querySelectorAll('#slotList .slot-btn').forEach(x => x.classList.remove('selected'));
+          el.classList.add('selected');
+          syncAside();
+          tryEnableStep4();
+        };
+        slotList.appendChild(el);
+      });
+    }
+
+    function tryEnableStep4(){
+      toggleBtn('toStep4', !!(state.date && state.time));
+    }
+
+    function toggleBtn(id, enabled){
+      const btn = document.getElementById(id);
+      btn.disabled = !enabled;
+      btn.style.opacity = enabled ? '1' : '.45';
+    }
+
+    function syncAside(){
+      document.getElementById('asideBranch').textContent = state.branch ? BRANCHES[state.branch].name : '—';
+      document.getElementById('asideService').textContent = state.service ? state.service.name : '—';
+      document.getElementById('asideDate').textContent = state.date || '—';
+      document.getElementById('asideTime').textContent = state.time || '—';
+      document.getElementById('asideDeposit').textContent = state.service ? state.service.deposit : '—';
+      document.getElementById('asideStatus').textContent = state.paymentStatus;
+    }
+
+    function fillPaymentSummary(){
+      document.getElementById('sumBranch').textContent = BRANCHES[state.branch]?.name || '—';
+      document.getElementById('sumService').textContent = state.service?.name || '—';
+      document.getElementById('sumDate').textContent = state.date || '—';
+      document.getElementById('sumTime').textContent = state.time || '—';
+      document.getElementById('sumName').textContent = state.name || '—';
+      document.getElementById('sumDeposit').textContent = state.service?.deposit || '\$10.000';
+    }
+
+    function fillConfirmation(){
+      document.getElementById('confirmBranch').textContent = BRANCHES[state.branch]?.name || '—';
+      document.getElementById('confirmService').textContent = state.service?.name || '—';
+      document.getElementById('confirmDate').textContent = state.date || '—';
+      document.getElementById('confirmTime').textContent = state.time || '—';
+      document.getElementById('confirmPayment').textContent = `${state.paymentMethod || '—'} · ${state.service?.deposit || '—'}`;
+    }
+
+    function saveBooking(){
+      const bookings = JSON.parse(localStorage.getItem('khrysos_mock_bookings') || '[]');
+      bookings.unshift({
+        createdAt: new Date().toISOString(),
+        branch: BRANCHES[state.branch]?.name || '',
+        service: state.service?.name || '',
+        date: state.date || '',
+        time: state.time || '',
+        name: state.name || '',
+        email: state.email || '',
+        phone: state.phone || '',
+        paymentMethod: state.paymentMethod || '',
+        deposit: state.service?.deposit || ''
+      });
+      localStorage.setItem('khrysos_mock_bookings', JSON.stringify(bookings));
+      renderSavedBookings();
+    }
+
+    function renderSavedBookings(){
+      const wrap = document.getElementById('savedBookings');
+      const bookings = JSON.parse(localStorage.getItem('khrysos_mock_bookings') || '[]');
+      if(!bookings.length){
+        wrap.innerHTML = '<div class="panel p-6 muted">No hay reservas guardadas.</div>';
+        return;
+      }
+      wrap.innerHTML = bookings.map(b => `
+        <div class="panel p-5">
+          <div class="grid grid-cols-1 lg:grid-cols-12 gap-4 items-center">
+            <div class="lg:col-span-2 font-display text-2xl">${b.branch}</div>
+            <div class="lg:col-span-3">${b.service}</div>
+            <div class="lg:col-span-2 mono text-xs uppercase tracking-[0.14em] fine">${b.date}</div>
+            <div class="lg:col-span-1 mono text-xs uppercase tracking-[0.14em] fine">${b.time}</div>
+            <div class="lg:col-span-2 mono text-xs uppercase tracking-[0.14em]">${b.paymentMethod}</div>
+            <div class="lg:col-span-2 mono text-xs uppercase tracking-[0.14em]" style="color:var(--branch)">${b.deposit}</div>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function updateProgress(){
+      document.querySelectorAll('.progress-item').forEach(item => {
+        const n = Number(item.dataset.step);
+        item.classList.remove('active','done');
+        if(n < state.step) item.classList.add('done');
+        if(n === state.step) item.classList.add('active');
+      });
+      document.getElementById('progressFill').style.width = (((state.step - 1) / 5) * 100) + '%';
+    }
+
+    function goToStep(n){
+      state.step = n;
+      document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
+      document.getElementById(`step-${n}`).classList.add('active');
+      updateProgress();
+      if(n === 5) fillPaymentSummary();
+      if(n === 6) fillConfirmation();
+      window.scrollTo({top:0, behavior:'smooth'});
+    }
+
+    function resetFlow(){
+      localStorage.removeItem('khrysos_mock_active');
+      location.href = 'schedule-mock.html';
+    }
+
+    document.getElementById('toStep2').onclick = () => state.branch && goToStep(2);
+    document.getElementById('toStep3').onclick = () => state.service && goToStep(3);
+    document.getElementById('toStep4').onclick = () => (state.date && state.time) && goToStep(4);
+    document.getElementById('toStep5').onclick = () => {
+      state.name = document.getElementById('name').value.trim();
+      state.email = document.getElementById('email').value.trim();
+      state.phone = document.getElementById('phone').value.trim();
+      state.instagram = document.getElementById('instagram').value.trim();
+      state.notes = document.getElementById('notes').value.trim();
+      if(!state.name || !state.email || !state.phone){
+        alert('Completa nombre, email y teléfono.');
+        return;
+      }
+      goToStep(5);
+    };
+
+    document.querySelectorAll('.pay-card').forEach(card => {
+      card.onclick = () => {
+        document.querySelectorAll('.pay-card').forEach(c => c.classList.remove('selected'));
+        card.classList.add('selected');
+        state.paymentMethod = card.dataset.pay;
+      };
+    });
+
+    document.getElementById('payNow').onclick = () => {
+      if(!state.paymentMethod){
+        alert('Selecciona un método de pago.');
+        return;
+      }
+      state.paymentStatus = 'Pagado';
+      syncAside();
+      saveBooking();
+      goToStep(6);
+    };
+
+    function preselectFromQuery(){
+      const params = new URLSearchParams(window.location.search);
+      const q = (params.get('branch') || params.get('service') || '').toLowerCase();
+      const map = {
+        khrysos:'khrysos',
+        grillz:'khrysos',
+        oro:'khrysos',
+        krystal:'krystal',
+        cristales:'krystal',
+        kallisto:'kallisto',
+        leukos:'leukos',
+        carillas:'leukos',
+        blanqueamiento:'leukos',
+        asklepius:'asklepius',
+        general:'asklepius'
+      };
+      const key = map[q];
+      if(key && BRANCHES[key]){
+        state.branch = key;
+        setBranchTheme(key);
+        renderServices();
+        toggleBtn('toStep2', true);
+        requestAnimationFrame(() => {
+          const idx = Object.keys(BRANCHES).indexOf(key);
+          const cards = [...document.querySelectorAll('#branchList .option-card')];
+          if(cards[idx]) cards[idx].classList.add('selected');
+          syncAside();
+        });
+      } else {
+        setBranchTheme('khrysos');
+      }
+    }
+
+    renderBranches();
+    renderServices();
+    renderDays();
+    renderSlots();
+    renderSavedBookings();
+    updateProgress();
+    syncAside();
+    preselectFromQuery();
+  </script>
+</body>
+</html>

@@ -1,0 +1,570 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Estudio | KHRYSOS™</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,300;0,400;0,700;1,300&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --void: #0a0a0a;
+            --white: #ffffff;
+            --gold: #FFD700;
+            --platinum: #C0C0C0;
+            --industrial: #1a1a1a;
+            --offwhite: #f5f5f0;
+            --border: rgba(255,255,255,0.1);
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: 'DM Sans', sans-serif;
+            background: var(--void);
+            color: var(--white);
+            overflow-x: hidden;
+            cursor: crosshair;
+        }
+
+        /* Typography */
+        .font-display {
+            font-family: 'Bebas Neue', sans-serif;
+            text-transform: uppercase;
+            letter-spacing: 0.02em;
+        }
+
+        .mono {
+            font-family: 'Space Mono', monospace;
+        }
+
+        .text-editorial {
+            font-family: 'DM Sans', sans-serif;
+            font-weight: 300;
+            letter-spacing: -0.01em;
+            font-style: italic;
+        }
+
+        /* Gold gradient */
+        .text-gold {
+            background: linear-gradient(135deg, #FFD700 0%, #FFA500 50%, #FFD700 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        /* Selection */
+        ::selection { background: var(--gold); color: var(--void); }
+
+        /* Scrollbar */
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: var(--void); }
+        ::-webkit-scrollbar-thumb { background: var(--gold); }
+
+        /* ===== NUEVO SISTEMA DE IMÁGENES PARALLAX + HOVER ===== */
+        .parallax-wrapper {
+            position: absolute;
+            top: -15%;
+            left: 0;
+            width: 100%;
+            height: 130%; /* Extra height para ocultar bordes negros al hacer scroll */
+            will-change: transform;
+        }
+
+        .img-scale-hover {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: grayscale(25%) contrast(115%);
+            transition: transform 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94), 
+                        filter 1.2s ease;
+        }
+
+        .group:hover .img-scale-hover {
+            transform: scale(1.04);
+            filter: grayscale(0%) contrast(105%);
+        }
+        /* ======================================================= */
+
+        /* Fade-up animation */
+        .fade-up {
+            opacity: 0;
+            transform: translateY(32px);
+            transition: opacity 0.9s cubic-bezier(0.16, 1, 0.3, 1),
+                        transform 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .fade-up.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .stagger-1 { transition-delay: 0.05s; }
+        .stagger-2 { transition-delay: 0.18s; }
+        .stagger-3 { transition-delay: 0.32s; }
+        .stagger-4 { transition-delay: 0.46s; }
+
+        /* Grid visual */
+        .grid-bg {
+            background-image:
+                linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px);
+            background-size: 24px 24px;
+        }
+
+        /* Gold tint overlay */
+        .gold-tint::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(255,215,0,0.06), transparent 60%);
+            pointer-events: none;
+            z-index: 5;
+        }
+
+        /* Hover link */
+        .hover-gold { transition: color 0.25s; }
+        .hover-gold:hover { color: var(--gold); }
+
+        /* Horizontal rule gold */
+        .hr-gold {
+            border: none;
+            border-top: 1px solid rgba(255,215,0,0.25);
+        }
+
+        /* Scan lines */
+        .scanlines::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: repeating-linear-gradient(
+                0deg,
+                transparent,
+                transparent 3px,
+                rgba(0,0,0,0.04) 3px,
+                rgba(0,0,0,0.04) 4px
+            );
+            pointer-events: none;
+            z-index: 2;
+        }
+
+        /* Top bar */
+        .topbar {
+            background: var(--gold);
+            color: var(--void);
+        }
+
+        /* Nav */
+        nav {
+            backdrop-filter: blur(14px);
+            background: rgba(10,10,10,0.93);
+            border-bottom: 1px solid var(--border);
+        }
+
+        /* Section ref number */
+        .ref {
+            font-family: 'Space Mono', monospace;
+            font-size: 0.65rem;
+            letter-spacing: 0.14em;
+            color: var(--gold);
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+
+        /* Big ghost text */
+        .ghost-text {
+            font-family: 'Bebas Neue', sans-serif;
+            -webkit-text-stroke: 1px rgba(255,215,0,0.12);
+            color: transparent;
+            pointer-events: none;
+            user-select: none;
+        }
+
+        /* Marquee */
+        .marquee-wrap { overflow: hidden; white-space: nowrap; }
+        .marquee-inner {
+            display: inline-block;
+            animation: marquee 28s linear infinite;
+        }
+        @keyframes marquee {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+
+        /* Diagonal stripe decoration */
+        .stripes {
+            background: repeating-linear-gradient(
+                45deg,
+                transparent,
+                transparent 40px,
+                rgba(255,215,0,0.025) 40px,
+                rgba(255,215,0,0.025) 41px
+            );
+        }
+    
+        /* Shared nav button */
+        .btn-khrysos-brand {
+            background: var(--gold);
+            color: var(--void);
+            padding: 0.4rem 1.2rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            font-weight: 700;
+            font-size: 0.65rem;
+            transition: all 0.3s;
+            border: 2px solid var(--gold);
+            cursor: crosshair;
+            font-family: 'Space Mono', monospace;
+            display: inline-block;
+        }
+        .btn-khrysos-brand:hover {
+            background: transparent;
+            color: var(--gold);
+        }
+
+    
+        /* ── Unified nav ── */
+        .text-gold {
+            background: linear-gradient(135deg, #FFD700 0%, #FFA500 50%, #FFD700 100%);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+        }
+        .hover-gold { transition: color 0.3s; }
+        .hover-gold:hover { color: #FFD700 !important; -webkit-text-fill-color: #FFD700 !important; }
+        .btn-nav-cta {
+            background: #FFD700; color: #0a0a0a;
+            padding: 0.4rem 1.2rem;
+            font-family: 'Space Mono', monospace;
+            font-size: 0.65rem; letter-spacing: 0.1em; font-weight: 700;
+            text-transform: uppercase; border: 2px solid #FFD700;
+            transition: all 0.3s; cursor: crosshair;
+        }
+        .btn-nav-cta:hover { background: transparent; color: #FFD700; }
+        .hide-scrollbar::-webkit-scrollbar { display: none; }
+        .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+        @keyframes pulse-gold { 0%,100% { opacity:1; } 50% { opacity:0.7; } }
+        .pulse-gold { animation: pulse-gold 2.5s ease-in-out infinite; }
+        .nav-dropdown-menu a:hover { color: #FFD700 !important; }
+        .nav-dropdown-btn:focus { outline: none; }
+    </style>
+</head>
+<body>
+    <!-- Top Bar -->
+    <div style="background: #FFD700; color: #0a0a0a;" class="text-[10px] uppercase tracking-widest py-2 px-4 text-center font-bold mono pulse-gold">
+        KHRYSOS™ — Solo con cita previa → <a href="khrysos-estudio.html" style="text-decoration:underline; color: #0a0a0a;">Reserva tu sesión</a>
+    </div>
+    <!-- Navigation -->
+    <nav class="sticky top-0 z-50 border-b" style="border-color: rgba(255,255,255,0.1); backdrop-filter: blur(12px); background: rgba(10,10,10,0.95);">
+        <div class="flex items-center justify-between px-4 py-4 lg:px-8">
+            <div class="flex items-center gap-8">
+                <a href="index.html" class="font-display text-xl font-bold tracking-tight">
+                    KHRYSOS<span class="text-gold">™</span>
+                </a>
+                <div class="hidden lg:flex items-center gap-6 mono text-xs uppercase tracking-widest">
+                    <a href="index.html" class="nav-link hover-gold" data-page="inicio">Inicio</a>
+                    <a href="khrysos-catalogo.html" class="nav-link hover-gold" data-page="catalogo">Catálogo</a>
+                    <a href="khrysos-estudio.html" class="nav-link hover-gold" data-page="estudio">Estudio</a>
+                    <a href="khrysos-brand_statement.html" class="nav-link hover-gold" data-page="khrysos">Khrysos</a>
+                    <!-- Servicios dropdown -->
+                    <div class="nav-dropdown" style="position:relative;">
+                        <button class="nav-link hover-gold nav-dropdown-btn" style="background:none;border:none;cursor:crosshair;padding:0;font-family:inherit;font-size:inherit;letter-spacing:inherit;text-transform:inherit;color:rgba(255,255,255,0.5);">
+                            Servicios <span style="font-size:0.55rem;opacity:0.6;">▾</span>
+                        </button>
+                        <div class="nav-dropdown-menu" style="display:none;position:absolute;top:calc(100% + 12px);left:0;min-width:200px;background:rgba(10,10,10,0.98);border:1px solid rgba(255,255,255,0.1);padding:0.5rem 0;z-index:200;">
+                            <a href="kallisto.html" class="nav-dropdown-item hover-gold" style="display:block;padding:0.6rem 1.25rem;color:rgba(255,255,255,0.45);text-decoration:none;font-size:0.6rem;letter-spacing:0.12em;transition:color 0.2s;">
+                                <span style="color:rgba(255,105,160,0.6);margin-right:0.5rem;">●</span>KALLISTO — Armonización Facial
+                            </a>
+                            <a href="leukos.html" class="nav-dropdown-item hover-gold" style="display:block;padding:0.6rem 1.25rem;color:rgba(255,255,255,0.45);text-decoration:none;font-size:0.6rem;letter-spacing:0.12em;transition:color 0.2s;">
+                                <span style="color:rgba(212,212,212,0.6);margin-right:0.5rem;">●</span>LEUKOS — Odontología Estética
+                            </a>
+                            <a href="asklepius.html" class="nav-dropdown-item hover-gold" style="display:block;padding:0.6rem 1.25rem;color:rgba(255,255,255,0.45);text-decoration:none;font-size:0.6rem;letter-spacing:0.12em;transition:color 0.2s;">
+                                <span style="color:rgba(168,224,196,0.6);margin-right:0.5rem;">●</span>ASKLEPIUS — Cuidado General
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="flex items-center gap-4 mono text-xs uppercase tracking-widest">
+                <a href="#" class="hover-gold hidden lg:block" style="color: rgba(255,255,255,0.5); text-decoration:none; cursor:crosshair;">Mis Reservas</a>
+                <a href="khrysos-estudio.html" class="btn-nav-cta" style="text-decoration:none;">Agendar</a>
+            </div>
+        </div>
+        <!-- Mobile nav -->
+        <div class="lg:hidden border-t px-4 py-3 flex gap-6 mono text-xs uppercase tracking-widest overflow-x-auto hide-scrollbar" style="border-color: rgba(255,255,255,0.06);">
+            <a href="index.html" class="nav-link hover-gold whitespace-nowrap" data-page="inicio">Inicio</a>
+            <a href="khrysos-catalogo.html" class="nav-link hover-gold whitespace-nowrap" data-page="catalogo">Catálogo</a>
+            <a href="khrysos-estudio.html" class="nav-link hover-gold whitespace-nowrap" data-page="estudio">Estudio</a>
+            <a href="khrysos-brand_statement.html" class="nav-link hover-gold whitespace-nowrap" data-page="khrysos">Khrysos</a>
+            <a href="kallisto.html" class="nav-link whitespace-nowrap" style="color:rgba(255,105,160,0.65);" data-page="kallisto">Kallisto</a>
+            <a href="leukos.html" class="nav-link whitespace-nowrap" style="color:rgba(212,212,212,0.65);" data-page="leukos">Leukos</a>
+            <a href="asklepius.html" class="nav-link whitespace-nowrap" style="color:rgba(168,224,196,0.65);" data-page="asklepius">Asklepius</a>
+        </div>
+    </nav>
+
+    <!-- Main -->
+    <main class="w-full">
+
+        <!-- Header -->
+        <header class="px-4 py-6 lg:px-6 lg:py-8 grid-bg relative overflow-hidden">
+            <!-- Ghost K in background -->
+            <div class="absolute right-0 top-0 ghost-text leading-none" style="font-size: 28vw; opacity: 0.6; transform: translateX(10%);">K™</div>
+            <div class="relative z-10">
+                <span class="ref fade-up stagger-1">ESTUDIO — "La clínica como estudio de diseño" // Santiago</span>
+                <h1 class="font-display leading-none fade-up stagger-2" style="font-size: clamp(2.2rem, 6vw, 5rem);">
+                    "Joyería para<br>
+                    <span class="text-gold">el cuerpo"</span>
+                </h1>
+            </div>
+        </header>
+
+        <!-- Hero Images Grid — FIXED: Clean 2-column, perfect gap, separated JS/CSS wrappers -->
+        <!-- La clase "gap-px" combinada con "bg-white/10" crea una línea separadora industrial perfecta de 1px -->
+        <section class="grid grid-cols-1 lg:grid-cols-2 gap-px bg-white/10" style="border-top: 1px solid var(--border);">
+            
+            <!-- Left Image -->
+            <div class="relative overflow-hidden group cursor-crosshair gold-tint scanlines bg-[#0a0a0a] h-[60vh] lg:h-[85vh]">
+                <!-- Parallax Wrapper controlado solo por JS -->
+                <div class="parallax-wrapper" id="parallax-left">
+                    <!-- Imagen controlada solo por CSS (Hover) -->
+                    <img src="assets/bs_left.jpg"
+                         alt="KHRYSOS™ Instalación"
+                         class="img-scale-hover"
+                         style="object-position: center top;">
+                </div>
+                <!-- Ref tag con panel translúcido -->
+                <div class="absolute bottom-6 left-6 z-10">
+                    <div class="bg-[#0a0a0a]/70 backdrop-blur-md px-4 py-2 border border-white/10">
+                        <span class="mono text-xs font-bold" style="color: var(--gold);">[ TITANIO — REF 01 ]</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Image -->
+            <div class="relative overflow-hidden group cursor-crosshair gold-tint scanlines bg-[#0a0a0a] h-[60vh] lg:h-[85vh]">
+                <!-- Parallax Wrapper controlado solo por JS -->
+                <div class="parallax-wrapper" id="parallax-right">
+                    <!-- Imagen controlada solo por CSS (Hover) -->
+                    <img src="assets/bs_right.jpg"
+                         alt="KHRYSOS™ Hardware Detail"
+                         class="img-scale-hover"
+                         style="object-position: center;">
+                </div>
+                <!-- Ref tag con panel translúcido -->
+                <div class="absolute bottom-6 left-6 z-10">
+                    <div class="bg-[#0a0a0a]/70 backdrop-blur-md px-4 py-2 border border-white/10">
+                        <span class="mono text-xs font-bold" style="color: var(--gold);">[ ORO 18K — REF 02 ]</span>
+                    </div>
+                </div>
+                <!-- Gold accent line -->
+                <div class="absolute top-0 right-0 w-[2px] h-full z-10" style="background: linear-gradient(to bottom, transparent, var(--gold), transparent); opacity: 0.4;"></div>
+            </div>
+
+        </section>
+
+        <!-- Marquee ticker between sections -->
+        <div class="marquee-wrap py-3" style="border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); background: var(--industrial);">
+            <div class="marquee-inner mono text-xs" style="color: var(--gold); letter-spacing: 0.15em;">
+                "JOYERÍA PARA EL CUERPO" • TITANIO GRADO MÉDICO • "EL MATERIAL ES LA DECLARACIÓN" • ORO 18K CERTIFICADO • VVS + GIA • "LA CLÍNICA COMO ESTUDIO DE DISEÑO" • BY APPOINTMENT ONLY • KHRYSOS™ 2026 •&nbsp;&nbsp;"JOYERÍA PARA EL CUERPO" • TITANIO GRADO MÉDICO • "EL MATERIAL ES LA DECLARACIÓN" • ORO 18K CERTIFICADO • VVS + GIA • "LA CLÍNICA COMO ESTUDIO DE DISEÑO" • BY APPOINTMENT ONLY • KHRYSOS™ 2026 •&nbsp;&nbsp;
+            </div>
+        </div>
+
+        <!-- Editorial Text -->
+        <section class="px-4 py-12 lg:px-6 lg:py-20 stripes relative" style="max-width: 1400px;">
+            <div style="max-width: 1200px;">
+                <div class="space-y-8 lg:space-y-12">
+
+                    <!-- Paragraph 1 -->
+                    <p class="text-editorial fade-up stagger-1"
+                       style="font-size: clamp(1.2rem, 2.5vw, 1.55rem); line-height: 1.45; max-width: 42rem; color: rgba(255,255,255,0.95);">
+                        KHRYSOS™ es una clínica dental con sede en Santiago. Pero también es un estudio de diseño de joyería.
+                    </p>
+
+                    <!-- Paragraph 2 -->
+                    <p class="text-editorial fade-up stagger-2"
+                       style="font-size: clamp(1.2rem, 2.5vw, 1.55rem); line-height: 1.45; max-width: 56rem; color: rgba(255,255,255,0.85);">
+                        Referenciando la cultura urbana y los materiales de la industria — titanio, oro 18K y VVS — KHRYSOS™ reinterpreta qué puede significar la odontología cuando el proceso clínico y el lenguaje del diseño se encuentran. La idea no es embellecer. Es expresar.
+                    </p>
+
+                    <!-- Paragraph 3 -->
+                    <p class="text-editorial fade-up stagger-3"
+                       style="font-size: clamp(1.2rem, 2.5vw, 1.55rem); line-height: 1.45; max-width: 58rem; color: rgba(255,255,255,0.7);">
+                        Lo que empezó como una conversación sobre modificaciones en espacios creativos se convirtió en una práctica sostenida. A lo largo de los últimos años, KHRYSOS™ ha construido una forma de trabajar que mezcla precisión médica con intención artística — colaborando con músicos, artistas y personas que entienden que lo que llevan en el cuerpo es también parte de su identidad.
+                    </p>
+
+                    <!-- Paragraph 4 -->
+                    <p class="text-editorial fade-up stagger-4"
+                       style="font-size: clamp(1.2rem, 2.5vw, 1.55rem); line-height: 1.45; max-width: 54rem; color: rgba(255,255,255,0.5);">
+                        "El material no es un detalle. Es la declaración."
+                    </p>
+
+                </div>
+
+                <!-- Gold accent bottom line -->
+                <div class="mt-16 fade-up stagger-4" style="width: 4rem; height: 2px; background: var(--gold);"></div>
+            </div>
+        </section>
+
+        <!-- Values grid -->
+        <section style="border-top: 1px solid var(--border); padding: 4rem 1.5rem;" class="grid-bg">
+            <div style="max-width: 1400px; display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 0;">
+
+                <div class="fade-up stagger-1" style="padding: 2rem 2rem 2rem 0; border-right: 1px solid var(--border);">
+                    <div class="font-display" style="font-size: 4rem; color: rgba(255,215,0,0.2); line-height: 1;">01</div>
+                    <div class="mono text-xs uppercase tracking-widest mt-3 mb-2" style="color: var(--gold);">"Crudo"</div>
+                    <p style="font-size: 0.8rem; color: rgba(255,255,255,0.45); line-height: 1.5;">El resultado es el argumento. No necesitamos más palabras que las que ya están en el trabajo.</p>
+                </div>
+
+                <div class="fade-up stagger-2" style="padding: 2rem; border-right: 1px solid var(--border);">
+                    <div class="font-display" style="font-size: 4rem; color: rgba(255,215,0,0.2); line-height: 1;">02</div>
+                    <div class="mono text-xs uppercase tracking-widest mt-3 mb-2" style="color: var(--gold);">"Precisión"</div>
+                    <p style="font-size: 0.8rem; color: rgba(255,255,255,0.45); line-height: 1.5;">Técnica médica, estética de diseño. Cada material tiene una razón de estar donde está.</p>
+                </div>
+
+                <div class="fade-up stagger-3" style="padding: 2rem; border-right: 1px solid var(--border);">
+                    <div class="font-display" style="font-size: 4rem; color: rgba(255,215,0,0.2); line-height: 1;">03</div>
+                    <div class="mono text-xs uppercase tracking-widest mt-3 mb-2" style="color: var(--gold);">"Contexto"</div>
+                    <p style="font-size: 0.8rem; color: rgba(255,255,255,0.45); line-height: 1.5;">Lo que llevas en el cuerpo también es parte de tu identidad. Eso es lo que nos interesa explorar.</p>
+                </div>
+
+                <div class="fade-up stagger-4" style="padding: 2rem;">
+                    <div class="font-display" style="font-size: 4rem; color: rgba(255,215,0,0.2); line-height: 1;">04</div>
+                    <div class="mono text-xs uppercase tracking-widest mt-3 mb-2" style="color: var(--gold);">"Intención"</div>
+                    <p style="font-size: 0.8rem; color: rgba(255,255,255,0.45); line-height: 1.5;">Cada pieza se diseña con propósito. Si no hay intención detrás, no es KHRYSOS™.</p>
+                </div>
+
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="pt-12 pb-8 px-4 lg:px-6">
+
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-8 mb-14">
+
+            <!-- Logo col -->
+            <div class="col-span-2 md:col-span-1">
+                <div class="font-display mb-4" style="font-size: 2rem;">
+                    KHRYSOS<span class="text-gold">™</span>
+                </div>
+                <p class="mono text-xs" style="color: rgba(255,255,255,0.25); line-height: 1.6; max-width: 14rem;">
+                    Joyería biomecánica instalada con precisión clínica. Santiago, Chile.
+                </p>
+            </div>
+
+            <!-- Links -->
+            <div>
+                <ul class="space-y-2 mono text-xs uppercase tracking-widest" style="color: rgba(255,255,255,0.4);">
+                    <li><a href="khrysos.html#agenda" class="hover-gold transition-colors">Agenda & Reservas</a></li>
+                    <li><a href="#" class="hover-gold transition-colors">Términos de Servicio</a></li>
+                    <li><a href="#" class="hover-gold transition-colors">Política de Privacidad</a></li>
+                    <li><a href="#" class="hover-gold transition-colors">Política de Garantía</a></li>
+                    <li><a href="khrysos.html" class="hover-gold transition-colors">Volver al inicio</a></li>
+                    <li><a href="#" class="hover-gold transition-colors">Certificaciones</a></li>
+                </ul>
+            </div>
+
+            <!-- Social -->
+            <div>
+                <ul class="space-y-2 mono text-xs uppercase tracking-widest" style="color: rgba(255,255,255,0.4);">
+                    <li><a href="#" class="hover-gold transition-colors">Instagram</a></li>
+                    <li><a href="#" class="hover-gold transition-colors">TikTok</a></li>
+                    <li><a href="#" class="hover-gold transition-colors">Spotify</a></li>
+                </ul>
+            </div>
+
+            <!-- Legacy -->
+            <div>
+                <a href="#" class="mono text-xs uppercase tracking-widest hover-gold transition-colors block mb-2" style="color: rgba(255,255,255,0.4);">
+                    El Legado de la Industria Chilena
+                </a>
+            </div>
+
+        </div>
+
+        <!-- Legal -->
+        <div class="pt-6" style="border-top: 1px solid var(--border);">
+            <div class="space-y-1.5">
+                <p class="mono leading-relaxed" style="font-size: 0.6rem; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(255,255,255,0.2); max-width: 72rem;">
+                    Todos los contenidos de este sitio web son propiedad de KHRYSOS™. Ninguna parte de este sitio, incluyendo texto e imágenes, puede reproducirse sin el previo consentimiento escrito de KHRYSOS™.
+                </p>
+                <p class="mono" style="font-size: 0.6rem; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(255,255,255,0.2);">
+                    Copyright © 2026. Todos los derechos reservados.
+                </p>
+                <p class="mono" style="font-size: 0.6rem; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(255,255,255,0.2);">
+                    Sistema de Identidad v2.0 — Marzo 2026.
+                </p>
+                <p class="mono" style="font-size: 0.6rem; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(255,255,255,0.15);">
+                    RUT CL 76.XXX.XXX-X
+                </p>
+            </div>
+        </div>
+
+    </footer>
+
+    <script>
+        // ── Active nav link ──
+        document.querySelectorAll('.nav-link[data-page]').forEach(a => {
+            if (a.dataset.page === 'khrysos') {
+                a.style.color = 'var(--gold)';
+                a.style.borderBottom = '1px solid var(--gold)';
+                a.style.paddingBottom = '2px';
+            } else {
+                a.style.color = 'rgba(255,255,255,0.5)';
+            }
+        });
+
+        // ── Smooth scroll ──
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) { e.preventDefault(); target.scrollIntoView({ behavior: 'smooth' }); }
+            });
+        });
+
+        // ── Fade-up observer ──
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) entry.target.classList.add('visible');
+            });
+        }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
+        document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+
+        // ── FIXED Parallax (Decoupled from CSS hover to remove jank) ──
+        const parallaxLeft  = document.getElementById('parallax-left');
+        const parallaxRight = document.getElementById('parallax-right');
+        
+        // requestAnimationFrame prevents scroll-stutter by synching with monitor refresh rate
+        let ticking = false;
+        window.addEventListener('scroll', () => {
+            if (!ticking) {
+                window.requestAnimationFrame(() => {
+                    const scrolled = window.pageYOffset;
+                    // Mueve los wrappers en lugar de la imagen directamente
+                    if (parallaxLeft)  parallaxLeft.style.transform  = `translateY(${scrolled * 0.15}px)`;
+                    if (parallaxRight) parallaxRight.style.transform = `translateY(${scrolled * 0.08}px)`;
+                    ticking = false;
+                });
+                ticking = true;
+            }
+        });
+    </script>
+
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var btn = document.querySelector('.nav-dropdown-btn');
+            var menu = document.querySelector('.nav-dropdown-menu');
+            if (btn && menu) {
+                btn.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    menu.style.display = menu.style.display === 'block' ? 'none' : 'block';
+                });
+                document.addEventListener('click', function() {
+                    menu.style.display = 'none';
+                });
+            }
+        });
+    </script>
+
+</body>
+</html>
